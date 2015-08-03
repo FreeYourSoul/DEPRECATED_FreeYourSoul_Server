@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="47">
+    <logicalFolder displayName="root" name="root" projectFiles="true">
+        <logicalFolder displayName="Source Files" name="SourceFiles" projectFiles="true">
+            <itemPath>welcome.cc</itemPath>
+        </logicalFolder>
+        <logicalFolder displayName="Header Files" name="HeaderFiles" projectFiles="true">
+            <itemPath>welcome.h</itemPath>
+        </logicalFolder>
+        <logicalFolder displayName="Resource Files" name="ResourceFiles" projectFiles="true"/>
+        <logicalFolder displayName="Important Files" name="ExternalFiles" projectFiles="false">
+            <itemPath>Makefile</itemPath>
+        </logicalFolder>
+    </logicalFolder>
+    <projectmakefile>Makefile</projectmakefile>
+    <confs>
+        <conf name="Debug" type="1">
+            <toolsSet>
+                <compilerSet>default</compilerSet>
+            </toolsSet>
+            <compileType>
+                <linkerTool>
+                    <linkerLibItems/>
+                </linkerTool>
+            </compileType>
+            <item path="welcome.cc">
+                <itemTool>1</itemTool>
+            </item>
+            <item path="welcome.h">
+                <itemTool>3</itemTool>
+            </item>
+        </conf>
+        <conf name="Release" type="1">
+            <toolsSet>
+                <compilerSet>default</compilerSet>
+            </toolsSet>
+            <compileType>
+                <cCompilerTool>
+                    <developmentMode>5</developmentMode>
+                </cCompilerTool>
+                <ccCompilerTool>
+                    <developmentMode>5</developmentMode>
+                </ccCompilerTool>
+                <fortranCompilerTool>
+                    <developmentMode>5</developmentMode>
+                </fortranCompilerTool>
+                <asmTool>
+                    <developmentMode>5</developmentMode>
+                </asmTool>
+                <linkerTool>
+                    <linkerLibItems/>
+                </linkerTool>
+            </compileType>
+            <item path="welcome.cc">
+                <itemTool>1</itemTool>
+            </item>
+            <item path="welcome.h">
+                <itemTool>3</itemTool>
+            </item>
+        </conf>
+    </confs>
+</configurationDescriptor>
