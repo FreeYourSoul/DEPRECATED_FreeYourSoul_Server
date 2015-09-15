@@ -8,6 +8,7 @@
             <c-extensions/>
             <cpp-extensions>cc</cpp-extensions>
             <header-extensions>h</header-extensions>
+            <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
             <confList>
@@ -20,7 +21,6 @@
                     <type>1</type>
                 </confElem>
             </confList>
-            <sourceEncoding>UTF-8</sourceEncoding>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>
             </formatting>

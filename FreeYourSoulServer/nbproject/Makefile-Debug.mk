@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=g++
-CXX=g++
+CCC=clang++
+CXX=clang++
 FC=gfortran
 AS=as
 
@@ -35,15 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/welcome.o
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-std=c++11 -g3 -pedantic -Wall -Wextra
+CXXFLAGS=-std=c++11 -g3 -pedantic -Wall -Wextra
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -62,10 +62,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/welcome.o: welcome.cc 
+${OBJECTDIR}/main.o: main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/welcome.o welcome.cc
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cc
 
 # Subprojects
 .build-subprojects:

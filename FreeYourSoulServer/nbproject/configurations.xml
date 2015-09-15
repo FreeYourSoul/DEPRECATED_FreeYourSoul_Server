@@ -13,7 +13,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>welcome.cc</itemPath>
+      <itemPath>main.cc</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -30,8 +30,12 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <commandlineTool>clang++</commandlineTool>
+          <commandLine>-std=c++11 -g3 -pedantic -Wall -Wextra</commandLine>
+        </ccTool>
       </compileType>
-      <item path="welcome.cc" ex="false" tool="1" flavor2="0">
+      <item path="main.cc" ex="false" tool="1" flavor2="0">
       </item>
       <item path="welcome.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -56,7 +60,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="welcome.cc" ex="false" tool="1" flavor2="0">
+      <item path="main.cc" ex="false" tool="1" flavor2="0">
       </item>
       <item path="welcome.h" ex="false" tool="3" flavor2="0">
       </item>
