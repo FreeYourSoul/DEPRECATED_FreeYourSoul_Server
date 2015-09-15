@@ -1,0 +1,26 @@
+{
+    "BattleServers": [        
+        {
+            "ip" : "129.0.0.7",
+            "region" : "fr",
+            "" : ""
+        }
+    ],
+    
+    "BDDServers": [        
+        {
+            "ip" : "129.0.0.7",
+            "region" : "fr",
+            "" : ""
+        }
+    ],
+
+    "BackServer": [        
+        {
+            "ip" : "129.0.0.7",
+            "region" : "fr",
+            "" : ""
+        }
+    ]   
+    
+}
