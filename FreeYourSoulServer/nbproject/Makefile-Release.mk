@@ -35,6 +35,27 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/MemoryManagement/CharacterMemManager.o \
+	${OBJECTDIR}/MemoryManagement/InstanceElemDODMemManager.o \
+	${OBJECTDIR}/MemoryManagement/PlayerDODMemManager.o \
+	${OBJECTDIR}/MemoryManagement/PlayersBagContentDODMemManager.o \
+	${OBJECTDIR}/Server/ActionDispatcher.o \
+	${OBJECTDIR}/Server/ActionThreads/DatabaseAction.o \
+	${OBJECTDIR}/Server/ActionThreads/FightAction.o \
+	${OBJECTDIR}/Server/ActionThreads/InventoryAction.o \
+	${OBJECTDIR}/Server/ActionThreads/MapAction.o \
+	${OBJECTDIR}/Server/Logs/Logs.o \
+	${OBJECTDIR}/Server/Map/InstanceElem.o \
+	${OBJECTDIR}/Server/Map/Map.o \
+	${OBJECTDIR}/Server/Player/Character.o \
+	${OBJECTDIR}/Server/Player/Item/MagicAsset.o \
+	${OBJECTDIR}/Server/Player/Item/StatAsset.o \
+	${OBJECTDIR}/Server/Player/PlayerBags.o \
+	${OBJECTDIR}/Server/Player/PlayerBagsContents.o \
+	${OBJECTDIR}/Server/Player/PlayerPosition.o \
+	${OBJECTDIR}/Server/Player/Team.o \
+	${OBJECTDIR}/Server/ServerProxy.o \
+	${OBJECTDIR}/Server/ServerWorker.o \
 	${OBJECTDIR}/main.o
 
 
@@ -61,6 +82,111 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/MemoryManagement/CharacterMemManager.o: MemoryManagement/CharacterMemManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/MemoryManagement
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MemoryManagement/CharacterMemManager.o MemoryManagement/CharacterMemManager.cpp
+
+${OBJECTDIR}/MemoryManagement/InstanceElemDODMemManager.o: MemoryManagement/InstanceElemDODMemManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/MemoryManagement
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MemoryManagement/InstanceElemDODMemManager.o MemoryManagement/InstanceElemDODMemManager.cpp
+
+${OBJECTDIR}/MemoryManagement/PlayerDODMemManager.o: MemoryManagement/PlayerDODMemManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/MemoryManagement
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MemoryManagement/PlayerDODMemManager.o MemoryManagement/PlayerDODMemManager.cpp
+
+${OBJECTDIR}/MemoryManagement/PlayersBagContentDODMemManager.o: MemoryManagement/PlayersBagContentDODMemManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}/MemoryManagement
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MemoryManagement/PlayersBagContentDODMemManager.o MemoryManagement/PlayersBagContentDODMemManager.cpp
+
+${OBJECTDIR}/Server/ActionDispatcher.o: Server/ActionDispatcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ActionDispatcher.o Server/ActionDispatcher.cpp
+
+${OBJECTDIR}/Server/ActionThreads/DatabaseAction.o: Server/ActionThreads/DatabaseAction.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/ActionThreads
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ActionThreads/DatabaseAction.o Server/ActionThreads/DatabaseAction.cpp
+
+${OBJECTDIR}/Server/ActionThreads/FightAction.o: Server/ActionThreads/FightAction.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/ActionThreads
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ActionThreads/FightAction.o Server/ActionThreads/FightAction.cpp
+
+${OBJECTDIR}/Server/ActionThreads/InventoryAction.o: Server/ActionThreads/InventoryAction.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/ActionThreads
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ActionThreads/InventoryAction.o Server/ActionThreads/InventoryAction.cpp
+
+${OBJECTDIR}/Server/ActionThreads/MapAction.o: Server/ActionThreads/MapAction.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/ActionThreads
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ActionThreads/MapAction.o Server/ActionThreads/MapAction.cpp
+
+${OBJECTDIR}/Server/Logs/Logs.o: Server/Logs/Logs.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Logs
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Logs/Logs.o Server/Logs/Logs.cpp
+
+${OBJECTDIR}/Server/Map/InstanceElem.o: Server/Map/InstanceElem.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Map
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Map/InstanceElem.o Server/Map/InstanceElem.cpp
+
+${OBJECTDIR}/Server/Map/Map.o: Server/Map/Map.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Map
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Map/Map.o Server/Map/Map.cpp
+
+${OBJECTDIR}/Server/Player/Character.o: Server/Player/Character.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/Character.o Server/Player/Character.cpp
+
+${OBJECTDIR}/Server/Player/Item/MagicAsset.o: Server/Player/Item/MagicAsset.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player/Item
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/Item/MagicAsset.o Server/Player/Item/MagicAsset.cpp
+
+${OBJECTDIR}/Server/Player/Item/StatAsset.o: Server/Player/Item/StatAsset.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player/Item
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/Item/StatAsset.o Server/Player/Item/StatAsset.cpp
+
+${OBJECTDIR}/Server/Player/PlayerBags.o: Server/Player/PlayerBags.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/PlayerBags.o Server/Player/PlayerBags.cpp
+
+${OBJECTDIR}/Server/Player/PlayerBagsContents.o: Server/Player/PlayerBagsContents.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/PlayerBagsContents.o Server/Player/PlayerBagsContents.cpp
+
+${OBJECTDIR}/Server/Player/PlayerPosition.o: Server/Player/PlayerPosition.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/PlayerPosition.o Server/Player/PlayerPosition.cpp
+
+${OBJECTDIR}/Server/Player/Team.o: Server/Player/Team.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server/Player
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Player/Team.o Server/Player/Team.cpp
+
+${OBJECTDIR}/Server/ServerProxy.o: Server/ServerProxy.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ServerProxy.o Server/ServerProxy.cpp
+
+${OBJECTDIR}/Server/ServerWorker.o: Server/ServerWorker.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ServerWorker.o Server/ServerWorker.cpp
 
 ${OBJECTDIR}/main.o: main.cc 
 	${MKDIR} -p ${OBJECTDIR}

@@ -4,7 +4,32 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>welcome.h</itemPath>
+      <itemPath>Server/ActionDispatcher.hpp</itemPath>
+      <itemPath>Server/Player/Character.hpp</itemPath>
+      <itemPath>MemoryManagement/CharacterMemManager.h</itemPath>
+      <itemPath>MemoryManagement/CharacterMemManager.hpp</itemPath>
+      <itemPath>Server/ActionThreads/DatabaseAction.hpp</itemPath>
+      <itemPath>Server/ActionThreads/FightAction.hpp</itemPath>
+      <itemPath>Server/Map/InstanceElem.hpp</itemPath>
+      <itemPath>MemoryManagement/InstanceElemDODMemManager.h</itemPath>
+      <itemPath>MemoryManagement/InstanceElemDODMemManager.hpp</itemPath>
+      <itemPath>Server/ActionThreads/InventoryAction.hpp</itemPath>
+      <itemPath>Server/Logs/Logs.hh</itemPath>
+      <itemPath>Server/Logs/Logs.hpp</itemPath>
+      <itemPath>Server/Player/Item/MagicAsset.h</itemPath>
+      <itemPath>Server/Map/Map.hpp</itemPath>
+      <itemPath>Server/ActionThreads/MapAction.hpp</itemPath>
+      <itemPath>Server/Player/PlayerBags.hpp</itemPath>
+      <itemPath>Server/Player/PlayerBagsContents.hpp</itemPath>
+      <itemPath>MemoryManagement/PlayerDODMemManager.h</itemPath>
+      <itemPath>MemoryManagement/PlayerDODMemManager.hpp</itemPath>
+      <itemPath>Server/Player/PlayerPosition.hpp</itemPath>
+      <itemPath>MemoryManagement/PlayersBagContentDODMemManager.h</itemPath>
+      <itemPath>MemoryManagement/PlayersBagContentDODMemManager.hpp</itemPath>
+      <itemPath>Server/ServerProxy.h</itemPath>
+      <itemPath>Server/ServerWorker.hpp</itemPath>
+      <itemPath>Server/Player/Item/StatAsset.hpp</itemPath>
+      <itemPath>Server/Player/Team.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,6 +38,27 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Server/ActionDispatcher.cpp</itemPath>
+      <itemPath>Server/Player/Character.cpp</itemPath>
+      <itemPath>MemoryManagement/CharacterMemManager.cpp</itemPath>
+      <itemPath>Server/ActionThreads/DatabaseAction.cpp</itemPath>
+      <itemPath>Server/ActionThreads/FightAction.cpp</itemPath>
+      <itemPath>Server/Map/InstanceElem.cpp</itemPath>
+      <itemPath>MemoryManagement/InstanceElemDODMemManager.cpp</itemPath>
+      <itemPath>Server/ActionThreads/InventoryAction.cpp</itemPath>
+      <itemPath>Server/Logs/Logs.cpp</itemPath>
+      <itemPath>Server/Player/Item/MagicAsset.cpp</itemPath>
+      <itemPath>Server/Map/Map.cpp</itemPath>
+      <itemPath>Server/ActionThreads/MapAction.cpp</itemPath>
+      <itemPath>Server/Player/PlayerBags.cpp</itemPath>
+      <itemPath>Server/Player/PlayerBagsContents.cpp</itemPath>
+      <itemPath>MemoryManagement/PlayerDODMemManager.cpp</itemPath>
+      <itemPath>Server/Player/PlayerPosition.cpp</itemPath>
+      <itemPath>MemoryManagement/PlayersBagContentDODMemManager.cpp</itemPath>
+      <itemPath>Server/ServerProxy.cpp</itemPath>
+      <itemPath>Server/ServerWorker.cpp</itemPath>
+      <itemPath>Server/Player/Item/StatAsset.cpp</itemPath>
+      <itemPath>Server/Player/Team.cpp</itemPath>
       <itemPath>main.cc</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -36,11 +82,163 @@
           <commandLine>-std=c++11 -g3 -pedantic -Wall -Wextra</commandLine>
         </ccTool>
       </compileType>
+      <item path="MemoryManagement/CharacterMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/CharacterMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/CharacterMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/InstanceElemDODMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/InstanceElemDODMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/InstanceElemDODMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayerDODMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayerDODMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayerDODMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayersBagContentDODMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayersBagContentDODMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayersBagContentDODMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionDispatcher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ActionDispatcher.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/DatabaseAction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/DatabaseAction.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/FightAction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/FightAction.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/InventoryAction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/InventoryAction.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/MapAction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/MapAction.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Logs/Logs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Logs/Logs.hh" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Logs/Logs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Map/InstanceElem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Map/InstanceElem.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Map/Map.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Map/Map.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Character.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Character.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/MagicAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/MagicAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/StatAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/StatAsset.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBags.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBags.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBagsContents.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBagsContents.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerPosition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerPosition.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Team.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Team.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/ServerProxy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ServerProxy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/ServerWorker.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ServerWorker.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ServerConfig/WorkersConfig.json" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cc" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="welcome.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -63,11 +261,163 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="MemoryManagement/CharacterMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/CharacterMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/CharacterMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/InstanceElemDODMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/InstanceElemDODMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/InstanceElemDODMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayerDODMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayerDODMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayerDODMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayersBagContentDODMemManager.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayersBagContentDODMemManager.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="MemoryManagement/PlayersBagContentDODMemManager.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionDispatcher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ActionDispatcher.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/DatabaseAction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/DatabaseAction.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/FightAction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/FightAction.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/InventoryAction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/InventoryAction.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/MapAction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ActionThreads/MapAction.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Logs/Logs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Logs/Logs.hh" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Logs/Logs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Map/InstanceElem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Map/InstanceElem.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Map/Map.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Map/Map.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Character.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Character.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/MagicAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/MagicAsset.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/StatAsset.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Item/StatAsset.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBags.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBags.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBagsContents.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerBagsContents.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerPosition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/PlayerPosition.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/Player/Team.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/Player/Team.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/ServerProxy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ServerProxy.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server/ServerWorker.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server/ServerWorker.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ServerConfig/WorkersConfig.json" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cc" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="welcome.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
