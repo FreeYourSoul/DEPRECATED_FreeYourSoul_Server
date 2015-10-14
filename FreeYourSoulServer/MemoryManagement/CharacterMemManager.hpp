@@ -8,10 +8,10 @@
 #ifndef CHARACTERMEMMANAGER_HPP
 #define	CHARACTERMEMMANAGER_HPP
 
-class CharacterMemManager {
+class CharacterMemManager
+{
 public:
     CharacterMemManager();
-    CharacterMemManager(const CharacterMemManager& orig);
     virtual ~CharacterMemManager();
 private:
 

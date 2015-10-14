@@ -8,14 +8,25 @@
 #ifndef SERVERWORKER_HPP
 #define	SERVERWORKER_HPP
 
-class ServerWorker {
-public:
-    ServerWorker();
-    ServerWorker(const ServerWorker& orig);
-    virtual ~ServerWorker();
-private:
+#include <zmq.hpp>
 
+#include "ActionDispatcher.hpp"
+#include "Authenticator.hpp"
+
+class ServerWorker 
+{
+public:
+    ~ServerWorker();
+    ServerWorker(zmq::context_t &ctx);
+    
+    void work();
+
+private:
+    zmq::context_t      &ctx;
+    zmq::socket_t       socket;
+    Authenticator       auth;
+    ActionDispatcher    dispatcher;
+    
 };
 
 #endif	/* SERVERWORKER_HPP */
-

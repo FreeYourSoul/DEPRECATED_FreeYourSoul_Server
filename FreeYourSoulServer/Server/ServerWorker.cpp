@@ -6,13 +6,21 @@
  */
 
 #include "ServerWorker.hpp"
+#include "ServerProxy.hpp"
 
-ServerWorker::ServerWorker() {
+ServerWorker::~ServerWorker()
+{
 }
 
-ServerWorker::ServerWorker(const ServerWorker& orig) {
+ServerWorker::ServerWorker(zmq::context_t &ctx) :
+ ctx(ctx),
+ socket(ctx, ZMQ_DEALER)
+{
+  socket.connect(INPROC_SERVER);
 }
 
-ServerWorker::~ServerWorker() {
+void ServerWorker::work() 
+{
+  
 }
 

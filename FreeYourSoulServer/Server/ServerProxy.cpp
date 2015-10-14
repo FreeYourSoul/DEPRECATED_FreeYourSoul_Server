@@ -5,14 +5,26 @@
  * Created on October 5, 2015, 8:53 PM
  */
 
-#include "ServerProxy.h"
+#include <thread>
 
-ServerProxy::ServerProxy() {
+#include "ServerProxy.hpp"
+
+ServerProxy::~ServerProxy()
+{
 }
 
-ServerProxy::ServerProxy(const ServerProxy& orig) {
+ServerProxy::ServerProxy() :
+  ctx(THREAD_CONTEXT),
+  backend(ctx, ZMQ_DEALER),
+  frontend(ctx, ZMQ_ROUTER),
+  worker(ctx)
+{
+  frontend.bind(std::string("tcp://*:") + PORT_SERVER);
+  backend.bind(INPROC_SERVER);
 }
 
-ServerProxy::~ServerProxy() {
+void ServerProxy::run()
+{
+  std::thread worker_thread(&ServerWorker::work, &worker);
+  worker_thread.detach();
 }
-

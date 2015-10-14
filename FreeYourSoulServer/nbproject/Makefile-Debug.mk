@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Server/ActionThreads/FightAction.o \
 	${OBJECTDIR}/Server/ActionThreads/InventoryAction.o \
 	${OBJECTDIR}/Server/ActionThreads/MapAction.o \
+	${OBJECTDIR}/Server/Authenticator.o \
 	${OBJECTDIR}/Server/Logs/Logs.o \
 	${OBJECTDIR}/Server/Map/InstanceElem.o \
 	${OBJECTDIR}/Server/Map/Map.o \
@@ -81,7 +82,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver ${OBJECTFILES} ${LDLIBSOPTIONS}
+	clang++ -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/freeyoursoulserver ${OBJECTFILES} ${LDLIBSOPTIONS} -lzmq -pthread
 
 ${OBJECTDIR}/MemoryManagement/CharacterMemManager.o: MemoryManagement/CharacterMemManager.cpp 
 	${MKDIR} -p ${OBJECTDIR}/MemoryManagement
@@ -127,6 +128,11 @@ ${OBJECTDIR}/Server/ActionThreads/MapAction.o: Server/ActionThreads/MapAction.cp
 	${MKDIR} -p ${OBJECTDIR}/Server/ActionThreads
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/ActionThreads/MapAction.o Server/ActionThreads/MapAction.cpp
+
+${OBJECTDIR}/Server/Authenticator.o: Server/Authenticator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Server
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Authenticator.o Server/Authenticator.cpp
 
 ${OBJECTDIR}/Server/Logs/Logs.o: Server/Logs/Logs.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Server/Logs

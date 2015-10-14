@@ -9,27 +9,27 @@
 #define	LOGS_HPP
 
 #include <cstdio>
+#include <string>
 #include <list>
 
 class Logs {
-
 public:
-    enum LogType
-    {
+
+    enum LogType {
         ERROR,
         WARN,
         INFO
     };
-    
+
 public:
     ~Logs();
 
-    void log(Logs::LogType& type, std::string& log);
-    
+    void log(const Logs::LogType& type, const std::string& log);
+
 private:
     Logs();
     void writtingLoop();
-    
+
     std::list<std::pair<LogType, std::string> > logsToWrite;
 
 };

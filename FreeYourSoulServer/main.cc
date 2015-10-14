@@ -1,16 +1,11 @@
 #include <iostream>
 
-int main(int argc, char**argv) {
-    // Prints welcome message...
-    std::cout << "Welcome ..." << std::endl;
+#include "Server/ServerProxy.hpp"
 
-    // Prints arguments...
-    if (argc > 1) {
-        std::cout << std::endl << "Arguments:" << std::endl;
-        for (int i = 1; i < argc; i++) {
-            std::cout << i << ": " << argv[i] << std::endl;
-        }
-    }
-
-    return 0;
+int main(int argc, char**argv)
+{
+  ServerProxy prox;
+  prox.run();
+  return 0;
 }
+

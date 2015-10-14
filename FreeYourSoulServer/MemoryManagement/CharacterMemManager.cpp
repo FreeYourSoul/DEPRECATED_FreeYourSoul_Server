@@ -7,12 +7,11 @@
 
 #include "CharacterMemManager.hpp"
 
-CharacterMemManager::CharacterMemManager() {
+CharacterMemManager::CharacterMemManager()
+{
 }
 
-CharacterMemManager::CharacterMemManager(const CharacterMemManager& orig) {
-}
-
-CharacterMemManager::~CharacterMemManager() {
+CharacterMemManager::~CharacterMemManager()
+{
 }
 
