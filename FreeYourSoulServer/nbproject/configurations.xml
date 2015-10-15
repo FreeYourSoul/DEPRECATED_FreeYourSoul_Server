@@ -31,6 +31,7 @@
       <itemPath>Server/ServerWorker.hpp</itemPath>
       <itemPath>Server/Player/Item/StatAsset.hpp</itemPath>
       <itemPath>Server/Player/Team.hpp</itemPath>
+      <itemPath>Utils/zmqHelper.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -248,6 +249,8 @@
       </item>
       <item path="ServerConfig/WorkersConfig.json" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Utils/zmqHelper.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cc" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -430,6 +433,8 @@
       <item path="Server/ServerWorker.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ServerConfig/WorkersConfig.json" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/zmqHelper.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cc" ex="false" tool="1" flavor2="0">
       </item>
