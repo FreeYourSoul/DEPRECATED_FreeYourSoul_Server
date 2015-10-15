@@ -6,8 +6,10 @@
  */
 
 #include <thread>
+#include <iostream>
 
 #include "ServerProxy.hpp"
+#include "Logs/Logs.hpp"
 
 ServerProxy::~ServerProxy()
 {
@@ -25,6 +27,14 @@ ServerProxy::ServerProxy() :
 
 void ServerProxy::run()
 {
+  Logs::getInstance(ctx)->writeLog(Logs::INFO, "Server started");
   std::thread worker_thread(&ServerWorker::work, &worker);
   worker_thread.detach();
+  try {
+      Logs::getInstance()->writeLog(Logs::INFO, "Server Worker proxy launched");
+      zmq::proxy(static_cast<void *> (frontend), static_cast<void *> (backend), NULL);
+  }   
+  catch (std::exception &e) {
+      Logs::getInstance()->writeLog(Logs::ERROR, "Server Worker proxy failed " + std::string(e.what()));
+  }
 }
