@@ -8,10 +8,10 @@
 #ifndef LOGS_HPP
 #define	LOGS_HPP
 
+#include <zmq.hpp>
 #include <cstdio>
 #include <string>
 #include <deque>
-#include <zmq.hpp>
 
 #define INPROC_LOG "inproc://logs"
 
