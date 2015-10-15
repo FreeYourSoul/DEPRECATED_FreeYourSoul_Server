@@ -17,8 +17,8 @@ Logs::~Logs()
 }
 
 Logs::Logs(zmq::context_t& ctx) : 
-  logSockWrite(ctx, ZMQ_DEALER),
-  logSockRead(ctx, ZMQ_DEALER)
+  logSockWrite(ctx, ZMQ_PUSH),
+  logSockRead(ctx, ZMQ_PULL)
 {
   logSockWrite.bind(INPROC_LOG);
   logSockRead.connect(INPROC_LOG);
