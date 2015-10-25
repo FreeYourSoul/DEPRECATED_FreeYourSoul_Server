@@ -5,14 +5,13 @@
  * Created on October 5, 2015, 8:44 PM
  */
 
-#include "FightAction.hpp"
+#include "FightAction.hh"
 
-FightAction::FightAction() {
+FightAction::~FightAction()
+{}
+
+FightAction::FightAction()
+{
 }
 
-FightAction::FightAction(const FightAction& orig) {
-}
-
-FightAction::~FightAction() {
-}
 

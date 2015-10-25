@@ -10,9 +10,9 @@
 
 class PlayerBagsContents {
 public:
+    ~PlayerBagsContents();
     PlayerBagsContents();
-    PlayerBagsContents(const PlayerBagsContents& orig);
-    virtual ~PlayerBagsContents();
+
 private:
 
 };

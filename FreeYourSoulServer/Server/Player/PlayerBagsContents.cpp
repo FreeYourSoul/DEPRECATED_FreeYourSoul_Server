@@ -5,14 +5,13 @@
  * Created on October 5, 2015, 8:47 PM
  */
 
-#include "PlayerBagsContents.hpp"
+#include "PlayerBagsContents.hh"
 
-PlayerBagsContents::PlayerBagsContents() {
+PlayerBagsContents::~PlayerBagsContents()
+{}
+
+PlayerBagsContents::PlayerBagsContents()
+{
 }
 
-PlayerBagsContents::PlayerBagsContents(const PlayerBagsContents& orig) {
-}
-
-PlayerBagsContents::~PlayerBagsContents() {
-}
 

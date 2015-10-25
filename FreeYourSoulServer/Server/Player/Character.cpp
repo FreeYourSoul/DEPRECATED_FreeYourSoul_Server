@@ -5,14 +5,13 @@
  * Created on October 5, 2015, 8:49 PM
  */
 
-#include "Character.hpp"
+#include "Character.hh"
 
-Character::Character() {
+Character::~Character()
+{}
+
+Character::Character()
+{
 }
 
-Character::Character(const Character& orig) {
-}
-
-Character::~Character() {
-}
 

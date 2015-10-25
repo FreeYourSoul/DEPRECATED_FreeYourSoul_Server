@@ -8,11 +8,12 @@
 #ifndef MAP_HPP
 #define	MAP_HPP
 
-class Map {
+class Map 
+{
 public:
+    ~Map();
     Map();
-    Map(const Map& orig);
-    virtual ~Map();
+
 private:
 
 };

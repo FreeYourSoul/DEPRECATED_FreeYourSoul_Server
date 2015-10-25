@@ -8,11 +8,11 @@
 #ifndef MAPACTION_HPP
 #define	MAPACTION_HPP
 
-class MapAction {
+class MapAction
+{
 public:
+    ~MapAction();
     MapAction();
-    MapAction(const MapAction& orig);
-    virtual ~MapAction();
 private:
 
 };

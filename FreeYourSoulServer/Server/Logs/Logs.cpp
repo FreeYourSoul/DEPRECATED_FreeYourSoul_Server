@@ -10,7 +10,7 @@
 #include <thread>
 
 #include "../../Utils/zmqHelper.hpp"
-#include "Logs.hpp"
+#include "Logs.hh"
 
 Logs::~Logs()
 {

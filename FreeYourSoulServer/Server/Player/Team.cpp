@@ -5,14 +5,13 @@
  * Created on October 5, 2015, 8:49 PM
  */
 
-#include "Team.hpp"
+#include "Team.hh"
 
-Team::Team() {
+Team::~Team()
+{}
+
+Team::Team()
+{
 }
 
-Team::Team(const Team& orig) {
-}
-
-Team::~Team() {
-}
 

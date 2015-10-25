@@ -8,11 +8,11 @@
 #ifndef INVENTORYACTION_HPP
 #define	INVENTORYACTION_HPP
 
-class InventoryAction {
-public:
+class InventoryAction
+{
+public:    
+    ~InventoryAction();
     InventoryAction();
-    InventoryAction(const InventoryAction& orig);
-    virtual ~InventoryAction();
 private:
 
 };

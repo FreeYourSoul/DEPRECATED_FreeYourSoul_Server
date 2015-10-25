@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "ServerProxy.hh"
-#include "Logs/Logs.hpp"
+#include "Logs/Logs.hh"
 
 ServerProxy::~ServerProxy()
 {

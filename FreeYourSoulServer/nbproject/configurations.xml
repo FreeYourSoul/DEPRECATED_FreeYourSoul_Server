@@ -6,31 +6,30 @@
                    projectFiles="true">
       <itemPath>Server/ActionDispatcher.hh</itemPath>
       <itemPath>Server/Authenticator.hh</itemPath>
-      <itemPath>Server/Player/Character.hpp</itemPath>
+      <itemPath>Server/Player/Character.hh</itemPath>
       <itemPath>MemoryManagement/CharacterMemManager.h</itemPath>
       <itemPath>MemoryManagement/CharacterMemManager.hpp</itemPath>
-      <itemPath>Server/ActionThreads/DatabaseAction.hpp</itemPath>
-      <itemPath>Server/ActionThreads/FightAction.hpp</itemPath>
+      <itemPath>Server/ActionThreads/DatabaseAction.hh</itemPath>
+      <itemPath>Server/ActionThreads/FightAction.hh</itemPath>
       <itemPath>Server/Map/InstanceElem.hpp</itemPath>
       <itemPath>MemoryManagement/InstanceElemDODMemManager.h</itemPath>
       <itemPath>MemoryManagement/InstanceElemDODMemManager.hpp</itemPath>
-      <itemPath>Server/ActionThreads/InventoryAction.hpp</itemPath>
+      <itemPath>Server/ActionThreads/InventoryAction.hh</itemPath>
       <itemPath>Server/Logs/Logs.hh</itemPath>
-      <itemPath>Server/Logs/Logs.hpp</itemPath>
-      <itemPath>Server/Player/Item/MagicAsset.h</itemPath>
-      <itemPath>Server/Map/Map.hpp</itemPath>
-      <itemPath>Server/ActionThreads/MapAction.hpp</itemPath>
-      <itemPath>Server/Player/PlayerBags.hpp</itemPath>
-      <itemPath>Server/Player/PlayerBagsContents.hpp</itemPath>
+      <itemPath>Server/Player/Item/MagicAsset.hh</itemPath>
+      <itemPath>Server/Map/Map.hh</itemPath>
+      <itemPath>Server/ActionThreads/MapAction.hh</itemPath>
+      <itemPath>Server/Player/PlayerBags.hh</itemPath>
+      <itemPath>Server/Player/PlayerBagsContents.hh</itemPath>
       <itemPath>MemoryManagement/PlayerDODMemManager.h</itemPath>
       <itemPath>MemoryManagement/PlayerDODMemManager.hpp</itemPath>
-      <itemPath>Server/Player/PlayerPosition.hpp</itemPath>
+      <itemPath>Server/Player/PlayerPosition.hh</itemPath>
       <itemPath>MemoryManagement/PlayersBagContentDODMemManager.h</itemPath>
       <itemPath>MemoryManagement/PlayersBagContentDODMemManager.hpp</itemPath>
       <itemPath>Server/ServerProxy.h</itemPath>
       <itemPath>Server/ServerWorker.hh</itemPath>
-      <itemPath>Server/Player/Item/StatAsset.hpp</itemPath>
-      <itemPath>Server/Player/Team.hpp</itemPath>
+      <itemPath>Server/Player/Item/StatAsset.hh</itemPath>
+      <itemPath>Server/Player/Team.hh</itemPath>
       <itemPath>Utils/TimeTest.hh</itemPath>
       <itemPath>Server/Player/newfile.hh</itemPath>
       <itemPath>Utils/zmqHelper.hpp</itemPath>
@@ -48,7 +47,6 @@
       <itemPath>MemoryManagement/CharacterMemManager.cpp</itemPath>
       <itemPath>Server/ActionThreads/DatabaseAction.cpp</itemPath>
       <itemPath>Server/ActionThreads/FightAction.cpp</itemPath>
-      <itemPath>Server/Map/InstanceElem.cpp</itemPath>
       <itemPath>MemoryManagement/InstanceElemDODMemManager.cpp</itemPath>
       <itemPath>Server/ActionThreads/InventoryAction.cpp</itemPath>
       <itemPath>Server/Logs/Logs.cpp</itemPath>
@@ -160,7 +158,7 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/ActionThreads/DatabaseAction.hpp"
+      <item path="Server/ActionThreads/DatabaseAction.hh"
             ex="false"
             tool="3"
             flavor2="0">
@@ -170,7 +168,7 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/ActionThreads/FightAction.hpp"
+      <item path="Server/ActionThreads/FightAction.hh"
             ex="false"
             tool="3"
             flavor2="0">
@@ -180,14 +178,14 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/ActionThreads/InventoryAction.hpp"
+      <item path="Server/ActionThreads/InventoryAction.hh"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="Server/ActionThreads/MapAction.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/ActionThreads/MapAction.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/ActionThreads/MapAction.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Authenticator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -197,49 +195,47 @@
       </item>
       <item path="Server/Logs/Logs.hh" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Server/Logs/Logs.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Server/Map/InstanceElem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Server/Map/InstanceElem.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Map/Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Map/Map.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Map/Map.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Character.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Character.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Character.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Item/MagicAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Item/MagicAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Item/MagicAsset.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Item/StatAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Item/StatAsset.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Item/StatAsset.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/PlayerBags.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/PlayerBags.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/PlayerBags.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/PlayerBagsContents.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/Player/PlayerBagsContents.hpp"
+      <item path="Server/Player/PlayerBagsContents.hh"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="Server/Player/PlayerPosition.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/PlayerPosition.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/PlayerPosition.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Team.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Team.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Team.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/newfile.hh" ex="false" tool="3" flavor2="0">
       </item>
@@ -349,7 +345,7 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/ActionThreads/DatabaseAction.hpp"
+      <item path="Server/ActionThreads/DatabaseAction.hh"
             ex="false"
             tool="3"
             flavor2="0">
@@ -359,7 +355,7 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/ActionThreads/FightAction.hpp"
+      <item path="Server/ActionThreads/FightAction.hh"
             ex="false"
             tool="3"
             flavor2="0">
@@ -369,14 +365,14 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/ActionThreads/InventoryAction.hpp"
+      <item path="Server/ActionThreads/InventoryAction.hh"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="Server/ActionThreads/MapAction.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/ActionThreads/MapAction.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/ActionThreads/MapAction.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Authenticator.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -386,49 +382,47 @@
       </item>
       <item path="Server/Logs/Logs.hh" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Server/Logs/Logs.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Server/Map/InstanceElem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Server/Map/InstanceElem.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Map/Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Map/Map.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Map/Map.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Character.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Character.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Character.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Item/MagicAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Item/MagicAsset.h" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Item/MagicAsset.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Item/StatAsset.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Item/StatAsset.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Item/StatAsset.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/PlayerBags.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/PlayerBags.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/PlayerBags.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/PlayerBagsContents.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
-      <item path="Server/Player/PlayerBagsContents.hpp"
+      <item path="Server/Player/PlayerBagsContents.hh"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
       <item path="Server/Player/PlayerPosition.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/PlayerPosition.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/PlayerPosition.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/Team.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Player/Team.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Player/Team.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Player/newfile.hh" ex="false" tool="3" flavor2="0">
       </item>

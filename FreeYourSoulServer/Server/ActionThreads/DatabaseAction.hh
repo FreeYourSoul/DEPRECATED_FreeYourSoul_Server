@@ -8,11 +8,11 @@
 #ifndef DATABASEACTION_HPP
 #define	DATABASEACTION_HPP
 
-class DatabaseAction {
+class DatabaseAction 
+{
 public:
+    ~DatabaseAction();
     DatabaseAction();
-    DatabaseAction(const DatabaseAction& orig);
-    virtual ~DatabaseAction();
 private:
 
 };

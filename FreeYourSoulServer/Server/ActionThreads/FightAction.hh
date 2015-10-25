@@ -8,11 +8,11 @@
 #ifndef FIGHTACTION_HPP
 #define	FIGHTACTION_HPP
 
-class FightAction {
+class FightAction 
+{
 public:
+    ~FightAction();
     FightAction();
-    FightAction(const FightAction& orig);
-    virtual ~FightAction();
 private:
 
 };

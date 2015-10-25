@@ -8,11 +8,12 @@
 #ifndef TEAM_HPP
 #define	TEAM_HPP
 
-class Team {
-public:
+class Team 
+{
+public:    
+    ~Team();
     Team();
-    Team(const Team& orig);
-    virtual ~Team();
+    
 private:
 
 };

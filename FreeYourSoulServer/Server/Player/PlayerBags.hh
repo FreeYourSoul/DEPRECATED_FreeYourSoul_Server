@@ -8,11 +8,12 @@
 #ifndef PLAYERBAGS_HPP
 #define	PLAYERBAGS_HPP
 
-class PlayerBags {
+class PlayerBags
+{
 public:
+    ~PlayerBags();
     PlayerBags();
-    PlayerBags(const PlayerBags& orig);
-    virtual ~PlayerBags();
+    
 private:
 
 };

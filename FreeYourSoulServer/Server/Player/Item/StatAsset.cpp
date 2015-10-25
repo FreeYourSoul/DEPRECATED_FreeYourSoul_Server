@@ -5,14 +5,12 @@
  * Created on October 5, 2015, 8:48 PM
  */
 
-#include "StatAsset.hpp"
+#include "StatAsset.hh"
 
-StatAsset::StatAsset() {
-}
+StatAsset::~StatAsset()
+{}
 
-StatAsset::StatAsset(const StatAsset& orig) {
-}
-
-StatAsset::~StatAsset() {
+StatAsset::StatAsset()
+{
 }
 

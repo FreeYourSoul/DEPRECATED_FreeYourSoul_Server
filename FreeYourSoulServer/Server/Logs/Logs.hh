@@ -15,7 +15,8 @@
 
 #define INPROC_LOG "inproc://logs"
 
-class Logs {
+class Logs 
+{
 public:
 
     enum LogType {

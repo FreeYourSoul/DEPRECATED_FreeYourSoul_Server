@@ -8,11 +8,11 @@
 #ifndef CHARACTER_HPP
 #define	CHARACTER_HPP
 
-class Character {
+class Character 
+{
 public:
+    ~Character();
     Character();
-    Character(const Character& orig);
-    virtual ~Character();
 private:
 
 };

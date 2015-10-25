@@ -46,7 +46,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Server/ActionThreads/MapAction.o \
 	${OBJECTDIR}/Server/Authenticator.o \
 	${OBJECTDIR}/Server/Logs/Logs.o \
-	${OBJECTDIR}/Server/Map/InstanceElem.o \
 	${OBJECTDIR}/Server/Map/Map.o \
 	${OBJECTDIR}/Server/Player/Character.o \
 	${OBJECTDIR}/Server/Player/Item/MagicAsset.o \
@@ -138,11 +137,6 @@ ${OBJECTDIR}/Server/Logs/Logs.o: Server/Logs/Logs.cpp
 	${MKDIR} -p ${OBJECTDIR}/Server/Logs
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Logs/Logs.o Server/Logs/Logs.cpp
-
-${OBJECTDIR}/Server/Map/InstanceElem.o: Server/Map/InstanceElem.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Server/Map
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server/Map/InstanceElem.o Server/Map/InstanceElem.cpp
 
 ${OBJECTDIR}/Server/Map/Map.o: Server/Map/Map.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Server/Map

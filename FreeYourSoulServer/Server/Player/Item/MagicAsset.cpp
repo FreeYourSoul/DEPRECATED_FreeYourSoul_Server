@@ -5,14 +5,13 @@
  * Created on October 5, 2015, 8:48 PM
  */
 
-#include "MagicAsset.h"
+#include "MagicAsset.hh"
 
-MagicAsset::MagicAsset() {
+MagicAsset::~MagicAsset()
+{}
+
+MagicAsset::MagicAsset()
+{
 }
 
-MagicAsset::MagicAsset(const MagicAsset& orig) {
-}
-
-MagicAsset::~MagicAsset() {
-}
 

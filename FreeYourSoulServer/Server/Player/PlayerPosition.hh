@@ -8,11 +8,13 @@
 #ifndef PLAYERPOSITION_HPP
 #define	PLAYERPOSITION_HPP
 
-class PlayerPosition {
+class PlayerPosition 
+{
+
 public:
+    ~PlayerPosition();
     PlayerPosition();
-    PlayerPosition(const PlayerPosition& orig);
-    virtual ~PlayerPosition();
+
 private:
 
 };

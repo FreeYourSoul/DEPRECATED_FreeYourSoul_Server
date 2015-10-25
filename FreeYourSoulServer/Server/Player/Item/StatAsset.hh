@@ -10,9 +10,9 @@
 
 class StatAsset {
 public:
+    ~StatAsset();
     StatAsset();
-    StatAsset(const StatAsset& orig);
-    virtual ~StatAsset();
+
 private:
 
 };
