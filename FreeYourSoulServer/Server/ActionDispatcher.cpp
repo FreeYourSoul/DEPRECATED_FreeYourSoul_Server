@@ -5,7 +5,7 @@
  * Created on October 5, 2015, 8:52 PM
  */
 
-#include "ActionDispatcher.hpp"
+#include "ActionDispatcher.hh"
 
 ActionDispatcher::ActionDispatcher() {
 }

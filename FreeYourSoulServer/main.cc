@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "Server/ServerProxy.hpp"
+#include "Server/ServerProxy.hh"
 
-int main(int argc, char**argv)
+int main()
 {
   ServerProxy prox;
   prox.run();

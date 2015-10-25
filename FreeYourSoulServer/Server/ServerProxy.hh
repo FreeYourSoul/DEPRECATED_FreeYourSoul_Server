@@ -10,7 +10,7 @@
 
 #include <zmq.hpp>
 
-#include "ServerWorker.hpp"
+#include "ServerWorker.hh"
 
 #define THREAD_CONTEXT 1
 #define PORT_SERVER "5555"

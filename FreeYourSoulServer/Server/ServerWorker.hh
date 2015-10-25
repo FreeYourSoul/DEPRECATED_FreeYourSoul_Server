@@ -10,8 +10,8 @@
 
 #include <zmq.hpp>
 
-#include "ActionDispatcher.hpp"
-#include "Authenticator.hpp"
+#include "ActionDispatcher.hh"
+#include "Authenticator.hh"
 
 class ServerWorker 
 {

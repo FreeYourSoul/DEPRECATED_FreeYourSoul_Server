@@ -5,8 +5,8 @@
  * Created on October 5, 2015, 8:54 PM
  */
 
-#include "ServerWorker.hpp"
-#include "ServerProxy.hpp"
+#include "ServerWorker.hh"
+#include "ServerProxy.hh"
 
 ServerWorker::~ServerWorker()
 {

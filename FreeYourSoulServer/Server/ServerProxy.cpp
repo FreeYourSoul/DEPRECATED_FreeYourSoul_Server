@@ -8,7 +8,7 @@
 #include <thread>
 #include <iostream>
 
-#include "ServerProxy.hpp"
+#include "ServerProxy.hh"
 #include "Logs/Logs.hpp"
 
 ServerProxy::~ServerProxy()

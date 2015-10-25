@@ -5,7 +5,7 @@
  * Created on October 14, 2015, 10:04 AM
  */
 
-#include "Authenticator.hpp"
+#include "Authenticator.hh"
 
 Authenticator::~Authenticator()
 {

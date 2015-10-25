@@ -4,8 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Server/ActionDispatcher.hpp</itemPath>
-      <itemPath>Server/Authenticator.hpp</itemPath>
+      <itemPath>Server/ActionDispatcher.hh</itemPath>
+      <itemPath>Server/Authenticator.hh</itemPath>
       <itemPath>Server/Player/Character.hpp</itemPath>
       <itemPath>MemoryManagement/CharacterMemManager.h</itemPath>
       <itemPath>MemoryManagement/CharacterMemManager.hpp</itemPath>
@@ -28,9 +28,11 @@
       <itemPath>MemoryManagement/PlayersBagContentDODMemManager.h</itemPath>
       <itemPath>MemoryManagement/PlayersBagContentDODMemManager.hpp</itemPath>
       <itemPath>Server/ServerProxy.h</itemPath>
-      <itemPath>Server/ServerWorker.hpp</itemPath>
+      <itemPath>Server/ServerWorker.hh</itemPath>
       <itemPath>Server/Player/Item/StatAsset.hpp</itemPath>
       <itemPath>Server/Player/Team.hpp</itemPath>
+      <itemPath>Utils/TimeTest.hh</itemPath>
+      <itemPath>Server/Player/newfile.hh</itemPath>
       <itemPath>Utils/zmqHelper.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -151,7 +153,7 @@
       </item>
       <item path="Server/ActionDispatcher.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/ActionDispatcher.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/ActionDispatcher.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/ActionThreads/DatabaseAction.cpp"
             ex="false"
@@ -189,7 +191,7 @@
       </item>
       <item path="Server/Authenticator.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Authenticator.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Authenticator.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Logs/Logs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -239,15 +241,19 @@
       </item>
       <item path="Server/Player/Team.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Server/Player/newfile.hh" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Server/ServerProxy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Server/ServerProxy.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/ServerWorker.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/ServerWorker.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/ServerWorker.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ServerConfig/WorkersConfig.json" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/TimeTest.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utils/zmqHelper.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -336,7 +342,7 @@
       </item>
       <item path="Server/ActionDispatcher.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/ActionDispatcher.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/ActionDispatcher.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/ActionThreads/DatabaseAction.cpp"
             ex="false"
@@ -374,7 +380,7 @@
       </item>
       <item path="Server/Authenticator.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/Authenticator.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/Authenticator.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/Logs/Logs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -424,15 +430,19 @@
       </item>
       <item path="Server/Player/Team.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Server/Player/newfile.hh" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Server/ServerProxy.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Server/ServerProxy.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Server/ServerWorker.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Server/ServerWorker.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Server/ServerWorker.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ServerConfig/WorkersConfig.json" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/TimeTest.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utils/zmqHelper.hpp" ex="false" tool="3" flavor2="0">
       </item>
