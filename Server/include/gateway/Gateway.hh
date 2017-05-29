@@ -10,19 +10,17 @@
 #include <boost/asio/ip/tcp.hpp>
 #include "FysBus.hh"
 #include "TcpConnection.hh"
-
-#define GTW_INI_PORT "server.port"
-#define GTW_INI_ASIO_THREADS "server.asioThread"
-#define GTW_INI_BUS_PATH "bus.iniPath"
+#include "Context.hh"
 
 namespace fys {
     namespace gateway {
 
         class Gateway {
 
+
         public:
             ~Gateway();
-            Gateway();
+            Gateway(const Context&);
 
             void run();
 
@@ -31,6 +29,8 @@ namespace fys {
 
         private:
             boost::asio::io_service _ios;
+            boost::asio::ip::tcp::acceptor acceptor_;
+
             std::map<std::string, fys::network::TcpConnection> _connections;
 
         };
