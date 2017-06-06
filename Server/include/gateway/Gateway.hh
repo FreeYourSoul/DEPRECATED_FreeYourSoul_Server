@@ -8,6 +8,7 @@
 #include <map>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <SessionManager.hh>
 #include "FysBus.hh"
 #include "TcpConnection.hh"
 #include "Context.hh"
@@ -17,22 +18,21 @@ namespace fys {
 
         class Gateway {
 
-
         public:
             ~Gateway();
             Gateway(const Context&);
 
-            void run();
+            void runPlayerAccept();
 
         private:
-            void initializeConfiguration(const std::string&);
+            void handlePlayerConnection(network::TcpConnection::pointer &newSession);
 
         private:
             boost::asio::io_service _ios;
-            boost::asio::ip::tcp::acceptor acceptor_;
+            boost::asio::ip::tcp::acceptor _acceptor;
 
-            std::map<std::string, fys::network::TcpConnection> _connections;
-
+            network::SessionManager _gamerConnections;
+            network::SessionManager _serverConnections;
         };
 
     }

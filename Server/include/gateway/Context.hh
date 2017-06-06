@@ -6,6 +6,7 @@
 #define FREESOULS_CONTEXT_HH
 
 #include <string>
+#include <ostream>
 
 #define GTW_INI_PORT "server.port"
 #define GTW_INI_ASIO_THREADS "server.asioThread"
@@ -20,22 +21,22 @@ namespace fys {
             ~Context();
             Context(const std::string& iniPath);
 
-            short getPort() const;
+            std::ostream &operator<<(std::ostream &os, const Context &context);
 
-            void setPort(const short port);
-
+            unsigned short getPort() const;
+            void setPort(const unsigned short port);
             const std::string &getBusIniFilePath() const;
-
             void setBusIniFilePath(const std::string &busIniFilePath);
-
             size_t getAsioThread() const;
-
             void setAsioThread(const size_t asioThread);
 
         private:
-            short port;
-            std::size_t asioThread;
-            std::string busIniFilePath;
+            void initializeFromIni(const std::string &iniPath);
+
+        private:
+            unsigned short _port;
+            std::size_t _asioThread;
+            std::string _busIniFilePath;
 
         };
 

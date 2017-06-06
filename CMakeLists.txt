@@ -9,7 +9,7 @@ set(SOURCE_FILES_MM)
 
 set(SOURCE_FILES_MQ FySMQ/include/queue/LockFreeQueue.hh FySMQ/include/queue/QueueContainer.hh FySMQ/include/queue/LockingQueue.hh FySMQ/include/bus/IBusListener.hh)
 
-set(SOURCE_FILES_SRV Server/src/gateway/Gateway.cpp Server/include/gateway/Gateway.hh Server/src/network/Message.cpp Server/include/network/Message.hh Server/src/game/GameBusListener.cpp Server/include/game/GameBusListener.hh Server/src/babble/BabbleBusListener.cpp Server/include/babble/BabbleBusListener.hh Server/src/gateway/AuthBusListener.cpp Server/include/gateway/AuthBusListener.hh Server/src/gateway/Context.cpp Server/include/gateway/Context.hh)
+set(SOURCE_FILES_SRV Server/src/gateway/Gateway.cpp Server/include/gateway/Gateway.hh Server/src/network/Message.cpp Server/include/network/Message.hh Server/src/game/GameBusListener.cpp Server/include/game/GameBusListener.hh Server/src/babble/BabbleBusListener.cpp Server/include/babble/BabbleBusListener.hh Server/src/gateway/AuthBusListener.cpp Server/include/gateway/AuthBusListener.hh Server/src/gateway/Context.cpp Server/include/gateway/Context.hh Server/src/network/SessionManager.cpp Server/include/network/SessionManager.hh Server/src/network/AnswerForwarder.cpp Server/include/network/AnswerForwarder.hh)
 
 set(SOURCE_FILES_UTILS)
 

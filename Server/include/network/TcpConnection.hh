@@ -21,31 +21,28 @@ namespace fys {
         public:
             typedef boost::shared_ptr<TcpConnection> pointer;
 
-            static pointer create(boost::asio::io_service& io_service)
-            {
+            static pointer create(boost::asio::io_service& io_service) {
                 return pointer(new TcpConnection(io_service));
             }
 
-            boost::asio::ip::tcp::socket& socket()
-            {
-                return _socket;
-            }
+            boost::asio::ip::tcp::socket& getSocket() const;
 
-            void send(const fys::network::Message&)
-            {
-            }
+
+            void readOnSocket();
+            void send(const fys::network::Message&);
 
         private:
-            TcpConnection(boost::asio::io_service& io_service)
-                    : _socket(io_service)
-            {
-            }
+            TcpConnection(boost::asio::io_service& io_service);
 
-            void handle_write(const boost::system::error_code& /*error*/,
-                              size_t /*bytes_transferred*/)
-            { }
+            void shuttingConnectionDown();
 
+            void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
+            void handleRead(const boost::system::error_code &error, size_t bytesTransferred);
+
+        private:
+            bool _isShuttingDown;
             boost::asio::ip::tcp::socket _socket;
+            unsigned char _buffer[BUFFER_SIZE];
         };
 
     }
