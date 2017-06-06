@@ -19,9 +19,10 @@ namespace fys {
 
         public:
             ~Context();
+            Context();
             Context(const std::string& iniPath);
 
-            std::ostream &operator<<(std::ostream &os, const Context &context);
+            std::ostream &operator<<(std::ostream &os);
 
             unsigned short getPort() const;
             void setPort(const unsigned short port);

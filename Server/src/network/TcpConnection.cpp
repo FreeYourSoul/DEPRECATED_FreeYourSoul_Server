@@ -9,7 +9,7 @@
 fys::network::TcpConnection::TcpConnection(boost::asio::io_service& io_service) : _isShuttingDown(false), _socket(io_service) {
 }
 
-boost::asio::ip::tcp::socket& fys::network::TcpConnection::getSocket() const {
+boost::asio::ip::tcp::socket& fys::network::TcpConnection::getSocket() {
     return _socket;
 }
 
@@ -34,7 +34,7 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
 
 void fys::network::TcpConnection::readOnSocket() {
 _socket.async_read_some(boost::asio::buffer(_buffer, BUFFER_SIZE),
-    boost::bind(&TcpConnection::handleRead, shared_from_this,
+    boost::bind(&TcpConnection::handleRead, shared_from_this(),
                 boost::asio::placeholders::error,
                 boost::asio::placeholders::bytes_transferred));
 }

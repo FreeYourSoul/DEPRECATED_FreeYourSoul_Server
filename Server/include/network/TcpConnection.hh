@@ -7,7 +7,6 @@
 
 
 #include <boost/enable_shared_from_this.hpp>
-#include <boost/asio/impl/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
@@ -25,7 +24,7 @@ namespace fys {
                 return pointer(new TcpConnection(io_service));
             }
 
-            boost::asio::ip::tcp::socket& getSocket() const;
+            boost::asio::ip::tcp::socket& getSocket();
 
 
             void readOnSocket();

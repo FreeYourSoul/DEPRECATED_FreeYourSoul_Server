@@ -6,6 +6,7 @@
 #define FREESOULS_AUTHBUSLISTENER_HH
 
 #include <sys/types.h>
+#include <IBusListener.hh>
 
 namespace fys {
     namespace gateway {

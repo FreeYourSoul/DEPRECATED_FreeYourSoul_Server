@@ -4,7 +4,7 @@
 
 #include "SessionManager.hh"
 
-fys::network::SessionManager::~SessionManager() { }
+fys::network::SessionManager::~SessionManager() {}
 
 fys::network::SessionManager::SessionManager() {}
 

@@ -12,8 +12,9 @@
 namespace fys {
     namespace network {
 
-        union BitToInt {
+        union BitConvert {
             unsigned int integer;
+            unsigned short tbytes[2];
             unsigned char byte[4];
         };
 
@@ -24,11 +25,14 @@ namespace fys {
             Message(unsigned char rawMessage[]);
 
         private:
+            void loadOpCode();
+
             unsigned int byteToInt(unsigned int index);
             unsigned char *intToChar(unsigned int toConvert);
 
         private:
             unsigned char _rawMessage[BUFFER_SIZE];
+            unsigned short _opCode;
         };
 
     }

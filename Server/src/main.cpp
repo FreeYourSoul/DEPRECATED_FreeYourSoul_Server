@@ -6,6 +6,7 @@
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/asio/read.hpp>
+#include <Gateway.hh>
 #include "LockingQueue.hh"
 #include "LockFreeQueue.hh"
 
@@ -91,6 +92,7 @@ void test3() {
 
 union {
     unsigned int integer;
+    unsigned short tbytes[2];
     unsigned char byte[4];
 } temp32bitint;
 
@@ -105,7 +107,7 @@ public:
         str[2] = 107;       //01101011
     }
 
-    unsigned int opCode;
+    unsigned short opCode;
     unsigned int sizeStr;
     unsigned char str[3];
 
@@ -114,7 +116,7 @@ public:
         temp32bitint.byte[1] = str[1];
         temp32bitint.byte[2] = str[2];
         temp32bitint.byte[3] = str[3];
-        opCode = temp32bitint.integer;
+        opCode = temp32bitint.tbytes[0];
     }
 };
 
@@ -219,6 +221,8 @@ void test4() {
     boost::thread t(simpleServerCall);
     sleep(5);
     boost::asio::io_service ios;
+//    fys::gateway::Context ctx;
+//    fys::gateway::Gateway gw(ctx, ios);
 
     boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 4242);
 

@@ -8,6 +8,7 @@
 #include "Context.hh"
 
 fys::gateway::Context::~Context() {}
+fys::gateway::Context::Context() {}
 
 fys::gateway::Context::Context(const std::string &iniPath) {
     try {
@@ -52,8 +53,8 @@ void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     std::cout << "Context Initialization -> " << this << std::endl;
 }
 
-std::ostream &fys::gateway::Context::operator<<(std::ostream &os, const fys::gateway::Context &context) {
-    os << "_port: " << context._port << " _asioThread: " << context._asioThread << " _busIniFilePath: "
-       << context._busIniFilePath;
+std::ostream &fys::gateway::Context::operator<<(std::ostream &os) {
+    os << "_port: " << _port << " _asioThread: " << _asioThread << " _busIniFilePath: "
+       << _busIniFilePath;
     return os;
 }
