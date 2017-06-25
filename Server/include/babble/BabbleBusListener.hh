@@ -7,6 +7,9 @@
 
 
 #include <IBusListener.hh>
+#include <FysBus.hh>
+#include <Gateway.hh>
+#include <Babble.hh>
 
 namespace fys {
     namespace gateway {
@@ -15,13 +18,15 @@ namespace fys {
 
         public:
             ~BabbleBusListener();
-            BabbleBusListener();
+            BabbleBusListener(mq::FysBus *);
 
             void listen();
             void setBusRoutingKey(const u_int);
 
         private:
-            u_int routingKey;
+            mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE> *_fysBus;
+            Babble _babble;
+            u_int _indexInBus;
 
         };
 

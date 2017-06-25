@@ -12,7 +12,6 @@ fys::network::Message::Message() {
 }
 
 fys::network::Message::Message(unsigned char rawMessage[]) {
-//    std::copy(std::begin(rawMessage), std::end(rawMessage), _rawMessage);
     loadOpCode();
 }
 
@@ -21,7 +20,7 @@ void fys::network::Message::loadOpCode() {
 
     for (int i = 0; i < 2; ++i)
         btc.byte[i] = _rawMessage[i];
-    _opCode = btc.tbytes[0];
+    _opCode = btc.tBytes[0];
 }
 
 unsigned int fys::network::Message::byteToInt(unsigned int index) {
@@ -32,11 +31,19 @@ unsigned int fys::network::Message::byteToInt(unsigned int index) {
     return bti.integer;
 }
 
-unsigned char *fys::network::Message::intToChar(unsigned int toConvert) {
+unsigned char *fys::network::Message::intToChar(unsigned int toConvert, unsigned char ret[]) {
     BitConvert bti;
-    unsigned char *ret = new unsigned char[4];
+//    unsigned char *ret = new unsigned char[4];
 
     bti.integer = toConvert;
-    memcpy(ret, bti.byte, 4);
+    std::memcpy(ret, bti.byte, 4);
     return ret;
+}
+
+const unsigned char *fys::network::Message::get_rawMessage() const {
+    return _rawMessage;
+}
+
+unsigned short fys::network::Message::get_opCode() const {
+    return _opCode;
 }

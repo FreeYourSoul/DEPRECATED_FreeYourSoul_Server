@@ -14,7 +14,7 @@ namespace fys {
 
         union BitConvert {
             unsigned int integer;
-            unsigned short tbytes[2];
+            unsigned short tBytes[2];
             unsigned char byte[4];
         };
 
@@ -24,11 +24,14 @@ namespace fys {
             Message();
             Message(unsigned char rawMessage[]);
 
+            const unsigned char *get_rawMessage() const;
+            unsigned short get_opCode() const;
+
         private:
             void loadOpCode();
 
             unsigned int byteToInt(unsigned int index);
-            unsigned char *intToChar(unsigned int toConvert);
+            unsigned char *intToChar(unsigned int toConvert, unsigned char ret[]);
 
         private:
             unsigned char _rawMessage[BUFFER_SIZE];

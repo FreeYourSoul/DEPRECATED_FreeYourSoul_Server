@@ -11,6 +11,7 @@
 #include "FysBus.hh"
 #include "TcpConnection.hh"
 #include "Context.hh"
+#define  GATEWAY_BUS_QUEUES_SIZE 1024
 
 namespace fys {
     namespace gateway {

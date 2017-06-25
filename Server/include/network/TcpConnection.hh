@@ -5,7 +5,6 @@
 #ifndef FREESOULS_TCPCONNECTION_HH
 #define FREESOULS_TCPCONNECTION_HH
 
-
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/placeholders.hpp>

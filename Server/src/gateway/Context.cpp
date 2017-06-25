@@ -19,11 +19,30 @@ fys::gateway::Context::Context(const std::string &iniPath) {
     }
 }
 
-unsigned short fys::gateway::Context::getPort() const {
+
+void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
+    boost::property_tree::ptree pt;
+    boost::property_tree::read_ini(iniPath, pt);
+
+    setPort(pt.get<std::size_t>(GTW_INI_PORT));
+    setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));
+    setBusIniFilePath(pt.get<std::string>(GTW_INI_BUS_PATH));
+    setQueuesSize(pt.get<std::size_t>(GTW_QUEUES_SIZE));
+    std::cout << "Context Initialization -> " << this << std::endl;
+}
+
+std::ostream &fys::gateway::Context::operator<<(std::ostream &os) {
+    os << "_port: " << _port << " _asioThread: " << _asioThread << " _busIniFilePath: "
+       << _busIniFilePath;
+    return os;
+}
+
+
+std::size_t fys::gateway::Context::getPort() const {
     return _port;
 }
 
-void fys::gateway::Context::setPort(const unsigned short port) {
+void fys::gateway::Context::setPort(const std::size_t port) {
     Context::_port = port;
 }
 
@@ -43,18 +62,10 @@ void fys::gateway::Context::setAsioThread(const size_t asioThread) {
     Context::_asioThread = asioThread;
 }
 
-void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
-    boost::property_tree::ptree pt;
-    boost::property_tree::read_ini(iniPath, pt);
-
-    setPort(pt.get<short>(GTW_INI_PORT));
-    setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));
-    setBusIniFilePath(pt.get<std::string>(GTW_INI_BUS_PATH));
-    std::cout << "Context Initialization -> " << this << std::endl;
+std::size_t fys::gateway::Context::getQueuesSize() const {
+    return _queuesSize;
 }
 
-std::ostream &fys::gateway::Context::operator<<(std::ostream &os) {
-    os << "_port: " << _port << " _asioThread: " << _asioThread << " _busIniFilePath: "
-       << _busIniFilePath;
-    return os;
+void fys::gateway::Context::setQueuesSize(std::size_t _queuesSize) {
+    Context::_queuesSize = _queuesSize;
 }

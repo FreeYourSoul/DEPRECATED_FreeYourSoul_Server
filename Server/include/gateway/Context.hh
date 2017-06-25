@@ -11,6 +11,7 @@
 #define GTW_INI_PORT "server.port"
 #define GTW_INI_ASIO_THREADS "server.asioThread"
 #define GTW_INI_BUS_PATH "bus.iniPath"
+#define GTW_QUEUES_SIZE "bus.queuesSize"
 
 namespace fys {
     namespace gateway {
@@ -24,21 +25,25 @@ namespace fys {
 
             std::ostream &operator<<(std::ostream &os);
 
-            unsigned short getPort() const;
-            void setPort(const unsigned short port);
+            std::size_t getPort() const;
+            void setPort(const std::size_t port);
             const std::string &getBusIniFilePath() const;
             void setBusIniFilePath(const std::string &busIniFilePath);
             size_t getAsioThread() const;
             void setAsioThread(const size_t asioThread);
 
+            std::size_t getQueuesSize() const;
+
+            void setQueuesSize(const std::size_t _queuesSize);
+
         private:
             void initializeFromIni(const std::string &iniPath);
 
         private:
-            unsigned short _port;
+            std::size_t _port;
             std::size_t _asioThread;
             std::string _busIniFilePath;
-
+            std::size_t _queuesSize;
         };
 
     }
