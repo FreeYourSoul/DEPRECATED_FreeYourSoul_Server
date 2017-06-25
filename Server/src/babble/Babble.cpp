@@ -17,5 +17,9 @@ void fys::gateway::Babble::signOutFromBabble(const std::string &tokenSignOut) {
 }
 
 void fys::gateway::Babble::sendMessage(const fys::network::Message &babbleMessage) const {
- if (babbleMessage.)
+
+}
+
+void fys::gateway::Babble::whisperMessage(const fys::network::Message message) const {
+
 }

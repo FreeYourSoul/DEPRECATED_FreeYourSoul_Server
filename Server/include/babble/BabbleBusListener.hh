@@ -14,6 +14,11 @@
 namespace fys {
     namespace gateway {
 
+        const u_int FYSP_BABBLE_LOGIN   = 401;
+        const u_int FYSP_BABBLE_SEND    = 402;
+        const u_int FYSP_BABBLE_WHISPER = 403;
+        const u_int FYSP_BABBLE_LOGOUT  = 404;
+
         class BabbleBusListener : fys::mq::IBusListener {
 
         public:

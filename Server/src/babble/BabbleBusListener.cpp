@@ -16,7 +16,23 @@ void fys::gateway::BabbleBusListener::listen() {
     bool infinite = true;
     while (infinite) {
         fys::mq::QueueContainer<network::Message> *msg =_fysBus->popFromBus(_indexInBus);
-
+        switch (msg->getRoutingKey()) {
+            case FYSP_BABBLE_SEND:
+                _babble.sendMessage(msg->getContained());
+                break;
+            case FYSP_BABBLE_WHISPER:
+                _babble.whisperMessage(msg->getContained());
+                break;
+            case FYSP_BABBLE_LOGIN:
+                _babble.signInOnBabble(msg->get_tokenUser());
+                break;
+            case FYSP_BABBLE_LOGOUT:
+                _babble.signOutFromBabble(msg->get_tokenUser());
+                break;
+            default:
+                // TODO error management
+                break;
+        }
     }
 }
 

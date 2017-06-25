@@ -40,10 +40,10 @@ unsigned char *fys::network::Message::intToChar(unsigned int toConvert, unsigned
     return ret;
 }
 
-const unsigned char *fys::network::Message::get_rawMessage() const {
+const unsigned char *fys::network::Message::getRawMessage() const {
     return _rawMessage;
 }
 
-unsigned short fys::network::Message::get_opCode() const {
+unsigned short fys::network::Message::getOpCode() const {
     return _opCode;
 }

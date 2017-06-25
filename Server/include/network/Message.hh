@@ -6,11 +6,13 @@
 #define FREESOULS_MESSAGE_HH
 
 #include <boost/dynamic_bitset.hpp>
+#include <zconf.h>
 
-#define BUFFER_SIZE 100
 
 namespace fys {
     namespace network {
+
+        const u_int BUFFER_SIZE = 100;
 
         union BitConvert {
             unsigned int integer;
@@ -24,8 +26,8 @@ namespace fys {
             Message();
             Message(unsigned char rawMessage[]);
 
-            const unsigned char *get_rawMessage() const;
-            unsigned short get_opCode() const;
+            const unsigned char *getRawMessage() const;
+            unsigned short getOpCode() const;
 
         private:
             void loadOpCode();

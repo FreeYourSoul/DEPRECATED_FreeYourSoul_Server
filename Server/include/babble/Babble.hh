@@ -22,9 +22,11 @@ namespace fys {
             void signInOnBabble(const std::string &tokenSignIn);
             void signOutFromBabble(const std::string &tokenSignOut);
             void sendMessage(const network::Message &babbleMessage) const;
+            void whisperMessage(const network::Message message) const;
 
         private:
             std::map<std::string, BabbleChannel> _channels;
+
 
         };
 

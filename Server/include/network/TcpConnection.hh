@@ -40,7 +40,7 @@ namespace fys {
         private:
             bool _isShuttingDown;
             boost::asio::ip::tcp::socket _socket;
-            unsigned char _buffer[BUFFER_SIZE];
+            unsigned char _buffer[fys::network::BUFFER_SIZE];
         };
 
     }

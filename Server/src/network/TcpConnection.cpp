@@ -33,7 +33,7 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
 }
 
 void fys::network::TcpConnection::readOnSocket() {
-_socket.async_read_some(boost::asio::buffer(_buffer, BUFFER_SIZE),
+_socket.async_read_some(boost::asio::buffer(_buffer, fys::network::BUFFER_SIZE),
     boost::bind(&TcpConnection::handleRead, shared_from_this(),
                 boost::asio::placeholders::error,
                 boost::asio::placeholders::bytes_transferred));
