@@ -6,7 +6,7 @@
 
 #include <boost/test/unit_test.hpp>
 #include <boost/thread.hpp>
-#include "../../Server/test/FysBusTest.hh"
+#include "FysBusTest.hh"
 
 /**
  * ------------------------------------------------------

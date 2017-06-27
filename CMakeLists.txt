@@ -16,7 +16,7 @@ set(SOURCE_FILES_SRV Server/src/gateway/Gateway.cpp Server/include/gateway/Gatew
 set(SOURCE_FILES_UTILS)
 
 set(SOURCE_FILES_ALL ${SOURCE_FILES_MQ} ${SOURCE_FILES_MM} ${SOURCE_FILES_SRV} ${SOURCE_FILES_UTILS} Server/src/network/TcpConnection.cpp Server/include/network/TcpConnection.hh Server/src/game/FightBusListener.cpp Server/include/game/FightBusListener.hh)
-set(SOURCE_FILES Server/src/main.cpp ${SOURCE_FILES_ALL} Server/test/FysBusTest.hh)
+set(SOURCE_FILES Server/src/main.cpp ${SOURCE_FILES_ALL} FySMQ/test/FysBusTest.hh)
 set(SOURCE_FILES_TEST ${SOURCE_FILES_ALL} FySMQ/test/testUnit.cpp)
 
 ### Server ###
