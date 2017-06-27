@@ -27,6 +27,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/BabbleChannel.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/BabbleBusListener.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/Babble.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/test/FysBusTest.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/test/FysBusTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/bus/IBusListener.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/queue/LockingQueue.hh" isTestSource="false" />

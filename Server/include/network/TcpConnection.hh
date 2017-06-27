@@ -9,7 +9,9 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
-#include "Message.hh"
+#include <Message.hh>
+#include <Context.hh>
+#include <FysBus.hh>
 
 namespace fys {
     namespace network {
@@ -26,7 +28,7 @@ namespace fys {
             boost::asio::ip::tcp::socket& getSocket();
 
 
-            void readOnSocket();
+            void readOnSocket(fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus);
             void send(const fys::network::Message&);
 
         private:
@@ -35,7 +37,7 @@ namespace fys {
             void shuttingConnectionDown();
 
             void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
-            void handleRead(const boost::system::error_code &error, size_t bytesTransferred);
+            void handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus);
 
         private:
             bool _isShuttingDown;

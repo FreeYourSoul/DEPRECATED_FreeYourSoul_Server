@@ -6,11 +6,12 @@
 #define FREESOULS_FIGHTBUSLISTENER_HH
 
 #include <IBusListener.hh>
+#include <Gateway.hh>
 
 namespace fys {
     namespace gateway {
 
-        class FightBusListener : fys::mq::IBusListener {
+        class FightBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>> {
 
         public:
             ~FightBusListener();

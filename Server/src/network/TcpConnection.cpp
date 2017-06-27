@@ -4,6 +4,7 @@
 
 #include <boost/bind.hpp>
 #include <iostream>
+#include <Gateway.hh>
 #include "TcpConnection.hh"
 
 fys::network::TcpConnection::TcpConnection(boost::asio::io_service& io_service) : _isShuttingDown(false), _socket(io_service) {
@@ -22,21 +23,23 @@ void fys::network::TcpConnection::handleWrite(const boost::system::error_code &e
         shuttingConnectionDown();
 }
 
-void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred) {
-    if (!error && !_isShuttingDown) {
+void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus) {
+    if (!error && !_isShuttingDown && bytesTransferred > 1) {
         Message message(_buffer);
-        readOnSocket();
+        fysBus->pushInBus(message);
+        readOnSocket(fysBus);
     }
     else
         shuttingConnectionDown();
-
 }
 
-void fys::network::TcpConnection::readOnSocket() {
+void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus) {
+    std::fill(_buffer, _buffer + fys::network::BUFFER_SIZE, 0);
 _socket.async_read_some(boost::asio::buffer(_buffer, fys::network::BUFFER_SIZE),
     boost::bind(&TcpConnection::handleRead, shared_from_this(),
                 boost::asio::placeholders::error,
-                boost::asio::placeholders::bytes_transferred));
+                boost::asio::placeholders::bytes_transferred,
+                fysBus));
 }
 
 void fys::network::TcpConnection::shuttingConnectionDown() {

@@ -5,17 +5,34 @@
 #include <iostream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include <tclap/ValueArg.h>
+#include <tclap/CmdLine.h>
 #include "Context.hh"
 
 fys::gateway::Context::~Context() {}
-fys::gateway::Context::Context() {}
 
-fys::gateway::Context::Context(const std::string &iniPath) {
+fys::gateway::Context::Context(const int ac, const char *const *av) {
     try {
-        this->initializeFromIni(iniPath);
+        TCLAP::CmdLine cli("Gateway of Fys Server Game", ' ', "1.0");
+        TCLAP::ValueArg<std::string> configPath("c", "config", "Path of config file", true, "/home/FyS/ClionProjects/FreeYourSoul_Server/Server/resource/gateway.ini", "string");
+        TCLAP::ValueArg<std::size_t> changePort("p", "port", "Listening Port", false, 0, "integer");
+        TCLAP::ValueArg<std::size_t> changeThread("t", "thread", "Thread Numbers for listening", false, 0, "integer");
+        TCLAP::ValueArg<bool> verbose("v", "verbose", "Print logs on standard output", false, false, "boolean");
+
+        cli.add(configPath);
+        cli.add(changePort);
+        cli.add(changeThread);
+        cli.add(verbose);
+        cli.parse(ac, av);
+        this->initializeFromIni(configPath.getValue());
+        if (changePort.getValue() > 0)
+            setPort(changePort.getValue());
+        if (changeThread.getValue() > 0)
+            setAsioThread(changeThread.getValue());
+        setVerbose(verbose.getValue());
     }
     catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
+        std::cerr << "Context not initialized " << e.what() << std::endl;
     }
 }
 
@@ -24,19 +41,12 @@ void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     boost::property_tree::ptree pt;
     boost::property_tree::read_ini(iniPath, pt);
 
+    std::cout << "Context Initialization..." << std::endl;
     setPort(pt.get<std::size_t>(GTW_INI_PORT));
     setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));
     setBusIniFilePath(pt.get<std::string>(GTW_INI_BUS_PATH));
     setQueuesSize(pt.get<std::size_t>(GTW_QUEUES_SIZE));
-    std::cout << "Context Initialization -> " << this << std::endl;
 }
-
-std::ostream &fys::gateway::Context::operator<<(std::ostream &os) {
-    os << "_port: " << _port << " _asioThread: " << _asioThread << " _busIniFilePath: "
-       << _busIniFilePath;
-    return os;
-}
-
 
 std::size_t fys::gateway::Context::getPort() const {
     return _port;
@@ -68,4 +78,18 @@ std::size_t fys::gateway::Context::getQueuesSize() const {
 
 void fys::gateway::Context::setQueuesSize(std::size_t _queuesSize) {
     Context::_queuesSize = _queuesSize;
+}
+
+std::ostream &fys::gateway::operator<<(std::ostream &os, const fys::gateway::Context &context) {
+    os << "Current Context -> _port: " << context._port << " _asioThread: " << context._asioThread << " _busIniFilePath: "
+       << context._busIniFilePath << " _queuesSize: " << context._queuesSize;
+    return os;
+}
+
+bool fys::gateway::Context::isVerbose() const {
+    return _verbose;
+}
+
+void fys::gateway::Context::setVerbose(bool _verbose) {
+    Context::_verbose = _verbose;
 }

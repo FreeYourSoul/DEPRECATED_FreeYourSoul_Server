@@ -8,14 +8,14 @@
 
 fys::gateway::BabbleBusListener::~BabbleBusListener() {}
 
-fys::gateway::BabbleBusListener::BabbleBusListener(fys::mq::FysBus *fysBus) : _fysBus(fysBus) {
+fys::gateway::BabbleBusListener::BabbleBusListener() {
     this->setBusRoutingKey(2);
 }
 
-void fys::gateway::BabbleBusListener::listen() {
+void fys::gateway::BabbleBusListener::listen(fys::mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus) {
     bool infinite = true;
     while (infinite) {
-        fys::mq::QueueContainer<network::Message> *msg =_fysBus->popFromBus(_indexInBus);
+        fys::mq::QueueContainer<network::Message> *msg =fysBus->popFromBus(_indexInBus);
         switch (msg->getRoutingKey()) {
             case FYSP_BABBLE_SEND:
                 _babble.sendMessage(msg->getContained());

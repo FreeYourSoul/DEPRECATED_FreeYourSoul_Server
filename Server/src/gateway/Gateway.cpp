@@ -6,10 +6,14 @@
 
 fys::gateway::Gateway::~Gateway() { }
 
-fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios) : _ios(ios), _acceptor(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getPort())) { }
+fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus) :
+        _ios(ios),
+        _acceptor(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getPort())),
+        _fysBus(fysBus)
+{}
 
 void fys::gateway::Gateway::handlePlayerConnection(fys::network::TcpConnection::pointer &newSession) {
-    newSession->readOnSocket();
+    newSession->readOnSocket(_fysBus);
     _gamerConnections.addPendingConnection(newSession);
     runPlayerAccept();
 }

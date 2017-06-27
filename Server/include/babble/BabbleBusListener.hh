@@ -19,17 +19,17 @@ namespace fys {
         const u_int FYSP_BABBLE_WHISPER = 403;
         const u_int FYSP_BABBLE_LOGOUT  = 404;
 
-        class BabbleBusListener : fys::mq::IBusListener {
+        class BabbleBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>> {
 
         public:
             ~BabbleBusListener();
-            BabbleBusListener(mq::FysBus *);
+            BabbleBusListener();
 
-            void listen();
+            void listen(mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus);
             void setBusRoutingKey(const u_int);
 
         private:
-            mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE> *_fysBus;
+
             Babble _babble;
             u_int _indexInBus;
 

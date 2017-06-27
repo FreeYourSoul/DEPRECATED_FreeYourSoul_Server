@@ -7,11 +7,13 @@
 
 #include <sys/types.h>
 #include <IBusListener.hh>
+#include <Message.hh>
+#include <Gateway.hh>
 
 namespace fys {
     namespace gateway {
 
-        class AuthBusListener : fys::mq::IBusListener {
+        class AuthBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>> {
 
         public:
             ~AuthBusListener();
