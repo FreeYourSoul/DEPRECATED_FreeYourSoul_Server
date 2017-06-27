@@ -19,7 +19,7 @@ namespace fys {
 
         public:
             ~LockFreeQueue() {}
-            LockFreeQueue() : _tail(0), _maxReadTail(0), _head(0), _isLocked(true) {}
+            LockFreeQueue() : _tail(0), _maxReadTail(0), _head(0), _isLocked(true), _isLockingWhenEmpty(true){}
             LockFreeQueue(const LockFreeQueue& other) {
                 this->_tail = 0;
                 this->_head = 0;
@@ -53,11 +53,17 @@ namespace fys {
             }
 
             void lockCondVar() {
-                std::unique_lock<std::mutex> lck(_mutex);
-                _isLocked = true;
-                _cv.wait(lck, [&]{return !_isLocked;});
+                if (_isLockingWhenEmpty) {
+                    std::unique_lock<std::mutex> lck(_mutex);
+                    _isLocked = true;
+                    _cv.wait(lck, [&]{return !_isLocked;});
+                }
             }
 
+
+            void setLockingWhenEmpty(const bool _isLockingWhenEmpty) {
+                LockFreeQueue::_isLockingWhenEmpty = _isLockingWhenEmpty;
+            }
 
         private:
             inline u_int getIndex(const u_int index) const {
@@ -69,6 +75,7 @@ namespace fys {
             std::atomic_uint _maxReadTail;
             u_int            _head;
             bool             _isLocked;
+            bool             _isLockingWhenEmpty;
 
             std::mutex _mutex;
             std::condition_variable _cv;

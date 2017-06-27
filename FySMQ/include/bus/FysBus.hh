@@ -10,8 +10,8 @@
 #include <map>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
-#include "LockFreeQueue.hh"
-#include "QueueContainer.hh"
+#include <LockFreeQueue.hh>
+#include <QueueContainer.hh>
 
 #define INIT_BUS_NB_QUEUE "bus.number_queue"
 #define INIT_BUS_NAME "bus.name"
@@ -33,13 +33,14 @@ namespace fys {
                     this->initializeBusFromIni(iniPath);
                 }
                 catch (std::exception &e) {
-                    std::cout << e.what() << std::endl;
+                    std::cout << "FysBus Exception at initialization : " << e.what() << std::endl;
                 }
             }
 
             void pushInBus(QueueContainer<T> message) {
                 int routingKey = message.getRoutingKey();
 
+                std::cout << "push message in bus : " << message << std::endl;
                 for (u_int i = 0; i < _queueRoutes.size(); ++i) {
                     if (routingKey >= _queueRoutes.at(i).first.first && routingKey <= _queueRoutes.at(i).first.second) {
                         _queues.at(_queueRoutes.at(i).second).push(message);
@@ -48,11 +49,10 @@ namespace fys {
                 }
             }
 
-            const QueueContainer<T> *popFromBus(const int routingKey) {
-                for (u_int i = 0; i < _queueRoutes.size(); ++i) {
-                    if (routingKey >= _queueRoutes.at(i).first.first && routingKey <= _queueRoutes.at(i).first.second)
-                        return _queues.at(_queueRoutes.at(i).second).pop();
-                }
+            QueueContainer<T> *popFromBus(const int indexQueueInBus) {
+                if (indexQueueInBus < _queueRoutes.size() && indexQueueInBus < _queues.size())
+                    return _queues.at(indexQueueInBus).pop();
+
                 return NULL;
             }
 
@@ -66,7 +66,6 @@ namespace fys {
                 std::cout << "Number of Queue in BUS :  " << pt.get<std::string>(INIT_BUS_NAME) << " -> "<<queueNumbers << std::endl;
                 for (int i = 0; i < queueNumbers; ++i)
                     addQueueInBus(pt, i);
-                validateBusConfiguration(queueNumbers);
             }
 
             void addQueueInBus(const boost::property_tree::ptree &pt, const int index) {
@@ -82,24 +81,11 @@ namespace fys {
                 _queues.push_back(queueToAdd);
             }
 
-            void validateBusConfiguration(const int queueNumbers) {
-                BOOST_ASSERT(queueNumbers == _queueRoutes.size());
-                BOOST_ASSERT(queueNumbers == _queues.size());
-                for (u_int i = 0; i < _queueRoutes.size(); ++i) {
-                    std::pair<int, int> minMaxToCompare = _queueRoutes.at(i).first;
-                    BOOST_ASSERT(minMaxToCompare.first < minMaxToCompare.second);
-                    for (u_int j = (i + 1); j < _queueRoutes.size(); ++j) {
-                        std::pair<int, int> minMax = _queueRoutes.at(j).first;
-                        BOOST_ASSERT((minMaxToCompare.first < minMax.first) &&
-                                     (minMaxToCompare.second < minMax.second) &&
-                                     (minMaxToCompare.second < minMax.first));
-                    }
-                }
-            }
 
-        private:
+        protected:
             /**
-             * list de pair
+             * pair list
+             *
              *  [pair>int:int] : min:max
              *  [     int    ] : index in the _queues
              */
