@@ -19,7 +19,7 @@ namespace fys {
 
         public:
             ~Gateway();
-            Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus);
+            Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus);
 
             void runPlayerAccept();
 
@@ -29,7 +29,7 @@ namespace fys {
         private:
             boost::asio::io_service &_ios;
             boost::asio::ip::tcp::acceptor _acceptor;
-            fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> *_fysBus;
+            fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr _fysBus;
 
             network::SessionManager _gamerConnections;
             network::SessionManager _serverConnections;

@@ -27,6 +27,8 @@ namespace fys {
         class FysBus {
 
         public:
+            typedef boost::shared_ptr<FysBus<T, SIZE_QUEUES> > ptr;
+
             ~FysBus() {}
             FysBus(const std::string& iniPath) {
                 try {

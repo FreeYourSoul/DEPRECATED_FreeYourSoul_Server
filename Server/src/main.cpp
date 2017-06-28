@@ -10,8 +10,9 @@ int main(int argc, const char * const *argv)
         boost::asio::io_service ios;
         boost::asio::io_service::work work(ios);
         fys::gateway::Context ctx(argc, argv);
-        fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE> fysBus(ctx.getBusIniFilePath());
-        fys::gateway::Gateway gtw(ctx, ios, &fysBus);
+        fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr fysBus(
+                new fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>(ctx.getBusIniFilePath()));
+        fys::gateway::Gateway gtw(ctx, ios, fysBus);
 
         std::cout << ctx << std::endl;
         gtw.runPlayerAccept();
