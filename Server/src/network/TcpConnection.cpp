@@ -5,6 +5,7 @@
 #include <boost/bind.hpp>
 #include <iostream>
 #include <Gateway.hh>
+#include <bitset>
 #include "TcpConnection.hh"
 
 fys::network::TcpConnection::TcpConnection(boost::asio::io_service& io_service) : _isShuttingDown(false), _socket(io_service) {
@@ -24,11 +25,14 @@ void fys::network::TcpConnection::handleWrite(const boost::system::error_code &e
 }
 
 void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus) {
-    if (!error && !_isShuttingDown && bytesTransferred > 1) {
+    if (!error && !_isShuttingDown) {
+        mq::QueueContainer<Message> containerMsg;
         Message message(_buffer);
-        std::cout << "Raw Message to write on bus :" << _buffer << std::endl;
-        fysBus->pushInBus(message);
+
         readOnSocket(fysBus);
+        containerMsg.setOpCodeMsg(message.getOpCode());
+        std::cout << "Raw Message to write on bus :" << message.getRawMessage()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << std::endl;
+        fysBus->pushInBus(containerMsg);
     }
     else
         shuttingConnectionDown();

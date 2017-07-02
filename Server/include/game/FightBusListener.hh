@@ -11,7 +11,7 @@
 namespace fys {
     namespace gateway {
 
-        class FightBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>> {
+        class FightBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr> {
 
         public:
             ~FightBusListener();

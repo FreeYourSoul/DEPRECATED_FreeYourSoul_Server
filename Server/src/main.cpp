@@ -3,6 +3,8 @@
 #include <boost/thread.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <Gateway.hh>
+#include <Babble.hh>
+#include <BabbleBusListener.hh>
 
 int main(int argc, const char * const *argv)
 {
@@ -14,6 +16,9 @@ int main(int argc, const char * const *argv)
                 new fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>(ctx.getBusIniFilePath()));
         fys::gateway::Gateway gtw(ctx, ios, fysBus);
 
+        //Listeners
+        fys::gateway::BabbleBusListener babbleListener(gtw.getGamerConnectionsPointer());
+        babbleListener.launchListenThread(fysBus);
         std::cout << ctx << std::endl;
         gtw.runPlayerAccept();
         ios.run();

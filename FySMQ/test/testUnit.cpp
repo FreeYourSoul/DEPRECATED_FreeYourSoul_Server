@@ -55,8 +55,9 @@ void readLockFreeQueue() {
 
         container = lockFreeQueue->pop();
         usleep(100);
-        if (container != NULL)
+        if (container != NULL) {
             ++readValues;
+        }
     }
 }
 
@@ -79,6 +80,9 @@ BOOST_AUTO_TEST_CASE( test_queue_exec ) {
     fys::mq::QueueContainer<std::string> c3("C");
 
     std::cout << "begin test exec" << std::endl;
+    c1.setOpCodeMsg(42);
+    c2.setOpCodeMsg(43);
+    c3.setOpCodeMsg(44);
     initTestExecution();
     boost::thread workerRead(readLockFreeQueue);
     boost::thread w1(boost::bind(addinlockfreequeue, c1));

@@ -19,27 +19,22 @@ namespace fys {
 
         public:
             ~LockFreeQueue() {}
-            LockFreeQueue() : _tail(0), _maxReadTail(0), _head(0), _isLocked(true), _isLockingWhenEmpty(true){}
-            LockFreeQueue(const LockFreeQueue& other) {
-                this->_tail = 0;
-                this->_head = 0;
-                this->_maxReadTail = 0;
-                this->_isLocked = true;
-            }
+            LockFreeQueue() : _tail(0), _maxReadTail(0), _head(0), _isLocked(true), _isLockingWhenEmpty(true) {}
 
             TypeContainer *pop() {
                 u_int currentReadTail = getIndex(_maxReadTail.load(std::memory_order_relaxed));
                 u_int currentHead = getIndex(_head);
 
-                if (currentHead < currentReadTail)
+                if (currentHead < currentReadTail) {
                     return &_queue[_head++];
+                }
                 lockCondVar();
                 return NULL;
             }
 
             void push(const TypeContainer &elem) {
                 u_int currentTail = _tail.fetch_add(1, std::memory_order_relaxed);
-                u_int indexNewElem = getIndex(currentTail + 1);
+                u_int indexNewElem = getIndex(currentTail);
                 u_int tstValue;
 
                 _queue[indexNewElem] = elem;
@@ -60,9 +55,12 @@ namespace fys {
                 }
             }
 
-
             void setLockingWhenEmpty(const bool _isLockingWhenEmpty) {
                 LockFreeQueue::_isLockingWhenEmpty = _isLockingWhenEmpty;
+            }
+
+            bool isLockingWhenEmpty() const {
+                return _isLockingWhenEmpty;
             }
 
         private:

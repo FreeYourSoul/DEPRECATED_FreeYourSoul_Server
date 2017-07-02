@@ -40,22 +40,28 @@ namespace fys {
             }
 
             void pushInBus(QueueContainer<T> message) {
-                int routingKey = message.getRoutingKey();
+                int opCodeMsg = message.getOpCodeMsg();
 
-                std::cout << "push message in bus : " << message << std::endl;
-                for (u_int i = 0; i < _queueRoutes.size(); ++i) {
-                    if (routingKey >= _queueRoutes.at(i).first.first && routingKey <= _queueRoutes.at(i).first.second) {
-                        _queues.at(_queueRoutes.at(i).second).push(message);
+                for (u_int8_t i = 0; i < _queueRoutes.size(); ++i) {
+                    if (opCodeMsg >= _queueRoutes.at(i).first.first && opCodeMsg <= _queueRoutes.at(i).first.second) {
+                        _queues.at(_queueRoutes.at(i).second)->push(message);
                         return;
                     }
                 }
             }
 
             QueueContainer<T> *popFromBus(const int indexQueueInBus) {
-                if (indexQueueInBus < _queueRoutes.size() && indexQueueInBus < _queues.size())
-                    return _queues.at(indexQueueInBus).pop();
-
+                if (indexQueueInBus < _queueRoutes.size() && indexQueueInBus < _queues.size()) {
+                    return _queues.at(indexQueueInBus)->pop();
+                }
                 return NULL;
+            }
+
+            u_int8_t getRoutingKeyFromOpCode(const unsigned short opCode) const {
+                for (int i = 0; i < _queueRoutes.size(); ++i)
+                    if (opCode >= _queueRoutes.at(i).first.first && opCode < _queueRoutes.at(i).first.second)
+                        return _queueRoutes.at(i).second;
+                return _queueRoutes.size() + 1;
             }
 
         private:
@@ -65,7 +71,6 @@ namespace fys {
                 int queueNumbers;
 
                 queueNumbers = pt.get<int>(INIT_BUS_NB_QUEUE);
-                std::cout << "Number of Queue in BUS :  " << pt.get<std::string>(INIT_BUS_NAME) << " -> "<<queueNumbers << std::endl;
                 for (int i = 0; i < queueNumbers; ++i)
                     addQueueInBus(pt, i);
             }
@@ -76,9 +81,9 @@ namespace fys {
                 int maxParam = pt.get<int>(QUEUE_MAX(i));
                 std::pair<int, int> queuePair(minParam, maxParam);
                 std::pair<std::pair<int, int>, int> queuePairId(queuePair, index);
-                LockFreeQueue<QueueContainer<T>, SIZE_QUEUES> queueToAdd;
+                LockFreeQueue<QueueContainer<T>, SIZE_QUEUES> *queueToAdd = new LockFreeQueue<QueueContainer<T>, SIZE_QUEUES>();
 
-                std::cout << "Queue " << i << ": " << pt.get<std::string>(QUEUE_NAME(i)) << " - MIN id: " << minParam << " - MAX id: " << maxParam << std::endl;
+                std::cout << "Queue " << i << ":" << pt.get<std::string>(QUEUE_NAME(i)) << " - MIN id: " << minParam << " - MAX id: " << maxParam << " - isLockingWhenEmpty: " << queueToAdd->isLockingWhenEmpty() << std::endl;
                 _queueRoutes.push_back(queuePairId);
                 _queues.push_back(queueToAdd);
             }
@@ -91,8 +96,8 @@ namespace fys {
              *  [pair>int:int] : min:max
              *  [     int    ] : index in the _queues
              */
-            std::vector<std::pair<std::pair<int, int>, u_int> > _queueRoutes;
-            std::vector<LockFreeQueue<QueueContainer<T>, SIZE_QUEUES> > _queues;
+            std::vector<std::pair<std::pair<int, int>, int> > _queueRoutes;
+            std::vector<LockFreeQueue<QueueContainer<T>, SIZE_QUEUES> *> _queues;
         };
 
     }

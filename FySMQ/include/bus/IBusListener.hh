@@ -15,7 +15,7 @@ namespace fys {
         template <typename  BusType>
         class IBusListener {
         public:
-            virtual void listen(BusType *fysBus) = 0;
+            virtual void listen(BusType &fysBus) = 0;
             virtual void setBusRoutingKey(const u_int) = 0;
         };
 

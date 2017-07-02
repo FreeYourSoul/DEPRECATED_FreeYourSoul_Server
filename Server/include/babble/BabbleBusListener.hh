@@ -14,22 +14,23 @@
 namespace fys {
     namespace gateway {
 
-        const u_int FYSP_BABBLE_LOGIN   = 401;
-        const u_int FYSP_BABBLE_SEND    = 402;
-        const u_int FYSP_BABBLE_WHISPER = 403;
-        const u_int FYSP_BABBLE_LOGOUT  = 404;
+        const u_int FYSP_BABBLE_LOGIN   = 201;
+        const u_int FYSP_BABBLE_SEND    = 202;
+        const u_int FYSP_BABBLE_WHISPER = 203;
+        const u_int FYSP_BABBLE_LOGOUT  = 204;
 
-        class BabbleBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>> {
+        class BabbleBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr> {
 
         public:
             ~BabbleBusListener();
-            BabbleBusListener();
+            BabbleBusListener(const network::SessionManager *playerSessions);
 
-            void listen(mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE> *fysBus);
+            void listen(mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus);
             void setBusRoutingKey(const u_int);
 
-        private:
+            void launchListenThread(mq::FysBus<network::Message, 1024>::ptr shared_ptr);
 
+        private:
             Babble _babble;
             u_int _indexInBus;
 

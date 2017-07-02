@@ -13,7 +13,7 @@
 namespace fys {
     namespace gateway {
 
-        class AuthBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>> {
+        class AuthBusListener : fys::mq::IBusListener<mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr> {
 
         public:
             ~AuthBusListener();

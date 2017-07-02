@@ -2,7 +2,9 @@
 // Created by FyS on 23/05/17.
 //
 
-#include "../../include/gateway/Gateway.hh"
+#include <Babble.hh>
+#include <thread>
+#include <BabbleBusListener.hh>
 
 fys::gateway::Gateway::~Gateway() { }
 
@@ -24,3 +26,6 @@ void fys::gateway::Gateway::runPlayerAccept() {
     _acceptor.async_accept(session->getSocket(), boost::bind(&Gateway::handlePlayerConnection, this, session));
 }
 
+const fys::network::SessionManager *fys::gateway::Gateway::getGamerConnectionsPointer() const {
+    return &_gamerConnections;
+}

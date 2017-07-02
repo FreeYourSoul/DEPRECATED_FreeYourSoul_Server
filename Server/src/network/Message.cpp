@@ -4,20 +4,23 @@
 
 #include <boost/array.hpp>
 #include <cstring>
+#include <iostream>
+#include <bitset>
 #include "../../include/network/Message.hh"
 
 fys::network::Message::~Message() {}
-
 fys::network::Message::Message() {
 }
 
 fys::network::Message::Message(unsigned char rawMessage[]) {
+    std::copy(rawMessage, rawMessage + fys::network::BUFFER_SIZE, _rawMessage);
     loadOpCode();
 }
 
 void fys::network::Message::loadOpCode() {
     BitConvert btc;
 
+    std::cout << " -> " << _rawMessage[1] << std::endl;
     for (int i = 0; i < 2; ++i)
         btc.byte[i] = _rawMessage[i];
     _opCode = btc.tBytes[0];

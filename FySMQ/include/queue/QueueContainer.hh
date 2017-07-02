@@ -20,21 +20,21 @@ namespace fys {
         class QueueContainer {
         public:
             ~QueueContainer() {}
-            QueueContainer() : _routingKey(0) {}
+            QueueContainer() : _opCodeMsg(0) {}
 
-            QueueContainer(const Type &container) : _routingKey(0), _contained(container) {}
+            QueueContainer(const Type &container) : _opCodeMsg(0), _contained(container) {}
 
             friend std::ostream &operator<<(std::ostream &os, const QueueContainer &container) {
-                os << "_routingKey: " << container._routingKey << " _tokenUser: " << container._tokenUser << std::endl;
+                os << "_opCodeMsg: " << container._opCodeMsg << " _tokenUser: " << container._tokenUser << std::endl;
                 return os;
             }
 
-            void setRoutingKey(const u_int8_t routingKey) {
-                this->_routingKey = routingKey;
+            void setOpCodeMsg(const unsigned short opCodeMsg) {
+                this->_opCodeMsg = opCodeMsg;
             }
 
-            const u_int8_t getRoutingKey() const {
-                return _routingKey;
+            unsigned short getOpCodeMsg() const {
+                return _opCodeMsg;
             }
 
             const Type getContained() const {
@@ -45,15 +45,15 @@ namespace fys {
                 return _tokenUser;
             }
 
-            void set_tokenUser(const std::string &_tokenUser) {
+            void setTokenUser(const std::string &_tokenUser) {
                 QueueContainer::_tokenUser = _tokenUser;
             }
 
         private:
             /**
-             * Routing key for the {@class fys::mq::Bus}
+             * OpCode of the message for the {@class fys::mq::Bus} to redirect it to the correct queue
              */
-            u_int8_t   _routingKey;
+            unsigned short _opCodeMsg;
 
             /**
              * Token, used to route the message to the client to reply to
@@ -64,7 +64,7 @@ namespace fys {
             /**
              * Payload data to transfer via the queue
              */
-            Type       _contained;
+            Type _contained;
         };
 
     }

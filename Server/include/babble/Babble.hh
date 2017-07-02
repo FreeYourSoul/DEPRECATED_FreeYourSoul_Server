@@ -8,6 +8,7 @@
 #include <map>
 #include <string>
 #include <Message.hh>
+#include <SessionManager.hh>
 #include "BabbleChannel.hh"
 
 namespace fys {
@@ -17,7 +18,7 @@ namespace fys {
 
         public:
             ~Babble();
-            Babble();
+            Babble(const network::SessionManager *playerSessions);
 
             void signInOnBabble(const std::string &tokenSignIn);
             void signOutFromBabble(const std::string &tokenSignOut);
@@ -25,6 +26,7 @@ namespace fys {
             void whisperMessage(const network::Message message) const;
 
         private:
+            const network::SessionManager *_playerSessions;
             std::map<std::string, BabbleChannel> _channels;
 
 
