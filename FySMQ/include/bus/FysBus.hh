@@ -29,7 +29,17 @@ namespace fys {
         public:
             typedef boost::shared_ptr<FysBus<T, SIZE_QUEUES> > ptr;
 
-            ~FysBus() {}
+            ~FysBus() { // TODO delete correctly the _queues
+//                int toDelete = -1;
+//
+//                for (int i = 0; i < _queues.size(); ++i) {
+//                    if (toDelete == -1) {
+//                        delete(_queues.at(toDelete));
+//                        _queues.erase(toDelete);
+//                    }
+//                    toDelete = i;
+//                }
+            }
             FysBus(const std::string& iniPath) {
                 try {
                     this->initializeBusFromIni(iniPath);

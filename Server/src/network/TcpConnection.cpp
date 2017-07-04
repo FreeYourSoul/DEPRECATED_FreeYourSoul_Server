@@ -30,6 +30,7 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
         Message message(_buffer);
 
         readOnSocket(fysBus);
+        containerMsg.setContained(message);
         containerMsg.setOpCodeMsg(message.getOpCode());
         std::cout << "Raw Message to write on bus :" << message.getRawMessage()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << std::endl;
         fysBus->pushInBus(containerMsg);

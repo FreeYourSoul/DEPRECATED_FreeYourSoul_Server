@@ -36,7 +36,6 @@ unsigned int fys::network::Message::byteToInt(unsigned int index) {
 
 unsigned char *fys::network::Message::intToChar(unsigned int toConvert, unsigned char ret[]) {
     BitConvert bti;
-//    unsigned char *ret = new unsigned char[4];
 
     bti.integer = toConvert;
     std::memcpy(ret, bti.byte, 4);

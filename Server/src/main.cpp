@@ -6,6 +6,10 @@
 #include <Babble.hh>
 #include <BabbleBusListener.hh>
 
+void ok(int okok) {
+    std::cout << "okok " << okok << std::endl;
+}
+
 int main(int argc, const char * const *argv)
 {
     try {

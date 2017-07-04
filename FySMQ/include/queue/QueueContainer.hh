@@ -49,6 +49,10 @@ namespace fys {
                 QueueContainer::_tokenUser = _tokenUser;
             }
 
+            void setContained(const Type &contained) {
+                this->_contained = contained;
+            }
+
         private:
             /**
              * OpCode of the message for the {@class fys::mq::Bus} to redirect it to the correct queue

@@ -8,7 +8,6 @@
 #include <boost/dynamic_bitset.hpp>
 #include <zconf.h>
 
-
 namespace fys {
     namespace network {
 
