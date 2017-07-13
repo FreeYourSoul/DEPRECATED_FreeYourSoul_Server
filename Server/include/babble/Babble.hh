@@ -27,8 +27,8 @@ namespace fys {
             ~Babble();
             Babble(const network::SessionManager *playerSessions);
 
-            void signInOnBabble(const std::string &tokenSignIn);
-            void signOutFromBabble(const std::string &tokenSignOut, const std::string &channel);
+            void signInOnBabble(const fys::network::BabbleMessage &babbleMessage);
+            void signOutFromBabble(const fys::network::BabbleMessage &babbleMessage);
             void sendMessage(const fys::network::BabbleMessage &babbleMessage);
             void whisperMessage(const fys::network::BabbleMessage &babbleMessage);
 

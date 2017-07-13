@@ -16,7 +16,7 @@ namespace fys {
         /**
          * Container for a type for the LockFreeQueue @class fys::mq::LockFreeQueue
          */
-        template <typename Type>
+        template <class Type>
         class QueueContainer {
         public:
             ~QueueContainer() {}

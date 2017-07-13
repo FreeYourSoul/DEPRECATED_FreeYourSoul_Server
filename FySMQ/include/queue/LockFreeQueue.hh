@@ -14,7 +14,7 @@
 namespace fys {
     namespace mq {
 
-        template <typename TypeContainer, int SizeLFQ>
+        template <class TypeContainer, int SizeLFQ>
         class LockFreeQueue {
 
         public:

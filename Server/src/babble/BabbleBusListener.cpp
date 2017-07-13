@@ -14,16 +14,17 @@ fys::gateway::BabbleBusListener::BabbleBusListener(const network::SessionManager
     this->setBusRoutingKey(2);
 }
 
-void fys::gateway::BabbleBusListener::launchListenThread(fys::mq::FysBus<fys::network::Message, 1024>::ptr fysBus) {
+void fys::gateway::BabbleBusListener::launchListenThread(fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE
+>::ptr fysBus) {
     boost::thread babbleListenerThread(boost::bind(&BabbleBusListener::listen, this, fysBus));
     babbleListenerThread.detach();
 }
 
 void fys::gateway::BabbleBusListener::listen(fys::mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus) {
-    bool infinite = true;
     std::cout << "Babble listener launched : " << _indexInBus << std::endl;
-    while (infinite) {
+    while (true) {
         fys::mq::QueueContainer<network::Message> *msgContainer = fysBus->popFromBus(_indexInBus);
+
         if (msgContainer != NULL) {
             fys::network::BabbleMessage babbleMessage;
             fys::gateway::Babble::funcPtr func;

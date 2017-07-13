@@ -11,7 +11,7 @@
 namespace fys {
     namespace network {
 
-        const u_int BUFFER_SIZE = 100;
+        static const u_int BUFFER_SIZE = 100;
 
         union BitConvert {
             unsigned int integer;
@@ -28,15 +28,16 @@ namespace fys {
             const unsigned char *getRawMessage() const;
             unsigned short getOpCode() const;
 
+            std::string &byteToString(std::string &toFill, const unsigned int size, const unsigned int index) const;
+            unsigned int byteToInt(unsigned int index) const;
+
         private:
             void loadOpCode();
-
-            unsigned int byteToInt(unsigned int index);
-            unsigned char *intToChar(unsigned int toConvert, unsigned char ret[]);
 
         private:
             unsigned char _rawMessage[BUFFER_SIZE];
             unsigned short _opCode;
+
         };
 
     }

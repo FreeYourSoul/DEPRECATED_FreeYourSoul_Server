@@ -5,7 +5,6 @@
 #ifndef FREESOULS_BABBLEBUSLISTENER_HH
 #define FREESOULS_BABBLEBUSLISTENER_HH
 
-
 #include <IBusListener.hh>
 #include <FysBus.hh>
 #include <Gateway.hh>
@@ -20,10 +19,10 @@ namespace fys {
             ~BabbleBusListener();
             BabbleBusListener(const network::SessionManager *playerSessions);
 
-            void listen(mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus);
-            void setBusRoutingKey(const u_int);
+            void listen(mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus) override;
+            void setBusRoutingKey(const u_int) override;
 
-            void launchListenThread(mq::FysBus<network::Message, 1024>::ptr shared_ptr);
+            void launchListenThread(mq::FysBus<network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr shared_ptr);
 
         private:
             Babble _babble;

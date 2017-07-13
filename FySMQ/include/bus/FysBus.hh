@@ -23,7 +23,7 @@
 namespace fys {
     namespace mq {
 
-        template <typename T, int SIZE_QUEUES>
+        template <class T, int SIZE_QUEUES>
         class FysBus {
 
         public:

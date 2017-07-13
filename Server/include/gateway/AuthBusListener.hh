@@ -23,7 +23,7 @@ namespace fys {
             void setBusRoutingKey(const u_int);
 
         private:
-            u_int routingKey;
+            u_int _indexInBus;
 
         };
 

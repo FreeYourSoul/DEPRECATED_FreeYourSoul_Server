@@ -8,19 +8,39 @@ fys::network::BabbleMessage::~BabbleMessage() {}
 
 fys::network::BabbleMessage::BabbleMessage() {}
 
-fys::gateway::Babble::funcPtr fys::network::BabbleMessage::initialize(const Message& message) const {
-    return &fys::gateway::Babble::sendMessage;
+fys::gateway::Babble::funcPtr fys::network::BabbleMessage::initialize(const Message& message) {
+    fys::gateway::Babble::funcPtr returnPointerFunc = nullptr;
+
+    switch (message.getOpCode()) {
+        case BabbleOpCode::LOGIN:
+            initializeBabbleLogin(message.getRawMessage());
+            returnPointerFunc = &fys::gateway::Babble::signInOnBabble;
+            break;
+
+        case BabbleOpCode::SIGNOUT:
+            initializeBabbleLogout(message.getRawMessage());
+            returnPointerFunc = &fys::gateway::Babble::signOutFromBabble;
+            break;
+
+        default:
+            initializeBabbleMessage(message.getRawMessage());
+            returnPointerFunc = &fys::gateway::Babble::sendMessage;
+            break;
+    }
+    return returnPointerFunc;
 }
 
-void fys::network::BabbleMessage::initializeBabbleLogin() {
+bool fys::network::BabbleMessage::initializeBabbleLogin(const unsigned char *rawMessage) {
 
+    return true;
 }
 
-void fys::network::BabbleMessage::initializeBabbleLogout() {
-
+bool fys::network::BabbleMessage::initializeBabbleLogout(const unsigned char *rawMessage) {
+    return true;
 }
 
-void fys::network::BabbleMessage::initializeBabbleMessage() {
+bool fys::network::BabbleMessage::initializeBabbleMessage(const unsigned char *rawMessage) {
+    return true;
 }
 
 const std::string &fys::network::BabbleMessage::getAuthor() const {
@@ -28,11 +48,15 @@ const std::string &fys::network::BabbleMessage::getAuthor() const {
 }
 
 const std::string &fys::network::BabbleMessage::getMessage() const {
-    return _message;
+    return _content;
+}
+
+const std::string &fys::network::BabbleMessage::getPassword() const {
+    return _content;
 }
 
 const std::string &fys::network::BabbleMessage::getAddresse() const {
-    return _addresse;
+    return _addressee;
 }
 
 bool fys::network::BabbleMessage::isWhisper() const {

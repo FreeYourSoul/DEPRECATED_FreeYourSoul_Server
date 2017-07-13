@@ -12,7 +12,7 @@
 namespace fys {
     namespace mq {
 
-        template <typename  BusType>
+        template <class  BusType>
         class IBusListener {
         public:
             virtual void listen(BusType &fysBus) = 0;

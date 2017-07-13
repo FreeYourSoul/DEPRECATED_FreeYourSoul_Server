@@ -10,7 +10,9 @@ fys::gateway::Babble::Babble(const network::SessionManager *playerSessions) : _p
     _basicChannels.push_back("Default");
 }
 
-void fys::gateway::Babble::signInOnBabble(const std::string &tokenSignIn) {
+void fys::gateway::Babble::signInOnBabble(const fys::network::BabbleMessage &babbleMessage) {
+    std::string tokenSignIn = babbleMessage.getAuthor();
+
     std::cout << "User Login in Babble" << std::endl;
     if (!tokenSignIn.empty()) {
         std::list<std::string> &playerConnected = _mapPlayerChannels.at("Default");
@@ -20,7 +22,10 @@ void fys::gateway::Babble::signInOnBabble(const std::string &tokenSignIn) {
     }
 }
 
-void fys::gateway::Babble::signOutFromBabble(const std::string &tokenSignOut, const std::string &channel) {
+void fys::gateway::Babble::signOutFromBabble(const fys::network::BabbleMessage &babbleMessage) {
+    std::string tokenSignOut = babbleMessage.getAuthor();
+    std::string channel = babbleMessage.getAddresse();
+
     std::cout << "User signOutFromBabble in Babble" << std::endl;
     if (!tokenSignOut.empty()) {
         if (!channel.empty()) {

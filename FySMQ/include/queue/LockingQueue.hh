@@ -13,7 +13,7 @@
 namespace fys {
     namespace mq {
 
-        template <typename TypeContainer>
+        template <class TypeContainer>
         class LockingQueue {
 
         public:
