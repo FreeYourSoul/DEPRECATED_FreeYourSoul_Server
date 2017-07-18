@@ -12,10 +12,10 @@ namespace fys {
     namespace network {
 
         enum BabbleOpCode {
-            LOGIN = 301,
-            SEND = 302,
-            WHISPER = 303,
-            SIGNOUT = 304
+            LOGIN = 201,
+            SEND = 202,
+            WHISPER = 203,
+            SIGNOUT = 204
         };
 
         class BabbleMessage {
@@ -35,9 +35,9 @@ namespace fys {
             bool isLogin() const;
 
         private:
-            bool initializeBabbleLogin(const unsigned char *string);
-            bool initializeBabbleLogout(const unsigned char *string);
-            bool initializeBabbleMessage(const unsigned char *string);
+            bool initializeBabbleLogin(const Message &string);
+            bool initializeBabbleLogout(const Message &string);
+            bool initializeBabbleMessage(const Message &string);
 
         private:
             fys::gateway::Babble::funcPtr _func;

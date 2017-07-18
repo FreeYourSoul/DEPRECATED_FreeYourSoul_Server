@@ -5,6 +5,7 @@
 #include <Gateway.hh>
 #include <Babble.hh>
 #include <BabbleBusListener.hh>
+#include "../../Utils/src/CheckVars.hh"
 
 void ok(int okok) {
     std::cout << "okok " << okok << std::endl;

@@ -17,7 +17,7 @@ set(SOURCE_FILES_UTILS Utils/src/CheckVars.hh)
 
 set(SOURCE_FILES_ALL ${SOURCE_FILES_MQ} ${SOURCE_FILES_MM} ${SOURCE_FILES_SRV} ${SOURCE_FILES_UTILS})
 set(SOURCE_FILES Server/src/main.cpp ${SOURCE_FILES_ALL} FySMQ/test/FysBusTest.hh)
-set(SOURCE_FILES_TEST ${SOURCE_FILES_ALL} FySMQ/test/testUnit.cpp)
+set(SOURCE_FILES_TEST ${SOURCE_FILES_ALL} FySMQ/test/TestUnitMQ.cpp Utils/test/TestCheckVar.cpp)
 
 ### Server ###
 add_executable(FreeSouls ${SOURCE_FILES})

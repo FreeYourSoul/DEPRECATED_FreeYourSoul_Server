@@ -33,7 +33,7 @@ void fys::gateway::BabbleBusListener::listen(fys::mq::FysBus<network::Message, G
             if (func != nullptr)
                 (_babble.*func)(babbleMessage);
             else
-                ; // TODO Manage error
+            {}; // TODO Manage error
         }
     }
 }

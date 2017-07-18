@@ -25,10 +25,13 @@ void fys::network::Message::loadOpCode() {
     _opCode = btc.tBytes[0];
 }
 
-std::string &fys::network::Message::byteToString(std::string &toFill, const unsigned int size, const unsigned int index) const {
+std::string &fys::network::Message::byteToString(std::string &toFill, unsigned int index) const {
+    unsigned int size = byteToInt(index);
+
+    index += 4;
     toFill.clear();
-    if ((index + size) >= BUFFER_SIZE)
-        for (int i = 0; i < size; ++i)
+    if ((index + size) < BUFFER_SIZE)
+        for (unsigned int i = 0; i < size; ++i)
             toFill += _rawMessage[index + i];
     return toFill;
 }
@@ -36,7 +39,7 @@ std::string &fys::network::Message::byteToString(std::string &toFill, const unsi
 unsigned int fys::network::Message::byteToInt(const unsigned int index) const {
     BitConvert bti;
 
-    if ((index + 4) >= BUFFER_SIZE)
+    if ((index + 4) < BUFFER_SIZE)
         for (int i = 0; i < 4; ++i)
             bti.byte[i] = _rawMessage[index + i];
     return bti.integer;

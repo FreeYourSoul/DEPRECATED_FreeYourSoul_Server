@@ -28,7 +28,7 @@ namespace fys {
             const unsigned char *getRawMessage() const;
             unsigned short getOpCode() const;
 
-            std::string &byteToString(std::string &toFill, const unsigned int size, const unsigned int index) const;
+            std::string &byteToString(std::string &toFill, unsigned int index) const;
             unsigned int byteToInt(unsigned int index) const;
 
         private:

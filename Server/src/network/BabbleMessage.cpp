@@ -3,6 +3,7 @@
 //
 
 #include "BabbleMessage.hh"
+#include "../../../Utils/src/CheckVars.hh"
 
 fys::network::BabbleMessage::~BabbleMessage() {}
 
@@ -13,33 +14,38 @@ fys::gateway::Babble::funcPtr fys::network::BabbleMessage::initialize(const Mess
 
     switch (message.getOpCode()) {
         case BabbleOpCode::LOGIN:
-            initializeBabbleLogin(message.getRawMessage());
-            returnPointerFunc = &fys::gateway::Babble::signInOnBabble;
+            initializeBabbleLogin(message);
+            if (fys::utils::Var::check(_author))
+                returnPointerFunc = &fys::gateway::Babble::signInOnBabble;
             break;
 
         case BabbleOpCode::SIGNOUT:
-            initializeBabbleLogout(message.getRawMessage());
-            returnPointerFunc = &fys::gateway::Babble::signOutFromBabble;
+            initializeBabbleLogout(message);
+            if (fys::utils::Var::check(_author))
+                returnPointerFunc = &fys::gateway::Babble::signOutFromBabble;
             break;
 
         default:
-            initializeBabbleMessage(message.getRawMessage());
-            returnPointerFunc = &fys::gateway::Babble::sendMessage;
+            initializeBabbleMessage(message);
+            if (fys::utils::Var::check(_author, _addressee, _content))
+                returnPointerFunc = &fys::gateway::Babble::sendMessage;
             break;
     }
     return returnPointerFunc;
 }
 
-bool fys::network::BabbleMessage::initializeBabbleLogin(const unsigned char *rawMessage) {
-
+bool fys::network::BabbleMessage::initializeBabbleLogin(const Message &msg) {
+    msg.byteToString(_author, 2);
     return true;
 }
 
-bool fys::network::BabbleMessage::initializeBabbleLogout(const unsigned char *rawMessage) {
+bool fys::network::BabbleMessage::initializeBabbleLogout(const Message &msg) {
+    std::cout << "okok logout" << std::endl;
     return true;
 }
 
-bool fys::network::BabbleMessage::initializeBabbleMessage(const unsigned char *rawMessage) {
+bool fys::network::BabbleMessage::initializeBabbleMessage(const Message &msg) {
+    std::cout << "okok Message" << std::endl;
     return true;
 }
 

@@ -15,10 +15,10 @@ void fys::gateway::Babble::signInOnBabble(const fys::network::BabbleMessage &bab
 
     std::cout << "User Login in Babble" << std::endl;
     if (!tokenSignIn.empty()) {
-        std::list<std::string> &playerConnected = _mapPlayerChannels.at("Default");
-
-        if (!isPlayerConnectedTo(playerConnected, tokenSignIn))
-            playerConnected.push_back(tokenSignIn);
+//        std::list<std::string> &playerConnected = _mapPlayerChannels.at("Default");
+//
+//        if (!isPlayerConnectedTo(playerConnected, tokenSignIn))
+//            playerConnected.push_back(tokenSignIn);
     }
 }
 
