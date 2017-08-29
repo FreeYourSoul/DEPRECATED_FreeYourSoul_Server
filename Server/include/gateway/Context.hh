@@ -7,16 +7,17 @@
 
 #include <string>
 #include <ostream>
+#include "GameServerInstance.hh"
 
 #define GTW_INI_PORT "server.port"
 #define GTW_INI_ASIO_THREADS "server.asioThread"
 #define GTW_INI_BUS_PATH "bus.iniPath"
 #define GTW_QUEUES_SIZE "bus.queuesSize"
 
-#define  GATEWAY_BUS_QUEUES_SIZE 1024
-
 namespace fys {
     namespace gateway {
+
+        enum { BUS_QUEUES_SIZE = 1024 };
 
         class Context {
 
@@ -46,6 +47,8 @@ namespace fys {
             std::string _busIniFilePath;
             std::size_t _queuesSize;
             bool _verbose;
+
+            std::vector<gateway::GameServerInstance> _gameServers;
         };
 
     }

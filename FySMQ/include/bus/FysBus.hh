@@ -23,11 +23,26 @@
 namespace fys {
     namespace mq {
 
+        /**
+         * Fys Bus :
+         * A bus is initialized thanks to a configuration file which contain tag
+         * [bus] : which is used to configure the name of the bus (node "name")
+         *         which is used to configure the number N of queue in the bus (node "number_queue")
+         *
+         * [queue1]   : configure the queue 1's name and min max op code assigned to this queue
+         * [queue2]   : same as above for queue 2
+         * [queue...] : same as above for ...
+         * [queue N]  : same as above for queue N (last queue)
+         *
+         * Each queue has to have their configuration associated,
+         * If two queue are overlapping in terms of opcode, an error is thrown at the initialization
+         *
+         */
         template <class T, int SIZE_QUEUES>
         class FysBus {
 
         public:
-            typedef boost::shared_ptr<FysBus<T, SIZE_QUEUES> > ptr;
+            using ptr = boost::shared_ptr<FysBus<T, SIZE_QUEUES> >;
 
             ~FysBus() { // TODO delete correctly the _queues
 //                int toDelete = -1;
@@ -61,10 +76,10 @@ namespace fys {
             }
 
             QueueContainer<T> *popFromBus(const int indexQueueInBus) {
-                if (indexQueueInBus < _queueRoutes.size() && indexQueueInBus < _queues.size()) {
+                if (isIndexQueueLegitimate(indexQueueInBus)) {
                     return _queues.at(indexQueueInBus)->pop();
                 }
-                return NULL;
+                return nullptr;
             }
 
             u_int8_t getRoutingKeyFromOpCode(const unsigned short opCode) const {
@@ -72,6 +87,10 @@ namespace fys {
                     if (opCode >= _queueRoutes.at(i).first.first && opCode < _queueRoutes.at(i).first.second)
                         return _queueRoutes.at(i).second;
                 return _queueRoutes.size() + 1;
+            }
+
+            inline bool isIndexQueueLegitimate(const int indexQueueInBus) {
+                return indexQueueInBus < _queueRoutes.size() && indexQueueInBus < _queues.size();
             }
 
         private:

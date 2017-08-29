@@ -20,8 +20,11 @@ namespace fys {
             void addPendingConnection(TcpConnection::pointer &newConnection);
 
         private:
-            std::list<fys::network::TcpConnection::pointer> _connectionsPending;
-            std::map<std::string, fys::network::TcpConnection::pointer> _connectionsActive;
+            enum { CONNECTION_SIZE = 1000};
+
+            std::vector<fys::network::TcpConnection::pointer> _connectionsPending;
+            std::vector<std::string> _connectionsActiveToken;
+            std::vector<fys::network::TcpConnection::pointer> _connectionsActive;
 
         };
 

@@ -52,10 +52,8 @@ bool fys::gateway::Babble::isPlayerConnectedTo(std::list<std::string> &playerCon
 
 void fys::gateway::Babble::sendMessage(const fys::network::BabbleMessage &babbleMessage) {
     std::cout << "User sendMessage in Babble" << std::endl;
-
 }
 
 void fys::gateway::Babble::whisperMessage(const fys::network::BabbleMessage &babbleMessage) {
     std::cout << "User whisperMessage in Babble" << std::endl;
-
 }

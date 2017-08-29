@@ -11,18 +11,18 @@
 namespace fys {
     namespace network {
 
-        enum BabbleOpCode {
-            LOGIN = 201,
-            SEND = 202,
-            WHISPER = 203,
-            SIGNOUT = 204
-        };
-
         class BabbleMessage {
 
+            enum {
+                LOGIN = 201,
+                SEND = 202,
+                WHISPER = 203,
+                SIGNOUT = 204
+            };
+
         public:
-            ~BabbleMessage();
             BabbleMessage();
+            ~BabbleMessage();
 
             fys::gateway::Babble::funcPtr initialize(const Message& message);
 
@@ -31,8 +31,6 @@ namespace fys {
             const std::string &getPassword() const;
             const std::string &getAddresse() const;
             bool isWhisper() const;
-            bool isLogout() const;
-            bool isLogin() const;
 
         private:
             bool initializeBabbleLogin(const Message &string);

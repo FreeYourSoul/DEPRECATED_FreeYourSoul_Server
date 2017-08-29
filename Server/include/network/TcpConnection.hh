@@ -28,7 +28,7 @@ namespace fys {
             boost::asio::ip::tcp::socket& getSocket();
 
 
-            void readOnSocket(fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus);
+            void readOnSocket(fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
             void send(const fys::network::Message& msg);
 
         private:
@@ -38,7 +38,7 @@ namespace fys {
 
             void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
             void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
-                            fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &);
+                            fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &);
         private:
             bool _isShuttingDown;
             boost::asio::ip::tcp::socket _socket;

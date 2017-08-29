@@ -3,12 +3,11 @@
 //
 
 #include <Babble.hh>
-#include <thread>
-#include <BabbleBusListener.hh>
+#include <Gateway.hh>
 
 fys::gateway::Gateway::~Gateway() { }
 
-fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, GATEWAY_BUS_QUEUES_SIZE>::ptr &fysBus) :
+fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, BUS_QUEUES_SIZE>::ptr &fysBus) :
         _ios(ios),
         _acceptor(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getPort())),
         _fysBus(fysBus)

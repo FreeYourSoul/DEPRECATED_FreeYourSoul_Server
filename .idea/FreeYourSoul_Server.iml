@@ -5,34 +5,35 @@
       <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/BabbleBusListener.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/BabbleChannel.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/Babble.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/src/network/SessionManager.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/TcpConnection.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/Message.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/AuthMessage.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/src/network/AnswerForwarder.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/src/network/SessionManager.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/BabbleMessage.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/AuthBusListener.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/ForwardListener.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/GameServerInstance.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/Context.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/Gateway.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/AuthMessage.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/SessionManager.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/BabbleMessage.hh" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/network/AnswerForwarder.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/include/network/http/HttpAuthClient.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/src/network/http/HttpAuthClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/TcpConnection.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/Message.hh" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Gateway.hh" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/AuthBusListener.hh" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/ForwardListener.hh" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Context.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/BabbleChannel.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/BabbleBusListener.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/Babble.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Gateway.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/AuthBusListener.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Context.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/GameServerInstance.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Utils/src/CheckVars.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Utils/test/TestCheckVar.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/bus/IBusListener.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/bus/BusListener.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/queue/LockingQueue.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/queue/LockFreeQueue.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/queue/QueueContainer.hh" isTestSource="false" />

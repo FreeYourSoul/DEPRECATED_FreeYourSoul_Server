@@ -3,20 +3,20 @@ project(FreeSouls)
 
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lboost_timer -lboost_system -lboost_thread -Wall -Wpedantic -Wextra ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lboost_timer -lboost_system -lboost_thread -lcurl -Wall -Wpedantic -Wextra ")
 
 include_directories(FySMQ/include/queue FySMQ/include/bus FySMemoryManager/include Server/include/gateway Server/include/network Server/include/babble Server/include/game)
 
 set(SOURCE_FILES_MM)
 
-set(SOURCE_FILES_MQ FySMQ/include/queue/LockFreeQueue.hh FySMQ/include/queue/QueueContainer.hh FySMQ/include/queue/LockingQueue.hh FySMQ/include/bus/IBusListener.hh)
+set(SOURCE_FILES_MQ FySMQ/include/queue/LockFreeQueue.hh FySMQ/include/queue/QueueContainer.hh FySMQ/include/queue/LockingQueue.hh FySMQ/include/bus/BusListener.hh)
 
-set(SOURCE_FILES_SRV Server/src/gateway/Gateway.cpp Server/include/gateway/Gateway.hh Server/src/network/Message.cpp Server/include/network/Message.hh Server/src/babble/BabbleBusListener.cpp Server/include/babble/BabbleBusListener.hh Server/src/gateway/AuthBusListener.cpp Server/include/gateway/AuthBusListener.hh Server/src/gateway/Context.cpp Server/include/gateway/Context.hh Server/src/network/SessionManager.cpp Server/include/network/SessionManager.hh Server/src/network/AnswerForwarder.cpp Server/include/network/AnswerForwarder.hh Server/src/babble/Babble.cpp Server/include/babble/Babble.hh Server/src/babble/BabbleChannel.cpp Server/include/babble/BabbleChannel.hh Server/src/network/BabbleMessage.cpp Server/include/network/BabbleMessage.hh Server/src/network/TcpConnection.cpp Server/include/network/TcpConnection.hh Server/src/gateway/ForwardListener.cpp Server/include/gateway/ForwardListener.hh Server/src/network/AuthMessage.cpp Server/include/network/AuthMessage.hh)
+set(SOURCE_FILES_SRV Server/src/gateway/Gateway.cpp Server/include/gateway/Gateway.hh Server/src/network/Message.cpp Server/include/network/Message.hh Server/src/gateway/Context.cpp Server/include/gateway/Context.hh Server/src/network/SessionManager.cpp Server/include/network/SessionManager.hh Server/src/babble/Babble.cpp Server/include/babble/Babble.hh Server/src/babble/BabbleChannel.cpp Server/include/babble/BabbleChannel.hh Server/src/network/BabbleMessage.cpp Server/include/network/BabbleMessage.hh Server/src/network/TcpConnection.cpp Server/include/network/TcpConnection.hh Server/src/network/AuthMessage.cpp Server/include/network/AuthMessage.hh Server/src/gateway/GameServerInstance.cpp Server/include/gateway/GameServerInstance.hh)
 
 set(SOURCE_FILES_UTILS Utils/src/CheckVars.hh)
 
 set(SOURCE_FILES_ALL ${SOURCE_FILES_MQ} ${SOURCE_FILES_MM} ${SOURCE_FILES_SRV} ${SOURCE_FILES_UTILS})
-set(SOURCE_FILES Server/src/main.cpp ${SOURCE_FILES_ALL} FySMQ/test/FysBusTest.hh)
+set(SOURCE_FILES Server/src/main.cpp ${SOURCE_FILES_ALL} FySMQ/test/FysBusTest.hh Server/src/network/http/HttpAuthClient.cpp Server/include/network/http/HttpAuthClient.hh)
 set(SOURCE_FILES_TEST ${SOURCE_FILES_ALL} FySMQ/test/TestUnitMQ.cpp Utils/test/TestCheckVar.cpp)
 
 ### Server ###
