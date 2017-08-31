@@ -7,6 +7,7 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <tclap/ValueArg.h>
 #include <tclap/CmdLine.h>
+#include <zconf.h>
 #include "Context.hh"
 
 fys::gateway::Context::~Context() {}
@@ -36,23 +37,22 @@ fys::gateway::Context::Context(const int ac, const char *const *av) {
     }
 }
 
-
 void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     boost::property_tree::ptree pt;
     boost::property_tree::read_ini(iniPath, pt);
 
     std::cout << "Context Initialization..." << std::endl;
-    setPort(pt.get<std::size_t>(GTW_INI_PORT));
+    setPort(pt.get<u_short>(GTW_INI_PORT));
     setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));
     setBusIniFilePath(pt.get<std::string>(GTW_INI_BUS_PATH));
     setQueuesSize(pt.get<std::size_t>(GTW_QUEUES_SIZE));
 }
 
-std::size_t fys::gateway::Context::getPort() const {
+u_short fys::gateway::Context::getPort() const {
     return _port;
 }
 
-void fys::gateway::Context::setPort(const std::size_t port) {
+void fys::gateway::Context::setPort(const u_short port) {
     Context::_port = port;
 }
 

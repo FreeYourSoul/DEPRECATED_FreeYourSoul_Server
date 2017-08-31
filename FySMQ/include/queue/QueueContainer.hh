@@ -37,7 +37,7 @@ namespace fys {
                 return _opCodeMsg;
             }
 
-            const Type getContained() const {
+            const Type &getContained() const {
                 return _contained;
             }
 

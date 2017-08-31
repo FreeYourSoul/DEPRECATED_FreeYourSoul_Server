@@ -19,10 +19,10 @@ namespace fys {
         class TcpConnection : public boost::enable_shared_from_this<TcpConnection>
         {
         public:
-            typedef boost::shared_ptr<TcpConnection> pointer;
+            typedef std::shared_ptr<TcpConnection> ptr;
 
-            static pointer create(boost::asio::io_service& io_service) {
-                return pointer(new TcpConnection(io_service));
+            static ptr create(boost::asio::io_service& io_service) {
+                return ptr(new TcpConnection(io_service));
             }
 
             boost::asio::ip::tcp::socket& getSocket();

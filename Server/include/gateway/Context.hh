@@ -27,8 +27,8 @@ namespace fys {
 
             friend std::ostream &operator<<(std::ostream &os, const Context &context);
 
-            std::size_t getPort() const;
-            void setPort(const std::size_t port);
+            u_short getPort() const;
+            void setPort(const u_short port);
             const std::string &getBusIniFilePath() const;
             void setBusIniFilePath(const std::string &busIniFilePath);
             size_t getAsioThread() const;
@@ -42,7 +42,7 @@ namespace fys {
             void initializeFromIni(const std::string &iniPath);
 
         private:
-            std::size_t _port;
+            u_short _port;
             std::size_t _asioThread;
             std::string _busIniFilePath;
             std::size_t _queuesSize;

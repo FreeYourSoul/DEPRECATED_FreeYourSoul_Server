@@ -6,7 +6,7 @@
 #define FREESOULS_AUTHMESSAGE_HH
 
 #include <string>
-#include <http/HttpAuthClient.hh>
+#include <HttpAuthClient.hh>
 #include "Message.hh"
 
 namespace fys {
@@ -21,8 +21,6 @@ namespace fys {
         public:
             ~AuthMessage();
             AuthMessage();
-
-            fys::network::http::HttpAuthClient::funcPtr initialize(const Message& message);
 
             const std::string &get_user() const;
             const std::string &get_password() const;

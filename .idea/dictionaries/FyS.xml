@@ -2,7 +2,9 @@
   <dictionary name="FyS">
     <words>
       <w>asio</w>
+      <w>buslistener</w>
       <w>fysp</w>
+      <w>wptr</w>
     </words>
   </dictionary>
 </component>

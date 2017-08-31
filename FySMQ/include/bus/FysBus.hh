@@ -42,7 +42,8 @@ namespace fys {
         class FysBus {
 
         public:
-            using ptr = boost::shared_ptr<FysBus<T, SIZE_QUEUES> >;
+            using ptr = std::shared_ptr<FysBus<T, SIZE_QUEUES> >;
+            using wptr = std::weak_ptr<FysBus<T, SIZE_QUEUES> >;
 
             ~FysBus() { // TODO delete correctly the _queues
 //                int toDelete = -1;

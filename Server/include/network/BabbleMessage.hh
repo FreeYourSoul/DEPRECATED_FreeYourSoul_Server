@@ -13,6 +13,7 @@ namespace fys {
 
         class BabbleMessage {
 
+        public:
             enum {
                 LOGIN = 201,
                 SEND = 202,
@@ -21,10 +22,8 @@ namespace fys {
             };
 
         public:
-            BabbleMessage();
             ~BabbleMessage();
-
-            fys::gateway::Babble::funcPtr initialize(const Message& message);
+            BabbleMessage();
 
             const std::string &getAuthor() const;
             const std::string &getMessage() const;
@@ -32,19 +31,15 @@ namespace fys {
             const std::string &getAddresse() const;
             bool isWhisper() const;
 
-        private:
             bool initializeBabbleLogin(const Message &string);
             bool initializeBabbleLogout(const Message &string);
             bool initializeBabbleMessage(const Message &string);
 
         private:
-            fys::gateway::Babble::funcPtr _func;
             std::string _author;
             std::string _content;
             std::string _addressee;
             bool _isWhisper;
-            bool _isLogout;
-            bool _isLogin;
 
         };
 

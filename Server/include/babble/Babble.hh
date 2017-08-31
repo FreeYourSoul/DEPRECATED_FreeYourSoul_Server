@@ -13,36 +13,46 @@
 #include "BabbleChannel.hh"
 
 namespace fys {
+
     namespace network {
         class BabbleMessage;
     }
 
     namespace gateway {
+        namespace buslistener {
 
-        class Babble {
+            class Babble {
+            public:
+                enum {
+                    IndexInBus = 1
+                };
 
-        public:
-            typedef void (fys::gateway::Babble::*funcPtr)(const fys::network::BabbleMessage &);
+                ~Babble();
 
-            ~Babble();
-            Babble(const network::SessionManager *playerSessions);
+                Babble(const network::SessionManager *const playerSessions);
 
-            void signInOnBabble(const fys::network::BabbleMessage &babbleMessage);
-            void signOutFromBabble(const fys::network::BabbleMessage &babbleMessage);
-            void sendMessage(const fys::network::BabbleMessage &babbleMessage);
-            void whisperMessage(const fys::network::BabbleMessage &babbleMessage);
+                void operator()(const fys::mq::QueueContainer<fys::network::Message> *msg);
 
-        private:
-            bool isPlayerConnectedTo(std::list<std::string> &playerConnected, const std::string &player);
+            private:
+                void signInOnBabble(const fys::network::BabbleMessage &babbleMessage);
 
-        private:
-            const network::SessionManager *_playerSessions;
-            std::unordered_map<std::string, BabbleChannel> _channels;
-            std::unordered_map<std::string, std::list<std::string> > _mapPlayerChannels;
-            std::vector<std::string> _basicChannels;
+                void signOutFromBabble(const fys::network::BabbleMessage &babbleMessage);
 
-        };
+                void sendMessage(const fys::network::BabbleMessage &babbleMessage);
 
+                void whisperMessage(const fys::network::BabbleMessage &babbleMessage);
+
+                bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
+
+            private:
+                const network::SessionManager *_playerSessions;
+                std::unordered_map<std::string, BabbleChannel> _channels;
+                std::unordered_map<std::string, std::list<std::string> > _mapPlayerChannels;
+                std::vector<std::string> _basicChannels;
+
+            };
+
+        }
     }
 }
 

@@ -25,7 +25,7 @@ namespace fys {
             const network::SessionManager *getGamerConnectionsPointer() const;
 
         private:
-            void handlePlayerConnection(network::TcpConnection::pointer &newSession);
+            void handlePlayerConnection(network::TcpConnection::ptr &newSession);
 
         private:
             boost::asio::io_service &_ios;

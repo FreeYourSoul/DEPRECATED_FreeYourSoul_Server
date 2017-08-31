@@ -4,18 +4,18 @@
 
 #include <vector>
 #include <iostream>
-#include "http/HttpAuthClient.hh"
+#include "HttpAuthClient.hh"
 
-fys::network::http::HttpAuthClient::~HttpAuthClient() {
+fys::network::HttpAuthClient::~HttpAuthClient() {
     curl_easy_cleanup(_curl);
 }
 
-fys::network::http::HttpAuthClient::HttpAuthClient() : _curl(curl_easy_init()) {
+fys::network::HttpAuthClient::HttpAuthClient() : _curl(curl_easy_init()) {
     if (_curl)
         curl_easy_setopt(_curl, CURLOPT_URL, URL_SERVICE);
 }
 
-bool fys::network::http::HttpAuthClient::authenticate(const std::string& user, const std::string& password) {
+bool fys::network::HttpAuthClient::authenticate(const std::string& user, const std::string& password) {
     CURLcode res;
 
     if (_curl)

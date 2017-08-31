@@ -7,28 +7,7 @@
 
 fys::network::BabbleMessage::~BabbleMessage() {}
 
-fys::network::BabbleMessage::BabbleMessage() {}
-
-fys::gateway::Babble::funcPtr fys::network::BabbleMessage::initialize(const Message& message) {
-    fys::gateway::Babble::funcPtr returnPointerFunc = nullptr;
-
-    switch (message.getOpCode()) {
-        case LOGIN:
-            if (initializeBabbleLogin(message))
-                returnPointerFunc = &fys::gateway::Babble::signInOnBabble;
-            break;
-
-        case SIGNOUT:
-            if (initializeBabbleLogout(message))
-                returnPointerFunc = &fys::gateway::Babble::signOutFromBabble;
-            break;
-
-        default:
-            if (initializeBabbleMessage(message))
-                returnPointerFunc = &fys::gateway::Babble::sendMessage;
-            break;
-    }
-    return returnPointerFunc;
+fys::network::BabbleMessage::BabbleMessage() {
 }
 
 bool fys::network::BabbleMessage::initializeBabbleLogin(const Message &msg) {

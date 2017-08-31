@@ -9,10 +9,6 @@ fys::network::AuthMessage::~AuthMessage() {}
 
 fys::network::AuthMessage::AuthMessage() {}
 
-fys::network::http::HttpAuthClient::funcPtr fys::network::AuthMessage::initialize(const fys::network::Message &message) {
-    return nullptr;
-}
-
 const std::string &fys::network::AuthMessage::get_user() const {
     return _user;
 }

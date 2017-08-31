@@ -15,16 +15,14 @@ namespace fys {
 
         public:
             ~SessionManager();
-            SessionManager();
+            SessionManager(const u_int size);
 
-            void addPendingConnection(TcpConnection::pointer &newConnection);
+            void addPendingConnection(TcpConnection::ptr &newConnection);
 
         private:
-            enum { CONNECTION_SIZE = 1000};
-
-            std::vector<fys::network::TcpConnection::pointer> _connectionsPending;
+            std::vector<fys::network::TcpConnection::ptr> _connectionsPending;
             std::vector<std::string> _connectionsActiveToken;
-            std::vector<fys::network::TcpConnection::pointer> _connectionsActive;
+            std::vector<fys::network::TcpConnection::ptr> _connectionsActive;
 
         };
 
