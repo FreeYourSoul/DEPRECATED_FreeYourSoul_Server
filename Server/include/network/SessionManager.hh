@@ -5,11 +5,13 @@
 #ifndef FREESOULS_CONNECTIONMANAGER_HH
 #define FREESOULS_CONNECTIONMANAGER_HH
 
+#include <zconf.h>
 #include <list>
 #include "TcpConnection.hh"
 
 namespace fys {
     namespace network {
+        using Token = std::vector<char>;
 
         class SessionManager {
 
@@ -17,13 +19,12 @@ namespace fys {
             ~SessionManager();
             SessionManager(const u_int size);
 
-            void addPendingConnection(TcpConnection::ptr &newConnection);
+            const u_int addConnection(const TcpConnection::ptr &newConnection);
+            void disconnectUser(const Token &);
 
         private:
-            std::vector<fys::network::TcpConnection::ptr> _connectionsPending;
-            std::vector<std::string> _connectionsActiveToken;
-            std::vector<fys::network::TcpConnection::ptr> _connectionsActive;
-
+            std::vector<fys::network::TcpConnection::ptr> _connections;
+            std::vector<Token > _connectionsToken;
         };
 
     }

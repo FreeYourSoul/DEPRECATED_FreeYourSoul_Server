@@ -27,7 +27,7 @@ namespace fys {
 
                 ~Babble();
 
-                Babble(const network::SessionManager *const playerSessions);
+                Babble(const fys::network::SessionManager *const playerSessions);
 
                 void operator()(fys::mq::QueueContainer<fys::network::Message> *msg);
 

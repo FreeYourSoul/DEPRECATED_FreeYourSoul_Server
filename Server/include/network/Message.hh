@@ -21,6 +21,10 @@ namespace fys {
 
         class Message {
         public:
+            using uptr = std::unique_ptr<Message>;
+            using ptr = std::shared_ptr<Message>;
+            using wptr = std::weak_ptr<Message>;
+
             ~Message();
             Message();
             Message(u_char rawMessage[]);

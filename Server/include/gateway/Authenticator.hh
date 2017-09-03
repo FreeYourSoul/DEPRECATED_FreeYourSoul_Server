@@ -7,6 +7,7 @@
 
 
 #include <Message.hh>
+#include <AuthMessage.hh>
 #include "Gateway.hh"
 
 namespace fys {

@@ -18,8 +18,9 @@ namespace fys {
         class Gateway {
 
         public:
-            using wptr = std::weak_ptr<Gateway>;
+            using uptr = std::unique_ptr<Gateway>;
             using ptr = std::shared_ptr<Gateway>;
+            using wptr = std::weak_ptr<Gateway>;
 
         public:
             ~Gateway();

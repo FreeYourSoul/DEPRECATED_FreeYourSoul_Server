@@ -34,9 +34,9 @@ namespace fys {
 
 
         private:
+            std::string _token;
             std::string _user;
             std::string _password;
-            std::string _token;
             bool _isServerAuth;
         };
 

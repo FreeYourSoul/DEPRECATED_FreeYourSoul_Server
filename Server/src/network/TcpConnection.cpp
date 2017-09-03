@@ -24,7 +24,7 @@ void fys::network::TcpConnection::handleWrite(const boost::system::error_code &e
 }
 
 void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
-    if (!error && !_isShuttingDown) {
+    if (!((boost::asio::error::eof == error) || (boost::asio::error::connection_reset == error)) && !_isShuttingDown) {
         mq::QueueContainer<Message> containerMsg;
         Message message(_buffer);
 
@@ -52,6 +52,7 @@ void fys::network::TcpConnection::shuttingConnectionDown() {
         std::cout << "Shutting down connection..." << std::endl;
         _isShuttingDown = true;
         try {
+//            _function();
             _socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
             _socket.close();
         }

@@ -9,7 +9,6 @@ fys::network::AuthMessage::~AuthMessage() {}
 fys::network::AuthMessage::AuthMessage() {}
 
 bool fys::network::AuthMessage::initializePlayerAuth(fys::network::Message &msg) {
-
     return true;
 }
 

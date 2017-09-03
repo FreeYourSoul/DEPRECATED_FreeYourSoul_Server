@@ -17,7 +17,7 @@ fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io
 
 void fys::gateway::Gateway::handlePlayerConnection(fys::network::TcpConnection::ptr &newSession) {
     newSession->readOnSocket(_fysBus);
-    _gamerConnections.addPendingConnection(newSession);
+    _gamerConnections.addConnection(newSession);
     runPlayerAccept();
 }
 

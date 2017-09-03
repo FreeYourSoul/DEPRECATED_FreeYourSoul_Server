@@ -27,7 +27,7 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<net
 }
 
 void fys::gateway::buslistener::Authenticator::authServer(const fys::network::AuthMessage &message) {
-
+    
 }
 
 void fys::gateway::buslistener::Authenticator::authPlayer(const fys::network::AuthMessage &message) {

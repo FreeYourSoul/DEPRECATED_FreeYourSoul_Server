@@ -19,7 +19,7 @@ namespace fys {
  *           It has to implement its () function plus having a public IndexInBus enum hack
  *
  */
-        template <typename Functor, typename BusType = fys::mq::FysBus<fys::network::Message, fys::gateway::BUS_QUEUES_SIZE> >
+        template <typename Functor, typename BusType>
         class BusListener {
 
         public:
