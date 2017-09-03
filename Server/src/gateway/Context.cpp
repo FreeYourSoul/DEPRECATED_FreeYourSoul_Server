@@ -16,7 +16,7 @@ fys::gateway::Context::Context(const int ac, const char *const *av) {
     try {
         TCLAP::CmdLine cli("Gateway of Fys Server Game", ' ', "1.0");
         TCLAP::ValueArg<std::string> configPath("c", "config", "Path of config file", true, "/home/FyS/ClionProjects/FreeYourSoul_Server/Server/resource/gateway.ini", "string");
-        TCLAP::ValueArg<std::size_t> changePort("p", "port", "Listening Port", false, 0, "integer");
+        TCLAP::ValueArg<u_short> changePort("p", "port", "Listening Port", false, 0, "integer");
         TCLAP::ValueArg<std::size_t> changeThread("t", "thread", "Thread Numbers for listening", false, 0, "integer");
         TCLAP::ValueArg<bool> verbose("v", "verbose", "Print logs on standard output", false, false, "boolean");
 

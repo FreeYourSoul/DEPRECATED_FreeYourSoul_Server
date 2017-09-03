@@ -5,7 +5,6 @@
 #ifndef FREESOULS_TCPCONNECTION_HH
 #define FREESOULS_TCPCONNECTION_HH
 
-#include <boost/enable_shared_from_this.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
@@ -16,10 +15,11 @@
 namespace fys {
     namespace network {
 
-        class TcpConnection : public boost::enable_shared_from_this<TcpConnection>
+        class TcpConnection : public std::enable_shared_from_this<TcpConnection>
         {
         public:
-            typedef std::shared_ptr<TcpConnection> ptr;
+            using ptr = std::shared_ptr<TcpConnection>;
+            using wptr = std::weak_ptr<TcpConnection>;
 
             static ptr create(boost::asio::io_service& io_service) {
                 return ptr(new TcpConnection(io_service));
@@ -42,7 +42,7 @@ namespace fys {
         private:
             bool _isShuttingDown;
             boost::asio::ip::tcp::socket _socket;
-            unsigned char _buffer[fys::network::BUFFER_SIZE];
+            unsigned char _buffer[fys::network::MESSAGE_BUFFER_SIZE];
         };
 
     }

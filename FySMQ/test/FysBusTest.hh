@@ -17,7 +17,7 @@ namespace fys {
             class FysBusTest : public fys::mq::FysBus<T, SIZE_QUEUES> {
 
             public:
-                virtual ~FysBusTe<st() {}
+                virtual ~FysBusTest() {}
                 FysBusTest(const std::string &iniPath) : fys::mq::FysBus<T, SIZE_QUEUES>::FysBus(iniPath) { }
 
                 void validateBusConfiguration(const unsigned int queueNumbers) {

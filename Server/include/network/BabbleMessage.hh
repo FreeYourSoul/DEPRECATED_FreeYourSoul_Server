@@ -31,9 +31,9 @@ namespace fys {
             const std::string &getAddresse() const;
             bool isWhisper() const;
 
-            bool initializeBabbleLogin(const Message &string);
-            bool initializeBabbleLogout(const Message &string);
-            bool initializeBabbleMessage(const Message &string);
+            bool initializeBabbleLogin(Message &);
+            bool initializeBabbleLogout(Message &);
+            bool initializeBabbleMessage(Message &);
 
         private:
             std::string _author;

@@ -9,11 +9,12 @@
 #include "../../include/network/Message.hh"
 
 fys::network::Message::~Message() {}
-fys::network::Message::Message() {
+
+fys::network::Message::Message() : _index(0) {
 }
 
-fys::network::Message::Message(unsigned char rawMessage[]) {
-    std::copy(rawMessage, rawMessage + fys::network::BUFFER_SIZE, _rawMessage);
+fys::network::Message::Message(unsigned char rawMessage[]) : _index(0) {
+    std::copy(rawMessage, rawMessage + fys::network::MESSAGE_BUFFER_SIZE, _rawMessage);
     loadOpCode();
 }
 
@@ -23,32 +24,34 @@ void fys::network::Message::loadOpCode() {
     for (int i = 0; i < 2; ++i)
         btc.byte[i] = _rawMessage[i];
     _opCode = btc.tBytes[0];
+    _index = 2;
 }
 
-std::string &fys::network::Message::byteToString(std::string &toFill, unsigned int index) const {
-    unsigned int size = byteToInt(index);
+std::string &fys::network::Message::byteToString(std::string &toFill) {
+    u_int size = byteToInt();
 
-    index += 4;
     toFill.clear();
-    if ((index + size) < BUFFER_SIZE)
-        for (unsigned int i = 0; i < size; ++i)
-            toFill += _rawMessage[index + i];
+    if ((_index + size) < MESSAGE_BUFFER_SIZE)
+        for (auto i = 0; i < size; ++i)
+            toFill += _rawMessage[_index + i];
+    _index += size;
     return toFill;
 }
 
-unsigned int fys::network::Message::byteToInt(const unsigned int index) const {
+u_int fys::network::Message::byteToInt() {
     BitConvert bti;
 
-    if ((index + 4) < BUFFER_SIZE)
+    if ((_index + 4) < MESSAGE_BUFFER_SIZE)
         for (int i = 0; i < 4; ++i)
-            bti.byte[i] = _rawMessage[index + i];
+            bti.byte[i] = _rawMessage[_index + i];
+    _index += 4;
     return bti.integer;
 }
 
-const unsigned char *fys::network::Message::getRawMessage() const {
+const u_char *fys::network::Message::getRawMessage() const {
     return _rawMessage;
 }
 
-unsigned short fys::network::Message::getOpCode() const {
+u_short fys::network::Message::getOpCode() const {
     return _opCode;
 }

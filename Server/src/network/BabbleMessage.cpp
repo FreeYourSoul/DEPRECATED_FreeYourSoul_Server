@@ -10,21 +10,21 @@ fys::network::BabbleMessage::~BabbleMessage() {}
 fys::network::BabbleMessage::BabbleMessage() {
 }
 
-bool fys::network::BabbleMessage::initializeBabbleLogin(const Message &msg) {
-    msg.byteToString(_author, 2);
+bool fys::network::BabbleMessage::initializeBabbleLogin(Message &msg) {
+    msg.byteToString(_author);
     return fys::utils::Var::check(_author);
 }
 
-bool fys::network::BabbleMessage::initializeBabbleLogout(const Message &msg) {
-    msg.byteToString(_author, 2);
+bool fys::network::BabbleMessage::initializeBabbleLogout(Message &msg) {
+    msg.byteToString(_author);
     return fys::utils::Var::check(_author);
 }
 
-bool fys::network::BabbleMessage::initializeBabbleMessage(const Message &msg) {
+bool fys::network::BabbleMessage::initializeBabbleMessage(Message &msg) {
     _isWhisper = (msg.getOpCode() == WHISPER);
-    msg.byteToString(_author, 2);
-    msg.byteToString(_addressee , 2);
-    msg.byteToString(_content , 2);
+    msg.byteToString(_author);
+    msg.byteToString(_addressee);
+    msg.byteToString(_content);
     return fys::utils::Var::check(_author, _addressee, _content);
 }
 

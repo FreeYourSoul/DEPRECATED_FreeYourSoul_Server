@@ -14,8 +14,10 @@ namespace fys {
 
         class AuthMessage {
 
+        public:
             enum {
-                AUTH_PLAYER = 001
+                AUTH_PLAYER = 1,
+                AUTH_SERVER = 2,
             };
 
         public:
@@ -25,14 +27,17 @@ namespace fys {
             const std::string &get_user() const;
             const std::string &get_password() const;
             const std::string &get_token() const;
-            void set_user(const std::string &_user);
-            void set_password(const std::string &_password);
-            void set_token(const std::string &_token);
+            bool isServerAuth() const;
+
+            bool initializePlayerAuth(Message &);
+            bool initializeServerAuth(Message &);
+
 
         private:
             std::string _user;
             std::string _password;
             std::string _token;
+            bool _isServerAuth;
         };
 
     }

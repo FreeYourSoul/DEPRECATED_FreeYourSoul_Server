@@ -23,25 +23,19 @@ namespace fys {
 
             class Babble {
             public:
-                enum {
-                    IndexInBus = 1
-                };
+                enum { IndexInBus = 1 };
 
                 ~Babble();
 
                 Babble(const network::SessionManager *const playerSessions);
 
-                void operator()(const fys::mq::QueueContainer<fys::network::Message> *msg);
+                void operator()(fys::mq::QueueContainer<fys::network::Message> *msg);
 
             private:
                 void signInOnBabble(const fys::network::BabbleMessage &babbleMessage);
-
                 void signOutFromBabble(const fys::network::BabbleMessage &babbleMessage);
-
                 void sendMessage(const fys::network::BabbleMessage &babbleMessage);
-
                 void whisperMessage(const fys::network::BabbleMessage &babbleMessage);
-
                 bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
 
             private:

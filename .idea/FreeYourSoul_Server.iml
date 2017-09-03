@@ -2,6 +2,8 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/BabbleChannel.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/Babble.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/TcpConnection.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/Message.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/AuthMessage.cpp" isTestSource="false" />
@@ -9,9 +11,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/SessionManager.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/network/BabbleMessage.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/BabbleChannel.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/src/babble/Babble.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Authenticator.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/Authenticator.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/GameServerInstance.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/src/gateway/Context.cpp" isTestSource="false" />
@@ -25,9 +24,12 @@
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/BabbleChannel.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/babble/Babble.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Gateway.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Authenticator.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Context.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/GameServerInstance.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Utils/src/TokenGenerator.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Utils/src/CheckVars.hh" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Utils/src/TokenGenerator.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Utils/test/TestCheckVar.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FySMQ/include/bus/BusListener.hh" isTestSource="false" />

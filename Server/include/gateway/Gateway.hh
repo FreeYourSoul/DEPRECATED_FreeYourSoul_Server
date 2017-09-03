@@ -18,6 +18,10 @@ namespace fys {
         class Gateway {
 
         public:
+            using wptr = std::weak_ptr<Gateway>;
+            using ptr = std::shared_ptr<Gateway>;
+
+        public:
             ~Gateway();
             Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, BUS_QUEUES_SIZE>::ptr &fysBus);
 

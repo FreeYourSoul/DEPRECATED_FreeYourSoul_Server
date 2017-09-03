@@ -39,8 +39,8 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
 }
 
 void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
-    std::fill(_buffer, _buffer + fys::network::BUFFER_SIZE, 0);
-_socket.async_read_some(boost::asio::buffer(_buffer, fys::network::BUFFER_SIZE),
+    std::fill(_buffer, _buffer + fys::network::MESSAGE_BUFFER_SIZE, 0);
+_socket.async_read_some(boost::asio::buffer(_buffer, fys::network::MESSAGE_BUFFER_SIZE),
     boost::bind(&TcpConnection::handleRead, shared_from_this(),
                 boost::asio::placeholders::error,
                 boost::asio::placeholders::bytes_transferred,

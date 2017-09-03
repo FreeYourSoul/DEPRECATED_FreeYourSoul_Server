@@ -38,10 +38,10 @@ namespace fys {
         private:
             void listen(typename BusType::ptr bus) {
                 if (!bus->isIndexQueueLegitimate(_indexInBus)) {
-                    std::cerr << "Listener couldn't be launched; the index in bus is not legitimate" << std::endl;
+                    std::cerr << "Listener couldn't be launched; the index (" << _indexInBus << ") in bus is not legitimate" << std::endl;
                     return;
                 }
-                std::cout << "Listener launched, listen on queue :" << _indexInBus << " for functor : " << typeid(_functor).name() << std::endl;
+                std::cout << "Listener launched, listen on queue: " << _indexInBus << " for functor: " << typeid(_functor).name() << std::endl;
                 while (true) {
                     auto *msgContainer = bus->popFromBus(_indexInBus);
                     if (msgContainer)

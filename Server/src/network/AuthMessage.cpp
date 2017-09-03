@@ -4,31 +4,31 @@
 
 #include "AuthMessage.hh"
 
-
 fys::network::AuthMessage::~AuthMessage() {}
 
 fys::network::AuthMessage::AuthMessage() {}
 
-const std::string &fys::network::AuthMessage::get_user() const {
-    return _user;
+bool fys::network::AuthMessage::initializePlayerAuth(fys::network::Message &msg) {
+
+    return true;
 }
 
-void fys::network::AuthMessage::set_user(const std::string &_user) {
-    AuthMessage::_user = _user;
+bool fys::network::AuthMessage::initializeServerAuth(fys::network::Message &msg) {
+    return true;
+}
+
+const std::string &fys::network::AuthMessage::get_user() const {
+    return _user;
 }
 
 const std::string &fys::network::AuthMessage::get_password() const {
     return _password;
 }
 
-void fys::network::AuthMessage::set_password(const std::string &_password) {
-    AuthMessage::_password = _password;
-}
-
 const std::string &fys::network::AuthMessage::get_token() const {
     return _token;
 }
 
-void fys::network::AuthMessage::set_token(const std::string &_token) {
-    AuthMessage::_token = _token;
+bool fys::network::AuthMessage::isServerAuth() const {
+    return _isServerAuth;
 }

@@ -16,14 +16,20 @@ namespace fys {
             class Authenticator {
 
             public:
-                ~Authenticator();
-                Authenticator(Gateway * const);
+                enum { IndexInBus = 0 };
 
-                void operator()(const network::Message &);
+            public:
+                ~Authenticator();
+                Authenticator(const Gateway::ptr);
+
+                void operator()(mq::QueueContainer<network::Message> *msg);
 
             private:
-                Gateway *_gtw;
+                void authServer(const network::AuthMessage &message);
+                void authPlayer(const network::AuthMessage &message);
 
+            private:
+                Gateway::ptr _gtw;
 
             };
 
