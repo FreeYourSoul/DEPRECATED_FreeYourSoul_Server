@@ -23,6 +23,8 @@ namespace fys {
         public:
             ~AuthMessage();
             AuthMessage();
+            AuthMessage(const AuthMessage&);
+            AuthMessage(AuthMessage&&);
 
             const std::string &get_user() const;
             const std::string &get_password() const;

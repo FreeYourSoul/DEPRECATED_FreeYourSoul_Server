@@ -24,6 +24,8 @@ namespace fys {
         public:
             ~BabbleMessage();
             BabbleMessage();
+            BabbleMessage(const BabbleMessage&);
+            BabbleMessage(BabbleMessage&&);
 
             const std::string &getAuthor() const;
             const std::string &getMessage() const;

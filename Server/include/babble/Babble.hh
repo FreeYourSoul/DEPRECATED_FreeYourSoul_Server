@@ -32,10 +32,10 @@ namespace fys {
                 void operator()(fys::mq::QueueContainer<fys::network::Message> *msg);
 
             private:
-                void signInOnBabble(const fys::network::BabbleMessage &babbleMessage);
-                void signOutFromBabble(const fys::network::BabbleMessage &babbleMessage);
-                void sendMessage(const fys::network::BabbleMessage &babbleMessage);
-                void whisperMessage(const fys::network::BabbleMessage &babbleMessage);
+                void signInOnBabble(fys::network::BabbleMessage &&babbleMessage);
+                void signOutFromBabble(fys::network::BabbleMessage &&babbleMessage);
+                void sendMessage(fys::network::BabbleMessage &&babbleMessage);
+                void whisperMessage(fys::network::BabbleMessage &&babbleMessage);
                 bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
 
             private:

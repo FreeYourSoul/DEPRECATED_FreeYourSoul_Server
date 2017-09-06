@@ -14,6 +14,8 @@ namespace fys {
         public:
             ~GameServerInstance();
             GameServerInstance();
+            GameServerInstance(const GameServerInstance&);
+            GameServerInstance(GameServerInstance&&);
 
             const std::string &getIp() const;
 

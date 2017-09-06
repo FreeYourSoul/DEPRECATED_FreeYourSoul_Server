@@ -23,7 +23,6 @@
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/TcpConnection.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/Message.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/network/response/ResponseMessage.hh" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/FySTypes.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Gateway.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Authenticator.hh" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Server/include/gateway/Context.hh" isTestSource="false" />

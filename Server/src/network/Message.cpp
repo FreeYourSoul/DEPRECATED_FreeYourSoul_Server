@@ -13,7 +13,7 @@ fys::network::Message::~Message() {}
 fys::network::Message::Message() : _index(0) {
 }
 
-fys::network::Message::Message(unsigned char rawMessage[]) : _index(0) {
+fys::network::Message::Message(u_char rawMessage[]) : _index(0) {
     std::copy(rawMessage, rawMessage + fys::network::MESSAGE_BUFFER_SIZE, _rawMessage);
     loadOpCode();
 }

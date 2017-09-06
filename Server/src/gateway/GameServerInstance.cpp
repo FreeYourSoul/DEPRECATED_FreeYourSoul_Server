@@ -12,6 +12,14 @@ fys::gateway::GameServerInstance::GameServerInstance() {
 
 }
 
+fys::gateway::GameServerInstance::GameServerInstance(const fys::gateway::GameServerInstance &other) :
+_ip(other._ip), _port(other._port)
+{}
+
+fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerInstance &&other) :
+_ip(std::move(other._ip)), _port(std::move(other._port))
+{}
+
 const std::string &fys::gateway::GameServerInstance::getIp() const {
     return _ip;
 }

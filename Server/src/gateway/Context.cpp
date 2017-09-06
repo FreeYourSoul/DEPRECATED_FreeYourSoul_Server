@@ -12,6 +12,16 @@
 
 fys::gateway::Context::~Context() {}
 
+fys::gateway::Context::Context(const fys::gateway::Context &other) :
+        _port(other._port), _asioThread(other._asioThread), _busIniFilePath(other._busIniFilePath),
+        _queuesSize(other._queuesSize), _verbose(other._verbose)
+{}
+
+fys::gateway::Context::Context(fys::gateway::Context &&other) :
+        _port(std::move(other._port)), _asioThread(std::move(other._asioThread)), _busIniFilePath(std::move(other._busIniFilePath)),
+        _queuesSize(std::move(other._queuesSize)), _verbose(std::move(other._verbose))
+{}
+
 fys::gateway::Context::Context(const int ac, const char *const *av) {
     try {
         TCLAP::CmdLine cli("Gateway of Fys Server Game", ' ', "1.0");

@@ -24,6 +24,8 @@ namespace fys {
         public:
             ~Context();
             Context(const int ac, const char *const *av);
+            Context(const Context&);
+            Context(Context&&);
 
             friend std::ostream &operator<<(std::ostream &os, const Context &context);
 

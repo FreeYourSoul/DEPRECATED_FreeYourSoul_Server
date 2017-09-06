@@ -18,6 +18,8 @@ namespace fys {
         public:
             ~ResponseMessage();
             ResponseMessage();
+            ResponseMessage(const ResponseMessage&);
+            ResponseMessage(ResponseMessage&&);
 
             const Message::uptr generateResponse();
 

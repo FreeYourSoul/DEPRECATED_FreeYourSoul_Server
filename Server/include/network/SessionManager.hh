@@ -16,6 +16,10 @@ namespace fys {
         class SessionManager {
 
         public:
+            using uptr = std::unique_ptr<SessionManager>;
+            using ptr = std::shared_ptr<SessionManager>;
+            using wptr = std::weak_ptr<SessionManager>;
+
             ~SessionManager();
             SessionManager(const u_int size);
 

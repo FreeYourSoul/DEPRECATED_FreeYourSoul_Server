@@ -7,7 +7,19 @@
 
 fys::network::BabbleMessage::~BabbleMessage() {}
 
-fys::network::BabbleMessage::BabbleMessage() {
+fys::network::BabbleMessage::BabbleMessage() {}
+
+fys::network::BabbleMessage::BabbleMessage(const fys::network::BabbleMessage &other) :
+        _author(other._author), _content(other._content), _addressee(other._addressee), _isWhisper(other._isWhisper)
+{
+    std::cout << "in THERE dude" << std::endl;
+}
+
+fys::network::BabbleMessage::BabbleMessage(fys::network::BabbleMessage &&other) :
+        _author(std::move(other._author)), _content(std::move(other._content)),
+        _addressee(std::move(other._addressee)), _isWhisper(std::move(other._isWhisper))
+{
+    std::cout << "in HERE dude" << std::endl;
 }
 
 bool fys::network::BabbleMessage::initializeBabbleLogin(Message &msg) {

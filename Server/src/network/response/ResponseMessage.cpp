@@ -8,6 +8,15 @@ fys::network::ResponseMessage::~ResponseMessage() {}
 
 fys::network::ResponseMessage::ResponseMessage() {}
 
+fys::network::ResponseMessage::ResponseMessage(const fys::network::ResponseMessage &other) :
+        _opCode(other._opCode), _token(other._token), _listStrings(other._listStrings), _listIntegers(other._listIntegers)
+{}
+
+fys::network::ResponseMessage::ResponseMessage(fys::network::ResponseMessage &&other) :
+        _opCode(std::move(other._opCode)), _token(std::move(other._token)),
+        _listStrings(std::move(other._listStrings)), _listIntegers(std::move(other._listIntegers))
+{}
+
 const fys::network::Message::uptr fys::network::ResponseMessage::generateResponse() {
     return std::make_unique<fys::network::Message>();
 }
