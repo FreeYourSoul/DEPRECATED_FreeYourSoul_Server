@@ -22,24 +22,31 @@ namespace fys {
             using wptr = std::weak_ptr<TcpConnection>;
 
             static ptr create(boost::asio::io_service& io_service) {
-                return ptr(new TcpConnection(io_service));
+                return std::make_shared<TcpConnection>(io_service);
             }
+
+            TcpConnection(boost::asio::io_service& io_service);
 
             boost::asio::ip::tcp::socket& getSocket();
 
             void readOnSocket(fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
             void send(const fys::network::Message& msg);
 
+            uint getSessionIndex() const;
+            void setSessionIndex(uint _sessionIndex);
+
+
         private:
-            TcpConnection(boost::asio::io_service& io_service);
 
             void shuttingConnectionDown();
 
             void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
             void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
                             fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &);
+
         private:
             bool _isShuttingDown;
+            uint _sessionIndex;
             boost::asio::ip::tcp::socket _socket;
             unsigned char _buffer[fys::network::MESSAGE_BUFFER_SIZE];
         };

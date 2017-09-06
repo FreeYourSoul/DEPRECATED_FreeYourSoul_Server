@@ -25,7 +25,7 @@ namespace fys {
             QueueContainer(const Type &container) : _opCodeMsg(0), _contained(container) {}
 
             friend std::ostream &operator<<(std::ostream &os, const QueueContainer &container) {
-                os << "_opCodeMsg: " << container._opCodeMsg << " _tokenUser: " << container._tokenUser << std::endl;
+                os << "_opCodeMsg: " << container._opCodeMsg << " _tokenUser: " << container._indexSession << std::endl;
                 return os;
             }
 
@@ -45,12 +45,12 @@ namespace fys {
                 return _contained;
             }
 
-            const std::string &get_tokenUser() const {
-                return _tokenUser;
+            uint getIndexSession() const {
+                return _indexSession;
             }
 
-            void setTokenUser(const std::string &_tokenUser) {
-                QueueContainer::_tokenUser = _tokenUser;
+            void setIndexSession(const uint indexSession) {
+                this->_indexSession = indexSession;
             }
 
             void setContained(const Type &contained) {
@@ -64,10 +64,9 @@ namespace fys {
             unsigned short _opCodeMsg;
 
             /**
-             * Token, used to route the message to the client to reply to
-             * Set to NULL only during authentications
+             * index position of the session (information used to get back the connection for the answer)
              */
-            std::string _tokenUser;
+            uint _indexSession;
 
             /**
              * Payload data to transfer via the queue

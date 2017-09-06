@@ -7,15 +7,17 @@
 
 fys::network::SessionManager::~SessionManager() {}
 
-fys::network::SessionManager::SessionManager(const u_int size) : _connectionsToken(size), _connections(size)
+fys::network::SessionManager::SessionManager(const u_int size) : _connections(size, nullptr), _connectionsToken(size, std::vector<char>(16, 0))
 {}
 
 const u_int fys::network::SessionManager::addConnection(const fys::network::TcpConnection::ptr &newConnection) {
     u_int i = 0;
 
     for (; i < _connections.size(); ++i) {
-        if (_connections.at(i)) {
+        if (!_connections.at(i)) {
             _connections[i] = newConnection;
+            newConnection->setSessionIndex(i);
+            std::cout << "index ->" << i <<std::endl;
             return i;
         }
     }
@@ -23,6 +25,8 @@ const u_int fys::network::SessionManager::addConnection(const fys::network::TcpC
     _connectionsToken.resize(_connections.size() + 1000);
     _connections[i] = newConnection;
     _connectionsToken[i] = fys::utils::TokenGenerator::getInstance()->generateByte();
+    newConnection->setSessionIndex(i);
+    std::cout << "index ->" << i <<std::endl;
     return i;
 }
 

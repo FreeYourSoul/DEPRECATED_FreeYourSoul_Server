@@ -25,15 +25,15 @@ bool fys::network::AuthMessage::initializeServerAuth(fys::network::Message &msg)
     return true;
 }
 
-const std::string &fys::network::AuthMessage::get_user() const {
+const std::string &fys::network::AuthMessage::getUser() const {
     return _user;
 }
 
-const std::string &fys::network::AuthMessage::get_password() const {
+const std::string &fys::network::AuthMessage::getPassword() const {
     return _password;
 }
 
-const std::string &fys::network::AuthMessage::get_token() const {
+const std::string &fys::network::AuthMessage::getToken() const {
     return _token;
 }
 

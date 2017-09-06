@@ -30,16 +30,16 @@ namespace fys {
             Message(u_char rawMessage[]);
 
             const u_char *getRawMessage() const;
-            u_short getOpCode() const;
+            ushort getOpCode() const;
 
             std::string &byteToString(std::string &toFill);
-            u_int byteToInt();
+            uint byteToInt();
 
         private:
             void loadOpCode();
 
         private:
-            u_int _index;
+            uint _index;
             u_char _rawMessage[MESSAGE_BUFFER_SIZE];
             u_short _opCode;
 

@@ -26,9 +26,9 @@ namespace fys {
             AuthMessage(const AuthMessage&);
             AuthMessage(AuthMessage&&);
 
-            const std::string &get_user() const;
-            const std::string &get_password() const;
-            const std::string &get_token() const;
+            const std::string &getUser() const;
+            const std::string &getPassword() const;
+            const std::string &getToken() const;
             bool isServerAuth() const;
 
             bool initializePlayerAuth(Message &);

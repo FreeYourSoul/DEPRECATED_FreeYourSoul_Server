@@ -29,9 +29,10 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
         Message message(_buffer);
 
         readOnSocket(fysBus);
+        containerMsg.setIndexSession(this->_sessionIndex);
         containerMsg.setContained(message);
         containerMsg.setOpCodeMsg(message.getOpCode());
-        std::cout << "Raw Message to write on bus :" << message.getRawMessage()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << std::endl;
+        std::cout << "Raw Message to write on bus :" << message.getRawMessage()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << " with index: " << _sessionIndex << std::endl;
         fysBus->pushInBus(containerMsg);
     }
     else
@@ -58,4 +59,12 @@ void fys::network::TcpConnection::shuttingConnectionDown() {
         }
         catch (std::exception &) {}
     }
+}
+
+uint fys::network::TcpConnection::getSessionIndex() const {
+    return _sessionIndex;
+}
+
+void fys::network::TcpConnection::setSessionIndex(uint _sessionIndex) {
+    TcpConnection::_sessionIndex = _sessionIndex;
 }

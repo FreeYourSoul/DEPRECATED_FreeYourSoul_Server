@@ -21,16 +21,16 @@ namespace fys {
 
             public:
                 ~Authenticator();
-                Authenticator(const Gateway::ptr);
+                Authenticator(const network::SessionManager * const serverSession);
 
                 void operator()(mq::QueueContainer<network::Message> *msg);
 
             private:
-                void authServer(const network::AuthMessage &message);
-                void authPlayer(const network::AuthMessage &message);
+                void authServer(network::AuthMessage &&message);
+                void authPlayer(network::AuthMessage &&message);
 
             private:
-                Gateway::ptr _gtw;
+                const network::SessionManager *_serverSessions;
 
             };
 

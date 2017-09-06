@@ -38,7 +38,7 @@ std::string &fys::network::Message::byteToString(std::string &toFill) {
     return toFill;
 }
 
-u_int fys::network::Message::byteToInt() {
+uint fys::network::Message::byteToInt() {
     BitConvert bti;
 
     if ((_index + 4) < MESSAGE_BUFFER_SIZE)

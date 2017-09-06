@@ -37,7 +37,7 @@ void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::
         default:
             break;
     }
-    std::cout << "author:" << babbleMessage.getAuthor() << "  message:" << babbleMessage.getMessage() << "  getAddressee:" << babbleMessage.getAddresse()<< std::endl;
+    std::cout << "INDEX : "<< msg->getIndexSession() << " author:" << babbleMessage.getAuthor() << "  message:" << babbleMessage.getMessage() << "  getAddressee:" << babbleMessage.getAddresse()<< std::endl;
 }
 
 void fys::gateway::buslistener::Babble::signInOnBabble(fys::network::BabbleMessage &&babbleMessage) {
