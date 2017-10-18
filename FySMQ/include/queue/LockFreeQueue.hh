@@ -9,6 +9,7 @@
 #include <iostream>
 #include <mutex>
 #include <condition_variable>
+#include <experimental/optional>
 #include "QueueContainer.hh"
 
 namespace fys {
@@ -18,18 +19,19 @@ namespace fys {
         class LockFreeQueue {
 
         public:
-            ~LockFreeQueue() {}
+            ~LockFreeQueue() = default;
             LockFreeQueue() : _tail(0), _maxReadTail(0), _head(0), _isLocked(true), _isLockingWhenEmpty(true) {}
 
-            TypeContainer *pop() {
+            std::experimental::optional<TypeContainer> pop() {
                 u_int currentReadTail = getIndex(_maxReadTail.load(std::memory_order_relaxed));
                 u_int currentHead = getIndex(_head);
+                std::experimental::optional<TypeContainer> returnValue;
 
                 if (currentHead < currentReadTail) {
-                    return &_queue[_head++];
+                    return _queue[_head++];
                 }
                 lockCondVar();
-                return NULL;
+                return returnValue;
             }
 
             void push(const TypeContainer &elem) {

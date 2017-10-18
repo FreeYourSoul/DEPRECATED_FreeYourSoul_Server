@@ -29,7 +29,7 @@ namespace fys {
 
                 Babble(const fys::network::SessionManager *const playerSessions);
 
-                void operator()(fys::mq::QueueContainer<fys::network::Message> *msg);
+                void operator()(fys::mq::QueueContainer<fys::network::Message> msg);
 
             private:
                 void signInOnBabble(fys::network::BabbleMessage &&babbleMessage);

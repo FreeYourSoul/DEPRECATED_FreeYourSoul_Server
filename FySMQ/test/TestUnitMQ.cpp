@@ -7,6 +7,7 @@
 
 #include <boost/test/unit_test.hpp>
 #include <boost/thread.hpp>
+#include <experimental/optional>
 #include "FysBusTest.hh"
 
 /**
@@ -14,7 +15,6 @@
  *  Bus Initialisation test------------------------------
  * ------------------------------------------------------
  */
-
 BOOST_AUTO_TEST_CASE( test_bus_ini )
 {
     fys::mq::test::FysBusTest<std::string, 100> bus("/home/FyS/ClionProjects/FreeYourSoul_Server/FySMQ/resource/test_bus_inifile.ini");
@@ -52,11 +52,8 @@ void addinlockfreequeue(const fys::mq::QueueContainer<std::string> &container) {
 
 void readLockFreeQueue() {
     for (int i = 0; i < 5000; ++i) {
-        fys::mq::QueueContainer<std::string> *container;
-
-        container = lockFreeQueue->pop();
         usleep(100);
-        if (container != NULL) {
+        if (static_cast<bool> (lockFreeQueue->pop())) {
             ++readValues;
         }
     }

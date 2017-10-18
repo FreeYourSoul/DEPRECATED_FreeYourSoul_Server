@@ -19,7 +19,7 @@ namespace fys {
         template <class Type>
         class QueueContainer {
         public:
-            ~QueueContainer() {}
+            ~QueueContainer() = default;
             QueueContainer() : _opCodeMsg(0) {}
 
             QueueContainer(const Type &container) : _opCodeMsg(0), _contained(container) {}

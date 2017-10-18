@@ -5,7 +5,7 @@
 #include <Babble.hh>
 #include <Gateway.hh>
 
-fys::gateway::Gateway::~Gateway() {}
+fys::gateway::Gateway::~Gateway() = default;
 
 fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::network::Message, BUS_QUEUES_SIZE>::ptr &fysBus) :
         _ios(ios),

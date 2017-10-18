@@ -43,9 +43,9 @@ namespace fys {
                 }
                 std::cout << "Listener launched, listen on queue: " << _indexInBus << " for functor: " << typeid(_functor).name() << std::endl;
                 while (true) {
-                    auto *msgContainer = bus->popFromBus(_indexInBus);
-                    if (msgContainer)
-                        _functor(msgContainer);
+                    auto msgContainer = bus->popFromBus(_indexInBus);
+                    if (static_cast<bool>(msgContainer))
+                        _functor(msgContainer.value());
                 }
             }
 

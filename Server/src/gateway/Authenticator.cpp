@@ -10,17 +10,17 @@ fys::gateway::buslistener::Authenticator::~Authenticator() {}
 fys::gateway::buslistener::Authenticator::Authenticator(const network::SessionManager * const serverSession) : _serverSessions(serverSession)
 {}
 
-void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<network::Message> *msg) {
+void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<network::Message> msg) {
     network::AuthMessage authMessage;
 
-    switch (msg->getOpCodeMsg()) {
+    switch (msg.getOpCodeMsg()) {
         case network::AuthMessage::AUTH_PLAYER:
-            authMessage.initializePlayerAuth(msg->getContained());
+            authMessage.initializePlayerAuth(msg.getContained());
             authPlayer(std::move(authMessage));
             break;
 
         case network::AuthMessage::AUTH_SERVER:
-            authMessage.initializeServerAuth(msg->getContained());
+            authMessage.initializeServerAuth(msg.getContained());
             authServer(std::move(authMessage));
             break;
 

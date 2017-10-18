@@ -10,34 +10,34 @@ fys::gateway::buslistener::Babble::Babble(const network::SessionManager * const 
     _basicChannels.push_back("Default");
 }
 
-void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::network::Message> *msg) {
+void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::network::Message> msg) {
     network::BabbleMessage babbleMessage;
 
-    switch (msg->getOpCodeMsg()) {
+    switch (msg.getOpCodeMsg()) {
         case network::BabbleMessage::SEND:
-            if (babbleMessage.initializeBabbleMessage(msg->getContained()));
+            if (babbleMessage.initializeBabbleMessage(msg.getContained()));
                 sendMessage(std::move(babbleMessage));
             break;
 
         case network::BabbleMessage::WHISPER:
-            if (babbleMessage.initializeBabbleMessage(msg->getContained()));
+            if (babbleMessage.initializeBabbleMessage(msg.getContained()));
                 whisperMessage(std::move(babbleMessage));
             break;
 
         case network::BabbleMessage::LOGIN:
-            if (babbleMessage.initializeBabbleLogin(msg->getContained()));
+            if (babbleMessage.initializeBabbleLogin(msg.getContained()));
                 signInOnBabble(std::move(babbleMessage));
             break;
 
         case network::BabbleMessage::SIGNOUT:
-            if (babbleMessage.initializeBabbleLogout(msg->getContained()));
+            if (babbleMessage.initializeBabbleLogout(msg.getContained()));
                 signOutFromBabble(std::move(babbleMessage));
             break;
 
         default:
             break;
     }
-    std::cout << "INDEX : "<< msg->getIndexSession() << " author:" << babbleMessage.getAuthor() << "  message:" << babbleMessage.getMessage() << "  getAddressee:" << babbleMessage.getAddresse()<< std::endl;
+    std::cout << "INDEX : "<< msg.getIndexSession() << " author:" << babbleMessage.getAuthor() << "  message:" << babbleMessage.getMessage() << "  getAddressee:" << babbleMessage.getAddresse()<< std::endl;
 }
 
 void fys::gateway::buslistener::Babble::signInOnBabble(fys::network::BabbleMessage &&babbleMessage) {

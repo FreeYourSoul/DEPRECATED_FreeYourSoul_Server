@@ -76,11 +76,13 @@ namespace fys {
                 }
             }
 
-            QueueContainer<T> *popFromBus(const int indexQueueInBus) {
+            std::experimental::optional<QueueContainer<T> > popFromBus(const int indexQueueInBus) {
+                std::experimental::optional<QueueContainer<T> > toReturn;
+
                 if (isIndexQueueLegitimate(indexQueueInBus)) {
-                    return _queues.at(indexQueueInBus)->pop();
+                    toReturn = _queues.at(indexQueueInBus)->pop();
                 }
-                return nullptr;
+                return toReturn;
             }
 
             u_int8_t getRoutingKeyFromOpCode(const unsigned short opCode) const {

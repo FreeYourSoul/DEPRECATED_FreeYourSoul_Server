@@ -9,7 +9,7 @@ include_directories(FySMQ/include/queue FySMQ/include/bus FySMemoryManager/inclu
 
 set(SOURCE_FILES_MM)
 
-set(SOURCE_FILES_MQ FySMQ/include/queue/LockFreeQueue.hh FySMQ/include/queue/QueueContainer.hh FySMQ/include/queue/LockingQueue.hh FySMQ/include/bus/BusListener.hh)
+set(SOURCE_FILES_MQ FySMQ/include/queue/LockFreeQueue.hh FySMQ/include/queue/QueueContainer.hh FySMQ/include/queue/LockingQueue.hh FySMQ/include/bus/BusListener.hh FySMQ/include/bus/FysBus.hh)
 
 set(SOURCE_FILES_SRV Server/src/gateway/Gateway.cpp Server/include/gateway/Gateway.hh Server/src/network/Message.cpp Server/include/network/Message.hh Server/src/gateway/Context.cpp Server/include/gateway/Context.hh Server/src/network/SessionManager.cpp Server/include/network/SessionManager.hh Server/src/babble/Babble.cpp Server/include/babble/Babble.hh Server/src/babble/BabbleChannel.cpp Server/include/babble/BabbleChannel.hh Server/src/network/BabbleMessage.cpp Server/include/network/BabbleMessage.hh Server/src/network/TcpConnection.cpp Server/include/network/TcpConnection.hh Server/src/network/AuthMessage.cpp Server/include/network/AuthMessage.hh Server/src/gateway/GameServerInstance.cpp Server/include/gateway/GameServerInstance.hh Server/src/gateway/Authenticator.cpp Server/include/gateway/Authenticator.hh Server/src/network/HttpAuthClient.cpp Server/include/network/HttpAuthClient.hh Server/src/network/response/ResponseMessage.cpp Server/include/network/response/ResponseMessage.hh)
 

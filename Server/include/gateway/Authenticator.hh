@@ -23,7 +23,7 @@ namespace fys {
                 ~Authenticator();
                 Authenticator(const network::SessionManager * const serverSession);
 
-                void operator()(mq::QueueContainer<network::Message> *msg);
+                void operator()(mq::QueueContainer<network::Message> msg);
 
             private:
                 void authServer(network::AuthMessage &&message);
