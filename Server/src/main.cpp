@@ -1,7 +1,6 @@
 #include <iostream>
 #include <thread>
 #include <Gateway.hh>
-#include <HttpAuthClient.hh>
 #include <BusListener.hh>
 #include <Babble.hh>
 #include <Authenticator.hh>
@@ -11,8 +10,8 @@ using namespace fys::mq;
 using namespace fys::gateway;
 using namespace fys::network;
 
-using BabbleBusListener = BusListener <buslistener::Babble, FysBus<Message, BUS_QUEUES_SIZE>>;
-using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<Message, BUS_QUEUES_SIZE>>;
+using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>>;
+using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>>;
 
 
 int main(int argc, const char * const *argv) {
@@ -22,8 +21,7 @@ int main(int argc, const char * const *argv) {
         boost::asio::io_service ios;
         boost::asio::io_service::work work(ios);
         Context ctx(argc, argv);
-        FysBus<fys::network::Message, BUS_QUEUES_SIZE>::ptr fysBus(
-                new FysBus<Message, BUS_QUEUES_SIZE>(ctx.getBusIniFilePath()));
+        auto fysBus = std::make_shared<FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE> > (fys::pb::FySGtwMessage::Type_ARRAYSIZE);
         gtw = new Gateway(ctx, ios, fysBus);
         buslistener::Babble babble(gtw->getGamerConnectionsPointer());
         buslistener::Authenticator authenticator(gtw->getServerConnectionsPointer());

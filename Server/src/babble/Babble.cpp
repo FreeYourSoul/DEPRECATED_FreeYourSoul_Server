@@ -2,7 +2,7 @@
 // Created by FyS on 24/06/17.
 //
 
-#include <BabbleMessage.hh>
+#include <Babble.hh>
 
 fys::gateway::buslistener::Babble::~Babble() {}
 
@@ -10,64 +10,26 @@ fys::gateway::buslistener::Babble::Babble(const network::SessionManager * const 
     _basicChannels.push_back("Default");
 }
 
-void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::network::Message> msg) {
-    network::BabbleMessage babbleMessage;
+void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg) {
 
-    switch (msg.getOpCodeMsg()) {
-        case network::BabbleMessage::SEND:
-            if (babbleMessage.initializeBabbleMessage(msg.getContained()));
-                sendMessage(std::move(babbleMessage));
-            break;
-
-        case network::BabbleMessage::WHISPER:
-            if (babbleMessage.initializeBabbleMessage(msg.getContained()));
-                whisperMessage(std::move(babbleMessage));
-            break;
-
-        case network::BabbleMessage::LOGIN:
-            if (babbleMessage.initializeBabbleLogin(msg.getContained()));
-                signInOnBabble(std::move(babbleMessage));
-            break;
-
-        case network::BabbleMessage::SIGNOUT:
-            if (babbleMessage.initializeBabbleLogout(msg.getContained()));
-                signOutFromBabble(std::move(babbleMessage));
-            break;
-
-        default:
-            break;
-    }
-    std::cout << "INDEX : "<< msg.getIndexSession() << " author:" << babbleMessage.getAuthor() << "  message:" << babbleMessage.getMessage() << "  getAddressee:" << babbleMessage.getAddresse()<< std::endl;
 }
 
-void fys::gateway::buslistener::Babble::signInOnBabble(fys::network::BabbleMessage &&babbleMessage) {
-    std::string tokenSignIn = babbleMessage.getAuthor();
-
-    std::cout << "User Login in Babble" << std::endl;
-    if (!tokenSignIn.empty()) {
-//        std::list<std::string> &playerConnected = _mapPlayerChannels.at("Default");
-//
-//        if (!isPlayerConnectedTo(playerConnected, tokenSignIn))
-//            playerConnected.push_back(tokenSignIn);
-    }
+void fys::gateway::buslistener::Babble::signInOnBabble(fys::pb::FySBabbleMessage &&babbleMessage) {
 }
 
-void fys::gateway::buslistener::Babble::signOutFromBabble(fys::network::BabbleMessage &&babbleMessage) {
-    std::string tokenSignOut = babbleMessage.getAuthor();
-    std::string channel = babbleMessage.getAddresse();
-
+void fys::gateway::buslistener::Babble::signOutFromBabble(fys::pb::FySBabbleMessage &&babbleMessage) {
     std::cout << "User signOutFromBabble in Babble" << std::endl;
-    if (!tokenSignOut.empty()) {
-        if (!channel.empty()) {
-            std::list<std::string> &playerConnected = _mapPlayerChannels.at(channel);
+    if (!babbleMessage.token().empty()) {
+        if (babbleMessage.iswhisper()) {
+            std::list<std::string> &playerConnected = _mapPlayerChannels.at(babbleMessage.content().dest());
 
-            if (!isPlayerConnectedTo(playerConnected, tokenSignOut))
-                playerConnected.remove(channel);
+            if (!isPlayerConnectedTo(playerConnected, babbleMessage.token()))
+                playerConnected.remove(babbleMessage.content().dest());
         }
         else {
             for (auto &x: _mapPlayerChannels) {
-                if (!isPlayerConnectedTo(x.second, tokenSignOut))
-                    x.second.remove(channel);
+                if (!isPlayerConnectedTo(x.second, babbleMessage.token()))
+                    x.second.remove(babbleMessage.content().dest());
             }
         }
     }
@@ -80,10 +42,10 @@ bool fys::gateway::buslistener::Babble::isPlayerConnectedTo(const std::list<std:
     return false;
 }
 
-void fys::gateway::buslistener::Babble::sendMessage(fys::network::BabbleMessage &&babbleMessage) {
+void fys::gateway::buslistener::Babble::sendMessage(fys::pb::FySBabbleMessage &&babbleMessage) {
     std::cout << "User sendMessage in Babble" << std::endl;
 }
 
-void fys::gateway::buslistener::Babble::whisperMessage(fys::network::BabbleMessage &&babbleMessage) {
+void fys::gateway::buslistener::Babble::whisperMessage(fys::pb::FySBabbleMessage &&babbleMessage) {
     std::cout << "User whisperMessage in Babble" << std::endl;
 }

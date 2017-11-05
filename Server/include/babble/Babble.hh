@@ -9,14 +9,11 @@
 #include <string>
 #include <unordered_map>
 #include <SessionManager.hh>
-#include <Message.hh>
+#include <FySGtwMessage.pb.h>
+#include <FySBabbleMessage.pb.h>
 #include "BabbleChannel.hh"
 
 namespace fys {
-
-    namespace network {
-        class BabbleMessage;
-    }
 
     namespace gateway {
         namespace buslistener {
@@ -29,13 +26,13 @@ namespace fys {
 
                 Babble(const fys::network::SessionManager *const playerSessions);
 
-                void operator()(fys::mq::QueueContainer<fys::network::Message> msg);
+                void operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg);
 
             private:
-                void signInOnBabble(fys::network::BabbleMessage &&babbleMessage);
-                void signOutFromBabble(fys::network::BabbleMessage &&babbleMessage);
-                void sendMessage(fys::network::BabbleMessage &&babbleMessage);
-                void whisperMessage(fys::network::BabbleMessage &&babbleMessage);
+                void signInOnBabble(fys::pb::FySBabbleMessage &&babbleMessage);
+                void signOutFromBabble(fys::pb::FySBabbleMessage &&babbleMessage);
+                void sendMessage(fys::pb::FySBabbleMessage &&babbleMessage);
+                void whisperMessage(fys::pb::FySBabbleMessage &&babbleMessage);
                 bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
 
             private:

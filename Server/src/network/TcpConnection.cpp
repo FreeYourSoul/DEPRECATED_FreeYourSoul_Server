@@ -14,7 +14,7 @@ boost::asio::ip::tcp::socket& fys::network::TcpConnection::getSocket() {
     return _socket;
 }
 
-void fys::network::TcpConnection::send(const fys::network::Message& msg) {
+void fys::network::TcpConnection::send(const pb::FySGtwMessage& msg) {
 
 }
 
@@ -23,23 +23,25 @@ void fys::network::TcpConnection::handleWrite(const boost::system::error_code &e
         shuttingConnectionDown();
 }
 
-void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
+void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
     if (!((boost::asio::error::eof == error) || (boost::asio::error::connection_reset == error)) && !_isShuttingDown) {
-        mq::QueueContainer<Message> containerMsg;
-        Message message(_buffer);
+        mq::QueueContainer<pb::FySGtwMessage> containerMsg;
+        pb::FySGtwMessage message;
 
+        message.ParseFromArray(_buffer, static_cast<int>(bytesTransferred));
         readOnSocket(fysBus);
         containerMsg.setIndexSession(this->_sessionIndex);
         containerMsg.setContained(message);
-        containerMsg.setOpCodeMsg(message.getOpCode());
-        std::cout << "Raw Message to write on bus :" << message.getRawMessage()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << " with index: " << _sessionIndex << std::endl;
+        containerMsg.setOpCodeMsg(message.type());
+        std::cout << "Raw Message to write on bus :" << message.ShortDebugString()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << " with index: " << _sessionIndex << std::endl;
         fysBus->pushInBus(containerMsg);
     }
     else
         shuttingConnectionDown();
+
 }
 
-void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
+void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
     std::fill(_buffer, _buffer + fys::network::MESSAGE_BUFFER_SIZE, 0);
 _socket.async_read_some(boost::asio::buffer(_buffer, fys::network::MESSAGE_BUFFER_SIZE),
     boost::bind(&TcpConnection::handleRead, shared_from_this(),

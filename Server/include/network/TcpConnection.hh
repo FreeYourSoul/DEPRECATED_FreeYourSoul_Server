@@ -8,12 +8,14 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
-#include <Message.hh>
 #include <Context.hh>
 #include <FysBus.hh>
+#include <FySGtwMessage.pb.h>
 
 namespace fys {
     namespace network {
+
+        static const int MESSAGE_BUFFER_SIZE = 100;
 
         class TcpConnection : public std::enable_shared_from_this<TcpConnection>
         {
@@ -29,8 +31,8 @@ namespace fys {
 
             boost::asio::ip::tcp::socket& getSocket();
 
-            void readOnSocket(fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
-            void send(const fys::network::Message& msg);
+            void readOnSocket(fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
+            void send(const fys::pb::FySGtwMessage& msg);
 
             uint getSessionIndex() const;
             void setSessionIndex(uint _sessionIndex);
@@ -42,7 +44,7 @@ namespace fys {
 
             void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
             void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
-                            fys::mq::FysBus<fys::network::Message, gateway::BUS_QUEUES_SIZE>::ptr &);
+                            fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &);
 
         private:
             bool _isShuttingDown;

@@ -23,13 +23,13 @@ namespace fys {
         class BusListener {
 
         public:
-            ~BusListener() {}
+            ~BusListener() = default;
             explicit BusListener(Functor func) : _indexInBus(Functor::IndexInBus), _functor(func) {}
 
             void launchListenThread(typename BusType::ptr bus, const bool launchTread = true) {
                 if (launchTread) {
-                    boost::thread babbleListenerThread(boost::bind(&BusListener::listen, this, bus));
-                    babbleListenerThread.detach();
+                    boost::thread thread(boost::bind(&BusListener::listen, this, bus));
+                    thread.detach();
                 }
                 else
                     listen(bus);

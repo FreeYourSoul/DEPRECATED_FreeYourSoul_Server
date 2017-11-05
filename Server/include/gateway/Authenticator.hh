@@ -5,9 +5,7 @@
 #ifndef FREESOULS_AUTHENTICATION_HH
 #define FREESOULS_AUTHENTICATION_HH
 
-
-#include <Message.hh>
-#include <AuthMessage.hh>
+#include <FySLoginMessage.pb.h>
 #include "Gateway.hh"
 
 namespace fys {
@@ -23,11 +21,12 @@ namespace fys {
                 ~Authenticator();
                 Authenticator(const network::SessionManager * const serverSession);
 
-                void operator()(mq::QueueContainer<network::Message> msg);
+                void operator()(mq::QueueContainer<pb::FySGtwMessage> msg);
 
             private:
-                void authServer(network::AuthMessage &&message);
-                void authPlayer(network::AuthMessage &&message);
+                void authGameServer(pb::LoginMessage &&message);
+                void authPlayer(pb::LoginMessage &&message);
+                void authAuthServer(pb::LoginMessage &&message);
 
             private:
                 const network::SessionManager *_serverSessions;

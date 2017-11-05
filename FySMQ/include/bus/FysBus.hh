@@ -56,24 +56,14 @@ namespace fys {
 //                    toDelete = i;
 //                }
             }
-            FysBus(const std::string& iniPath) {
-                try {
-                    this->initializeBusFromIni(iniPath);
-                }
-                catch (std::exception &e) {
-                    std::cout << "FysBus Exception at initialization : " << e.what() << std::endl;
-                }
+
+            explicit FysBus(const int queueNumber) {
+                for (int i = 0; i < queueNumber; ++i)
+                    _queues.push_back(new LockFreeQueue<QueueContainer<T>, SIZE_QUEUES>());
             }
 
             void pushInBus(QueueContainer<T> message) {
-                int opCodeMsg = message.getOpCodeMsg();
-
-                for (u_int8_t i = 0; i < _queueRoutes.size(); ++i) {
-                    if (opCodeMsg >= _queueRoutes.at(i).first.first && opCodeMsg <= _queueRoutes.at(i).first.second) {
-                        _queues.at(_queueRoutes.at(i).second)->push(message);
-                        return;
-                    }
-                }
+                _queues.at(message.getOpCodeMsg())->push(message);
             }
 
             std::experimental::optional<QueueContainer<T> > popFromBus(const int indexQueueInBus) {
@@ -85,50 +75,11 @@ namespace fys {
                 return toReturn;
             }
 
-            u_int8_t getRoutingKeyFromOpCode(const unsigned short opCode) const {
-                for (int i = 0; i < _queueRoutes.size(); ++i)
-                    if (opCode >= _queueRoutes.at(i).first.first && opCode < _queueRoutes.at(i).first.second)
-                        return _queueRoutes.at(i).second;
-                return _queueRoutes.size() + 1;
-            }
-
             inline bool isIndexQueueLegitimate(const int indexQueueInBus) {
-                return indexQueueInBus < _queueRoutes.size() && indexQueueInBus < _queues.size();
+                return indexQueueInBus < _queues.size();
             }
-
-        private:
-            void initializeBusFromIni(const std::string &iniPath) {
-                boost::property_tree::ptree pt;
-                boost::property_tree::read_ini(iniPath, pt);
-                int queueNumbers;
-
-                queueNumbers = pt.get<int>(INIT_BUS_NB_QUEUE);
-                for (int i = 0; i < queueNumbers; ++i)
-                    addQueueInBus(pt, i);
-            }
-
-            void addQueueInBus(const boost::property_tree::ptree &pt, const int index) {
-                std::string i = std::to_string(index + 1);
-                int minParam = pt.get<int>(QUEUE_MIN(i));
-                int maxParam = pt.get<int>(QUEUE_MAX(i));
-                std::pair<int, int> queuePair(minParam, maxParam);
-                std::pair<std::pair<int, int>, int> queuePairId(queuePair, index);
-                LockFreeQueue<QueueContainer<T>, SIZE_QUEUES> *queueToAdd = new LockFreeQueue<QueueContainer<T>, SIZE_QUEUES>();
-
-                std::cout << "Queue " << i << ":" << pt.get<std::string>(QUEUE_NAME(i)) << " - MIN id: " << minParam << " - MAX id: " << maxParam << " - isLockingWhenEmpty: " << queueToAdd->isLockingWhenEmpty() << std::endl;
-                _queueRoutes.push_back(queuePairId);
-                _queues.push_back(queueToAdd);
-            }
-
 
         protected:
-            /**
-             * pair list
-             *
-             *  [pair>int:int] : min:max
-             *  [     int    ] : index in the _queues
-             */
-            std::vector<std::pair<std::pair<int, int>, int> > _queueRoutes;
             std::vector<LockFreeQueue<QueueContainer<T>, SIZE_QUEUES> *> _queues;
         };
 
