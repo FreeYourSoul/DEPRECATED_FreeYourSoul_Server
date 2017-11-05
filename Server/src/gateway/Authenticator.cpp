@@ -16,15 +16,15 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
     msg.getContained().content().UnpackTo(&authMessage);
     switch (authMessage.typemessage()) {
         case pb::LoginMessage_Type_LoginPlayerOnGateway :
-            authPlayer(std::move(authMessage));
+            authPlayer(msg.getIndexSession(), std::move(authMessage));
             break;
 
         case pb::LoginMessage_Type_LoginGameServer:
-            authGameServer(std::move(authMessage));
+            authGameServer(msg.getIndexSession(), std::move(authMessage));
             break;
 
         case pb::LoginMessage_Type_LoginAuthServer:
-            authAuthServer(std::move(authMessage));
+            authAuthServer(msg.getIndexSession(), std::move(authMessage));
             break;
 
         default:
@@ -32,15 +32,16 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
     }
 }
 
-void fys::gateway::buslistener::Authenticator::authGameServer(pb::LoginMessage &&message) {
+void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession, pb::LoginMessage &&loginMessage) {
+    pb::LoginGameServer gameServer;
+    loginMessage.content().UnpackTo(&gameServer);
+}
+
+void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb::LoginMessage &&loginMessage) {
 
 }
 
-void fys::gateway::buslistener::Authenticator::authPlayer(pb::LoginMessage &&message) {
-
-}
-
-void fys::gateway::buslistener::Authenticator::authAuthServer(pb::LoginMessage &&message) {
+void fys::gateway::buslistener::Authenticator::authAuthServer(uint indexSession, pb::LoginMessage &&loginMessage) {
 
 }
 

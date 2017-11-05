@@ -15,3 +15,15 @@ message FySGtwMessage {
     google.protobuf.Any content = 2;
 
 }
+
+message FySGtwResponseMessage {
+
+    enum Type {
+        AUTH = 0;
+        BABBLE = 1;
+    }
+
+    Type type = 1;
+    google.protobuf.Any content = 2;
+    bool isOK = 3;
+}

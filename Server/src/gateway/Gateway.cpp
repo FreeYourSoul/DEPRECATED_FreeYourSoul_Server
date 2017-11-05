@@ -5,6 +5,9 @@
 #include <Babble.hh>
 #include <Gateway.hh>
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "InfiniteRecursion"
+
 fys::gateway::Gateway::~Gateway() = default;
 
 fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>::ptr &fysBus) :
@@ -16,29 +19,33 @@ fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io
         _serverConnections(10)
 {}
 
-void fys::gateway::Gateway::handlePlayerConnection(fys::network::TcpConnection::ptr &newSession) {
-    newSession->readOnSocket(_fysBus);
-    _gamerConnections.addConnection(newSession);
-    runPlayerAccept();
-}
-
 void fys::gateway::Gateway::runPlayerAccept() {
     network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
 
-    _acceptorPlayer.async_accept(session->getSocket(), boost::bind(&Gateway::handlePlayerConnection, this, session));
-}
+    _acceptorPlayer.async_accept(session->getSocket(),
 
-void fys::gateway::Gateway::handleServerConnection(fys::network::TcpConnection::ptr &newSession) {
-    newSession->readOnSocket(_fysBus);
-    _serverConnections.addConnection(newSession);
-    std::cout << "coucou"<<std::endl;
-    runServerAccept();
+            [this, session](const boost::system::error_code& e) {
+                session->readOnSocket(_fysBus);
+                this->_gamerConnections.addConnection(session);
+                this->runPlayerAccept();
+            }
+
+    );
 }
 
 void fys::gateway::Gateway::runServerAccept() {
     network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
 
-    _acceptorServer.async_accept(session->getSocket(), boost::bind(&Gateway::handleServerConnection, this, session));
+    _acceptorServer.async_accept(session->getSocket(),
+
+            [this, session](const boost::system::error_code& e) {
+                session->readOnSocket(_fysBus);
+                _serverConnections.addConnection(session);
+                std::cout << "coucou"<<std::endl;
+                this->runServerAccept();
+            }
+
+    );
 }
 
 const fys::network::SessionManager *fys::gateway::Gateway::getGamerConnectionsPointer() const {
@@ -48,3 +55,5 @@ const fys::network::SessionManager *fys::gateway::Gateway::getGamerConnectionsPo
 const fys::network::SessionManager *fys::gateway::Gateway::getServerConnectionsPointer() const {
     return &_serverConnections;
 }
+
+#pragma clang diagnostic pop

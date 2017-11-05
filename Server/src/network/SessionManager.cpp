@@ -13,9 +13,12 @@ fys::network::SessionManager::SessionManager(const u_int size) : _connections(si
 const u_int fys::network::SessionManager::addConnection(const fys::network::TcpConnection::ptr &newConnection) {
     u_int i = 0;
     auto connectionHandle = [this, &newConnection] (int i) {
+        Token newToken = fys::utils::TokenGenerator::getInstance()->generateByte();
+
         this->_connections[i] = newConnection;
-        this->_connectionsToken[i] = fys::utils::TokenGenerator::getInstance()->generateByte();
+        this->_connectionsToken[i] = newToken;
         newConnection->setSessionIndex(i);
+        newConnection->setCustomShutdownHandler([this, newToken]() { this->disconnectUser(newToken); });
         std::cout << "index ->" << i <<std::endl;
     };
 
@@ -36,6 +39,7 @@ void fys::network::SessionManager::disconnectUser(const fys::network::Token &tok
 
     for (; i < _connectionsToken.size(); ++i) {
         if (std::equal(_connectionsToken.at(i).begin(), _connectionsToken.at(i).end(), token.begin())) {
+            std::cout << "Disconnect user " << i << " from Session manager" << std::endl;
             _connections[i] = nullptr;
             return;
         }

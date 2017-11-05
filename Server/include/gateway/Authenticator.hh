@@ -24,13 +24,13 @@ namespace fys {
                 void operator()(mq::QueueContainer<pb::FySGtwMessage> msg);
 
             private:
-                void authGameServer(pb::LoginMessage &&message);
-                void authPlayer(pb::LoginMessage &&message);
-                void authAuthServer(pb::LoginMessage &&message);
+                void authGameServer(uint indexSession, pb::LoginMessage &&loginMessage);
+                void authPlayer(uint indexSession, pb::LoginMessage &&loginMessage);
+                void authAuthServer(uint indexSession, pb::LoginMessage &&loginMessage);
 
             private:
                 const network::SessionManager *_serverSessions;
-
+                const network::SessionManager *_playerSessions;
             };
 
         }

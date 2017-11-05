@@ -28,7 +28,9 @@ namespace fys {
 
             void launchListenThread(typename BusType::ptr bus, const bool launchTread = true) {
                 if (launchTread) {
-                    boost::thread thread(boost::bind(&BusListener::listen, this, bus));
+                    boost::thread thread([this, &bus]() {
+                        this->listen(bus);
+                    });
                     thread.detach();
                 }
                 else

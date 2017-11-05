@@ -18,12 +18,25 @@ void fys::network::TcpConnection::send(const pb::FySGtwMessage& msg) {
 
 }
 
-void fys::network::TcpConnection::handleWrite(const boost::system::error_code &error, size_t bytesTransferred) {
+void fys::network::TcpConnection::handleWrite(const boost::system::error_code &error, const size_t bytesTransferred) {
     if (error || _isShuttingDown)
         shuttingConnectionDown();
 }
 
-void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, size_t bytesTransferred, fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
+void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
+    std::fill(_buffer, _buffer + fys::network::MESSAGE_BUFFER_SIZE, 0);
+    _socket.async_read_some(boost::asio::buffer(_buffer, fys::network::MESSAGE_BUFFER_SIZE),
+                            [this, fysBus](boost::system::error_code ec, const std::size_t byteTransfered) {
+                                this->handleRead(ec, byteTransfered, fysBus);
+                            });
+//    boost::bind(&TcpConnection::handleRead, shared_from_this(),
+//    boost::asio::placeholders::error,
+//            boost::asio::placeholders::bytes_transferred,
+//            fysBus)
+}
+
+void fys::network::TcpConnection::handleRead(const boost::system::error_code &error, const size_t bytesTransferred,
+                                             fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr fysBus) {
     if (!((boost::asio::error::eof == error) || (boost::asio::error::connection_reset == error)) && !_isShuttingDown) {
         mq::QueueContainer<pb::FySGtwMessage> containerMsg;
         pb::FySGtwMessage message;
@@ -41,21 +54,12 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
 
 }
 
-void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
-    std::fill(_buffer, _buffer + fys::network::MESSAGE_BUFFER_SIZE, 0);
-_socket.async_read_some(boost::asio::buffer(_buffer, fys::network::MESSAGE_BUFFER_SIZE),
-    boost::bind(&TcpConnection::handleRead, shared_from_this(),
-                boost::asio::placeholders::error,
-                boost::asio::placeholders::bytes_transferred,
-                fysBus));
-}
-
 void fys::network::TcpConnection::shuttingConnectionDown() {
     if (!_isShuttingDown) {
         std::cout << "Shutting down connection..." << std::endl;
         _isShuttingDown = true;
         try {
-//            _function();
+            _customShutdownHandler();
             _socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
             _socket.close();
         }
@@ -69,4 +73,8 @@ uint fys::network::TcpConnection::getSessionIndex() const {
 
 void fys::network::TcpConnection::setSessionIndex(uint _sessionIndex) {
     TcpConnection::_sessionIndex = _sessionIndex;
+}
+
+void fys::network::TcpConnection::setCustomShutdownHandler(const std::function<void()> &customShutdownHandler) {
+    TcpConnection::_customShutdownHandler = customShutdownHandler;
 }
