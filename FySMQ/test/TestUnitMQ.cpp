@@ -83,9 +83,9 @@ BOOST_AUTO_TEST_CASE( test_queue_exec ) {
     c3.setOpCodeMsg(44);
     initTestExecution();
     boost::thread workerRead(readLockFreeQueue);
-    boost::thread w1(boost::bind(addinlockfreequeue, c1));
-    boost::thread w2(boost::bind(addinlockfreequeue, c2));
-    boost::thread w3(boost::bind(addinlockfreequeue, c3));
+    boost::thread w1([this, &c1]() { addinlockfreequeue(c1); });
+    boost::thread w2([this, &c2]() { addinlockfreequeue(c2); });
+    boost::thread w3([this, &c3]() { addinlockfreequeue(c3); });
 
     w1.join();
     w2.join();

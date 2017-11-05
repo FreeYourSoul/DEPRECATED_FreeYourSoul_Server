@@ -36,7 +36,7 @@ namespace fys {
                 bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
 
             private:
-                const network::SessionManager *_playerSessions;
+                const network::SessionManager * const _playerSessions;
                 std::unordered_map<std::string, BabbleChannel> _channels;
                 std::unordered_map<std::string, std::list<std::string> > _mapPlayerChannels;
                 std::vector<std::string> _basicChannels;

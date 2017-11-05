@@ -17,6 +17,7 @@ using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb:
 int main(int argc, const char * const *argv) {
     Gateway *gtw = nullptr;
 
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
     try {
         boost::asio::io_service ios;
         boost::asio::io_service::work work(ios);
@@ -24,7 +25,7 @@ int main(int argc, const char * const *argv) {
         auto fysBus = std::make_shared<FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE> > (fys::pb::FySGtwMessage::Type_ARRAYSIZE);
         gtw = new Gateway(ctx, ios, fysBus);
         buslistener::Babble babble(gtw->getGamerConnectionsPointer());
-        buslistener::Authenticator authenticator(gtw->getServerConnectionsPointer());
+        buslistener::Authenticator authenticator(gtw->getServerConnectionsPointer(), gtw->getGamerConnectionsPointer());
         BabbleBusListener babbleListener(babble);
         AuthBusListener authenticatorListener(authenticator);
 
@@ -42,5 +43,6 @@ int main(int argc, const char * const *argv) {
     }
     if (gtw)
         delete(gtw);
+    google::protobuf::ShutdownProtobufLibrary();
     return 0;
 }

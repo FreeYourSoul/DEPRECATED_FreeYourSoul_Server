@@ -12,26 +12,27 @@ fys::network::SessionManager::SessionManager(const u_int size) : _connections(si
 
 const u_int fys::network::SessionManager::addConnection(const fys::network::TcpConnection::ptr &newConnection) {
     u_int i = 0;
-    auto connectionHandle = [this, &newConnection] (int i) {
-        Token newToken = fys::utils::TokenGenerator::getInstance()->generateByte();
-
-        this->_connections[i] = newConnection;
-        this->_connectionsToken[i] = newToken;
-        newConnection->setSessionIndex(i);
-        newConnection->setCustomShutdownHandler([this, newToken]() { this->disconnectUser(newToken); });
-        std::cout << "index ->" << i <<std::endl;
-    };
 
     for (; i < _connections.size(); ++i) {
         if (!_connections.at(i)) {
-            connectionHandle(i);
+            connectionHandle(newConnection, i);
             return i;
         }
     }
     _connections.resize(_connections.size() + 1000, nullptr);
     _connectionsToken.resize(_connections.size() + 1000);
-    connectionHandle(i);
+    connectionHandle(newConnection, i);
     return i;
+}
+
+void fys::network::SessionManager::connectionHandle(const fys::network::TcpConnection::ptr &newConnection, const uint i) {
+    Token newToken = fys::utils::TokenGenerator::getInstance()->generateByte();
+
+    this->_connections[i] = newConnection;
+    this->_connectionsToken[i] = newToken;
+    newConnection->setSessionIndex(i);
+    newConnection->setCustomShutdownHandler([this, newToken]() { this->disconnectUser(newToken); });
+    std::cout << "index ->" << i <<std::endl;
 }
 
 void fys::network::SessionManager::disconnectUser(const fys::network::Token &token) {
@@ -45,6 +46,17 @@ void fys::network::SessionManager::disconnectUser(const fys::network::Token &tok
         }
     }
     std::cerr << "Couldn't find the specified user's token to disconnect" << std::endl;
+}
+
+std::string fys::network::SessionManager::getConnectionToken(const uint indexInSession) const noexcept {
+    if (indexInSession < _connectionsToken.size())
+        return std::string(_connectionsToken.at(indexInSession).begin(), _connectionsToken.at(indexInSession).end());
+    return "";
+}
+
+void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::FySGtwResponseMessage &&message) const noexcept {
+    if (indexInSession < _connections.size())
+        _connections.at(indexInSession)->send(std::move(message));
 }
 
 

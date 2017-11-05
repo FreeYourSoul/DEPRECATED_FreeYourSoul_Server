@@ -7,7 +7,7 @@
 fys::gateway::buslistener::Babble::~Babble() {}
 
 fys::gateway::buslistener::Babble::Babble(const network::SessionManager * const playerSessions) : _playerSessions(playerSessions) {
-    _basicChannels.push_back("Default");
+    _basicChannels.emplace_back("Default");
 }
 
 void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg) {

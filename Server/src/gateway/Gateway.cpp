@@ -41,7 +41,6 @@ void fys::gateway::Gateway::runServerAccept() {
             [this, session](const boost::system::error_code& e) {
                 session->readOnSocket(_fysBus);
                 _serverConnections.addConnection(session);
-                std::cout << "coucou"<<std::endl;
                 this->runServerAccept();
             }
 

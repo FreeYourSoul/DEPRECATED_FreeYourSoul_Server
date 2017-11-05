@@ -34,7 +34,7 @@ namespace fys {
             void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
 
             void readOnSocket(fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
-            void send(const fys::pb::FySGtwMessage& msg);
+            void send(fys::pb::FySGtwResponseMessage&& msg);
 
             uint getSessionIndex() const;
             void setSessionIndex(uint _sessionIndex);
@@ -44,8 +44,8 @@ namespace fys {
 
             void shuttingConnectionDown();
 
-            void handleWrite(const boost::system::error_code &error, const size_t bytesTransferred);
-            void handleRead(const boost::system::error_code &error, const size_t bytesTransferred,
+            void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
+            void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
                             fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr);
 
         private:
@@ -53,7 +53,7 @@ namespace fys {
             uint _sessionIndex;
             boost::asio::ip::tcp::socket _socket;
 
-            unsigned char _buffer[fys::network::MESSAGE_BUFFER_SIZE];
+            mutable u_char _buffer[fys::network::MESSAGE_BUFFER_SIZE];
 
             std::function<void ()> _customShutdownHandler;
         };

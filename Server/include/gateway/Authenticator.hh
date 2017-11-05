@@ -19,14 +19,14 @@ namespace fys {
 
             public:
                 ~Authenticator();
-                Authenticator(const network::SessionManager * const serverSession);
+                Authenticator(const network::SessionManager * const serverSession, const network::SessionManager * const playerSession);
 
                 void operator()(mq::QueueContainer<pb::FySGtwMessage> msg);
 
             private:
-                void authGameServer(uint indexSession, pb::LoginMessage &&loginMessage);
-                void authPlayer(uint indexSession, pb::LoginMessage &&loginMessage);
-                void authAuthServer(uint indexSession, pb::LoginMessage &&loginMessage);
+                void authGameServer(const uint indexSession, pb::LoginMessage &&loginMessage);
+                void authPlayer(const uint indexSession, pb::LoginMessage &&loginMessage);
+                void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
 
             private:
                 const network::SessionManager *_serverSessions;

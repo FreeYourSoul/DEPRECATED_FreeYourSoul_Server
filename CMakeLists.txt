@@ -34,6 +34,7 @@ set(SOURCE_PROTOBUF
         cmake-build-debug/Protobuff/FySBabbleMessage.pb.cc
         cmake-build-debug/Protobuff/FySGtwMessage.pb.cc
         cmake-build-debug/Protobuff/FySLoginMessage.pb.cc
+        cmake-build-debug/Protobuff/FySAuthenticationResponse.pb.cc
 )
 
 set(SOURCE_FILES_MQ
