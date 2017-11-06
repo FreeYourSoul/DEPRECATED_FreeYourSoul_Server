@@ -8,9 +8,7 @@
 
 fys::gateway::buslistener::Authenticator::~Authenticator() {}
 
-fys::gateway::buslistener::Authenticator::Authenticator(const network::SessionManager * const serverSession,
-                                                        const network::SessionManager * const playerSession)
-        : _serverSessions(serverSession), _playerSessions(playerSession)
+fys::gateway::buslistener::Authenticator::Authenticator(const Gateway::ptr& gtw) : _gtw(gtw)
 {}
 
 void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySGtwMessage> msg) {
@@ -44,12 +42,14 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
     loginMessage.content().UnpackTo(&gameServer);
     // TODO check if server has the good magicKey
     pb::AuthenticationResponse detail;
-    detail.set_token(_serverSessions->getConnectionToken(indexSession));
+    detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
     resp.set_isok(true);
     resp.mutable_content()->PackFrom(detail);
     std::cout << "TOKEN in authGameServer  : " << detail.token() << std::endl;
-    if (!detail.token().empty())
-        _serverSessions->sendResponse(indexSession, std::move(resp));
+    if (!detail.token().empty()) {
+        _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));
+        _gtw->addGameServer(indexSession);
+    }
 }
 
 void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb::LoginMessage &&loginMessage) {

@@ -15,19 +15,18 @@ namespace fys {
             ~GameServerInstance();
             GameServerInstance();
             GameServerInstance(const GameServerInstance&);
-            GameServerInstance(GameServerInstance&&);
+            GameServerInstance(GameServerInstance&&) noexcept;
+            GameServerInstance &operator=(GameServerInstance);
 
-            const std::string &getIp() const;
-
+            void setPort(const ushort port);
             void setIp(const std::string &ip);
 
-            const std::string &getPort() const;
-
-            void setPort(const std::string &port);
+            const std::string &getIp() const;
+            ushort getPort() const;
 
         private:
             std::string _ip;
-            std::string _port;
+            ushort _port;
         };
 
     }

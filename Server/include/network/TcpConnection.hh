@@ -15,15 +15,16 @@
 namespace fys {
     namespace network {
 
-        static const int MESSAGE_BUFFER_SIZE = 100;
-
+        /**
+         * This class reprensent a connection of a client to the Server
+         */
         class TcpConnection : public std::enable_shared_from_this<TcpConnection>
         {
         public:
             using ptr = std::shared_ptr<TcpConnection>;
             using wptr = std::weak_ptr<TcpConnection>;
 
-            static ptr create(boost::asio::io_service& io_service) {
+            static inline ptr create(boost::asio::io_service& io_service) {
                 return std::make_shared<TcpConnection>(io_service);
             }
 
@@ -31,20 +32,21 @@ namespace fys {
 
             boost::asio::ip::tcp::socket& getSocket();
 
-            void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
-
             void readOnSocket(fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
             void send(fys::pb::FySGtwResponseMessage&& msg);
 
-            uint getSessionIndex() const;
+            void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
             void setSessionIndex(uint _sessionIndex);
+
+            uint getSessionIndex() const;
+            std::string getIpAddress() const;
+            ushort  getPort() const;
 
 
         private:
 
             void shuttingConnectionDown();
 
-            void handleWrite(const boost::system::error_code &error, size_t bytesTransferred);
             void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
                             fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr);
 
@@ -53,7 +55,8 @@ namespace fys {
             uint _sessionIndex;
             boost::asio::ip::tcp::socket _socket;
 
-            mutable u_char _buffer[fys::network::MESSAGE_BUFFER_SIZE];
+            static const int MESSAGE_BUFFER_SIZE = 100;
+            mutable u_char _buffer[MESSAGE_BUFFER_SIZE];
 
             std::function<void ()> _customShutdownHandler;
         };

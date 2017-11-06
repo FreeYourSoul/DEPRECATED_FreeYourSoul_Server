@@ -59,6 +59,10 @@ void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::Fy
         _connections.at(indexInSession)->send(std::move(message));
 }
 
+std::tuple<std::string, ushort> fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
+    return std::make_pair(_connections.at(indexInSession)->getIpAddress(), _connections.at(indexInSession)->getPort());
+}
+
 
 
 

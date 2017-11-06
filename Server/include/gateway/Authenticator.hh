@@ -17,9 +17,8 @@ namespace fys {
             public:
                 enum { IndexInBus = 0 };
 
-            public:
                 ~Authenticator();
-                Authenticator(const network::SessionManager * const serverSession, const network::SessionManager * const playerSession);
+                Authenticator(const Gateway::ptr&);
 
                 void operator()(mq::QueueContainer<pb::FySGtwMessage> msg);
 
@@ -29,8 +28,7 @@ namespace fys {
                 void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
 
             private:
-                const network::SessionManager *_serverSessions;
-                const network::SessionManager *_playerSessions;
+                const Gateway::ptr _gtw;
             };
 
         }

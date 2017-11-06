@@ -3,7 +3,6 @@
 //
 
 #include <Babble.hh>
-#include <Gateway.hh>
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "InfiniteRecursion"
@@ -47,12 +46,19 @@ void fys::gateway::Gateway::runServerAccept() {
     );
 }
 
-const fys::network::SessionManager *fys::gateway::Gateway::getGamerConnectionsPointer() const {
-    return &_gamerConnections;
+const fys::network::SessionManager &fys::gateway::Gateway::getGamerConnections() const {
+    return _gamerConnections;
 }
 
-const fys::network::SessionManager *fys::gateway::Gateway::getServerConnectionsPointer() const {
-    return &_serverConnections;
+const fys::network::SessionManager &fys::gateway::Gateway::getServerConnections() const {
+    return _serverConnections;
+}
+
+void fys::gateway::Gateway::addGameServer(const uint indexInSession) {
+    GameServerInstance instance;
+//    auto [ ip , port ] = _serverConnections.getConnectionData(indexInSession);
+//    instance.setIp(ip);
+//    instance.setPort(port);
 }
 
 #pragma clang diagnostic pop

@@ -16,9 +16,15 @@ fys::gateway::GameServerInstance::GameServerInstance(const fys::gateway::GameSer
 _ip(other._ip), _port(other._port)
 {}
 
-fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerInstance &&other) :
-_ip(std::move(other._ip)), _port(std::move(other._port))
+fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerInstance &&other) noexcept :
+_ip(std::move(other._ip)), _port(other._port)
 {}
+
+fys::gateway::GameServerInstance &fys::gateway::GameServerInstance::operator=(fys::gateway::GameServerInstance other) {
+    std::swap(_ip, other._ip);
+    std::swap(_port, other._port);
+    return *this;
+}
 
 const std::string &fys::gateway::GameServerInstance::getIp() const {
     return _ip;
@@ -28,10 +34,10 @@ void fys::gateway::GameServerInstance::setIp(const std::string &ip) {
     GameServerInstance::_ip = ip;
 }
 
-const std::string &fys::gateway::GameServerInstance::getPort() const {
+ushort fys::gateway::GameServerInstance::getPort() const {
     return _port;
 }
 
-void fys::gateway::GameServerInstance::setPort(const std::string &port) {
+void fys::gateway::GameServerInstance::setPort(const ushort port) {
     GameServerInstance::_port = port;
 }

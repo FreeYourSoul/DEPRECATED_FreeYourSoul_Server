@@ -11,6 +11,7 @@
 #include <SessionManager.hh>
 #include <FySGtwMessage.pb.h>
 #include <FySBabbleMessage.pb.h>
+#include <Gateway.hh>
 #include "BabbleChannel.hh"
 
 namespace fys {
@@ -24,7 +25,7 @@ namespace fys {
 
                 ~Babble();
 
-                Babble(const fys::network::SessionManager *const playerSessions);
+                Babble(const Gateway::ptr&);
 
                 void operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg);
 
@@ -36,7 +37,7 @@ namespace fys {
                 bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
 
             private:
-                const network::SessionManager * const _playerSessions;
+                Gateway::ptr _gtw;
                 std::unordered_map<std::string, BabbleChannel> _channels;
                 std::unordered_map<std::string, std::list<std::string> > _mapPlayerChannels;
                 std::vector<std::string> _basicChannels;

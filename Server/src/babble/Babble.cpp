@@ -6,7 +6,7 @@
 
 fys::gateway::buslistener::Babble::~Babble() {}
 
-fys::gateway::buslistener::Babble::Babble(const network::SessionManager * const playerSessions) : _playerSessions(playerSessions) {
+fys::gateway::buslistener::Babble::Babble(const Gateway::ptr &gtw) : _gtw(gtw) {
     _basicChannels.emplace_back("Default");
 }
 

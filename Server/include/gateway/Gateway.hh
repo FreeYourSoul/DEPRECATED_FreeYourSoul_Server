@@ -30,12 +30,10 @@ namespace fys {
             void runPlayerAccept();
             void runServerAccept();
 
-            const network::SessionManager *getGamerConnectionsPointer() const;
-            const network::SessionManager *getServerConnectionsPointer() const;
+            void addGameServer(const uint);
 
-        private:
-            void handlePlayerConnection(network::TcpConnection::ptr &newSession);
-            void handleServerConnection(network::TcpConnection::ptr &newSession);
+            const network::SessionManager &getGamerConnections() const;
+            const network::SessionManager &getServerConnections() const;
 
         private:
             boost::asio::io_service &_ios;
@@ -45,6 +43,7 @@ namespace fys {
 
             network::SessionManager _gamerConnections;
             network::SessionManager _serverConnections;
+            std::vector<GameServerInstance> _gameServers;
         };
 
     }

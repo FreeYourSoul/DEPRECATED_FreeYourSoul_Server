@@ -22,20 +22,17 @@ void fys::network::TcpConnection::send(pb::FySGtwResponseMessage&& msg) {
     _socket.async_write_some(b.prepare(msg.ByteSizeLong()),
                              [this](const boost::system::error_code& ec, std::size_t bytes_transferred) {
                                  std::cout << "Writting response : " <<  bytes_transferred << std::endl;
-                                 if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown)
+                                 if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
                                      std::cerr << "An Error Occured during writting" << std::endl;
+                                     shuttingConnectionDown();
+                                 }
                              }
     );
 }
 
-void fys::network::TcpConnection::handleWrite(const boost::system::error_code &error, const size_t bytesTransferred) {
-    if (error || _isShuttingDown)
-        shuttingConnectionDown();
-}
-
 void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
-    std::fill(_buffer, _buffer + fys::network::MESSAGE_BUFFER_SIZE, 0);
-    _socket.async_read_some(boost::asio::buffer(_buffer, fys::network::MESSAGE_BUFFER_SIZE),
+    std::fill(_buffer, _buffer + MESSAGE_BUFFER_SIZE, 0);
+    _socket.async_read_some(boost::asio::buffer(_buffer, MESSAGE_BUFFER_SIZE),
                             [this, &fysBus](boost::system::error_code ec, const std::size_t byteTransfered) {
                                 this->handleRead(ec, byteTransfered, fysBus);
                             });
@@ -83,4 +80,12 @@ void fys::network::TcpConnection::setSessionIndex(uint _sessionIndex) {
 
 void fys::network::TcpConnection::setCustomShutdownHandler(const std::function<void()> &customShutdownHandler) {
     TcpConnection::_customShutdownHandler = customShutdownHandler;
+}
+
+std::string fys::network::TcpConnection::getIpAddress() const {
+    return _socket.remote_endpoint().address().to_string();
+}
+
+ushort fys::network::TcpConnection::getPort() const {
+    return _socket.remote_endpoint().port();
 }

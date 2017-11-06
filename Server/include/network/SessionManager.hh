@@ -24,6 +24,7 @@ namespace fys {
             SessionManager(const u_int size);
 
             std::string getConnectionToken(const uint indexInSession) const noexcept;
+            std::tuple<std::string, ushort> getConnectionData(const uint indexInSession) const noexcept;
             const u_int addConnection(const TcpConnection::ptr &newConnection);
             void disconnectUser(const Token &);
 
