@@ -21,4 +21,7 @@ message LoginErrorResponse {
 message AuthenticationResponse {
 
     bytes token = 1;
+    string ip = 2;
+    string port = 3;
+
 }

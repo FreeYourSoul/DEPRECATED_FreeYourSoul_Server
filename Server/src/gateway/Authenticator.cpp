@@ -12,7 +12,7 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
     pb::LoginMessage authMessage;
 
     msg.getContained().content().UnpackTo(&authMessage);
-    if (pb::FySGtwMessage_Type_IsValid(authMessage.typemessage())) {
+    if (pb::LoginMessage_Type_IsValid(authMessage.typemessage())) {
         switch (authMessage.typemessage()) {
             case pb::LoginMessage_Type_LoginPlayerOnGateway :
                 authPlayer(msg.getIndexSession(), std::move(authMessage));

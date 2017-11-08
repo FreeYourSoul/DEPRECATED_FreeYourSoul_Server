@@ -5,8 +5,8 @@
 #ifndef FREESOULS_AUTHENTICATION_HH
 #define FREESOULS_AUTHENTICATION_HH
 
-#include <FySLoginMessage.pb.h>
 #include <FySGtwMessage.pb.h>
+#include <FySAuthenticationLoginMessage.pb.h>
 #include "Gateway.hh"
 
 namespace fys {

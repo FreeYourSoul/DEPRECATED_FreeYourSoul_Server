@@ -20,7 +20,7 @@ int main(int argc, const char * const *argv) {
         boost::asio::io_service ios;
         boost::asio::io_service::work work(ios);
         Context ctx(argc, argv);
-        auto fysBus = std::make_shared<FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE> > (fys::pb::FySGtwMessage::Type_ARRAYSIZE);
+        auto fysBus = std::make_shared<FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE> > (fys::pb::Type_ARRAYSIZE);
         Gateway::ptr gtw = Gateway::create(ctx, ios, fysBus);
         buslistener::Babble babble(gtw);
         buslistener::Authenticator authenticator(gtw);

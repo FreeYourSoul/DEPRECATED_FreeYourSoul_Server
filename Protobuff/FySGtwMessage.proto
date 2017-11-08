@@ -4,12 +4,12 @@ import "google/protobuf/any.proto";
 
 package fys.pb;
 
-message FySGtwMessage {
+enum Type {
+    AUTH = 0;
+    BABBLE = 1;
+}
 
-    enum Type {
-        AUTH = 0;
-        BABBLE = 1;
-    }
+message FySGtwMessage {
 
     Type type = 1;
     google.protobuf.Any content = 2;
@@ -18,12 +18,8 @@ message FySGtwMessage {
 
 message FySGtwResponseMessage {
 
-    enum Type {
-        AUTH = 0;
-        BABBLE = 1;
-    }
-
     Type type = 1;
     google.protobuf.Any content = 2;
     bool isOK = 3;
+
 }
