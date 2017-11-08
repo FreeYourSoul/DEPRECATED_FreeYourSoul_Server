@@ -1,0 +1,18 @@
+@startuml
+entity ExternalServer
+entity Gateway
+database DataServer
+autonumber
+== Initial Gateway Autentication ==
+ExternalServer -> Gateway: Ask auth, typeserver pwd (for the specific server type)
+activate Gateway
+Gateway -> Gateway: Is Server can connect ?
+Gateway -> DataServer : Is Server auth
+activate DataServer
+Gateway <-- DataServer: Validation
+deactivate DataServer
+Gateway -> Gateway: Add Server in register
+Gateway -> Gateway: Generate Token
+ExternalServer <- Gateway: Give token
+deactivate Gateway
+@enduml
