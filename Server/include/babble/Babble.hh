@@ -25,7 +25,7 @@ namespace fys {
 
                 ~Babble();
 
-                Babble(const Gateway::ptr&);
+                Babble(Gateway::ptr&);
 
                 void operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg);
 

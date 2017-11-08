@@ -6,6 +6,7 @@
 #define FREESOULS_AUTHENTICATION_HH
 
 #include <FySLoginMessage.pb.h>
+#include <FySGtwMessage.pb.h>
 #include "Gateway.hh"
 
 namespace fys {
@@ -18,9 +19,9 @@ namespace fys {
                 enum { IndexInBus = 0 };
 
                 ~Authenticator();
-                Authenticator(const Gateway::ptr&);
+                Authenticator(Gateway::ptr&);
 
-                void operator()(mq::QueueContainer<pb::FySGtwMessage> msg);
+                void operator()(mq::QueueContainer<fys::pb::FySGtwMessage> msg);
 
             private:
                 void authGameServer(const uint indexSession, pb::LoginMessage &&loginMessage);
@@ -28,7 +29,7 @@ namespace fys {
                 void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
 
             private:
-                const Gateway::ptr _gtw;
+                Gateway::ptr _gtw;
             };
 
         }

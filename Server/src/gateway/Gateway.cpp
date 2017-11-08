@@ -56,9 +56,9 @@ const fys::network::SessionManager &fys::gateway::Gateway::getServerConnections(
 
 void fys::gateway::Gateway::addGameServer(const uint indexInSession) {
     GameServerInstance instance;
-//    auto [ ip , port ] = _serverConnections.getConnectionData(indexInSession);
-//    instance.setIp(ip);
-//    instance.setPort(port);
+    auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
+    instance.setIp(ip);
+    instance.setPort(port);
 }
 
 #pragma clang diagnostic pop

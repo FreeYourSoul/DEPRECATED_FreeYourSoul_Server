@@ -9,7 +9,7 @@
 #include <iostream>
 #include <mutex>
 #include <condition_variable>
-#include <experimental/optional>
+#include <optional>
 #include "QueueContainer.hh"
 
 namespace fys {
@@ -22,10 +22,10 @@ namespace fys {
             ~LockFreeQueue() = default;
             LockFreeQueue() : _tail(0), _maxReadTail(0), _head(0), _isLocked(true), _isLockingWhenEmpty(true) {}
 
-            std::experimental::optional<TypeContainer> pop() {
+            std::optional<TypeContainer> pop() {
                 u_int currentReadTail = getIndex(_maxReadTail.load(std::memory_order_relaxed));
                 u_int currentHead = getIndex(_head);
-                std::experimental::optional<TypeContainer> returnValue;
+                std::optional<TypeContainer> returnValue;
 
                 if (currentHead < currentReadTail) {
                     return _queue[_head++];

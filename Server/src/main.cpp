@@ -5,6 +5,7 @@
 #include <Babble.hh>
 #include <Authenticator.hh>
 #include <TokenGenerator.hh>
+#include <google/protobuf/stubs/common.h>
 
 using namespace fys::mq;
 using namespace fys::gateway;

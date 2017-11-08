@@ -2,13 +2,11 @@
 // Created by FyS on 31/08/17.
 //
 
-#include <FySLoginMessage.pb.h>
-#include <FySAuthenticationResponse.pb.h>
 #include "Authenticator.hh"
 
 fys::gateway::buslistener::Authenticator::~Authenticator() {}
 
-fys::gateway::buslistener::Authenticator::Authenticator(const Gateway::ptr& gtw) : _gtw(gtw)
+fys::gateway::buslistener::Authenticator::Authenticator(Gateway::ptr& gtw) : _gtw(gtw)
 {}
 
 void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySGtwMessage> msg) {

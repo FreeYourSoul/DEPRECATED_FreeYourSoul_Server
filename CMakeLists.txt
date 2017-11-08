@@ -4,7 +4,7 @@ project(FreeSouls CXX)
 
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -lcurl -lprotobuf -lboost_timer -lboost_system -lboost_thread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -lprotobuf -lcurl -lboost_timer -lboost_system -lboost_thread")
 
 set(CMAKE_CXX_STANDARD 17)
 

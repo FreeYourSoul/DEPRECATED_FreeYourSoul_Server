@@ -66,8 +66,8 @@ namespace fys {
                 _queues.at(message.getOpCodeMsg())->push(message);
             }
 
-            std::experimental::optional<QueueContainer<T> > popFromBus(const int indexQueueInBus) {
-                std::experimental::optional<QueueContainer<T> > toReturn;
+            std::optional<QueueContainer<T> > popFromBus(const int indexQueueInBus) {
+                std::optional<QueueContainer<T> > toReturn;
 
                 if (isIndexQueueLegitimate(indexQueueInBus)) {
                     toReturn = _queues.at(indexQueueInBus)->pop();

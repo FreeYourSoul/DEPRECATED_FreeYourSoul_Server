@@ -7,6 +7,7 @@
 
 #include <zconf.h>
 #include <list>
+#include <FySGtwMessage.pb.h>
 #include "TcpConnection.hh"
 
 namespace fys {

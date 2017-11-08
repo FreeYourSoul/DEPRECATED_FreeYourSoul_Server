@@ -1,0 +1,28 @@
+@startuml
+actor Gamer
+entity Gateway
+database DataServer
+entity GameClusterBroker
+autonumber
+== Initial Gateway Autentication ==
+Gamer -> Gateway: Ask auth, user pwd
+activate Gateway
+Gateway -> DataServer : Is user exist ? Is server up ?
+activate DataServer
+Gateway <-- DataServer: Validation
+deactivate DataServer
+Gateway -> Gateway: Generate Token
+Gateway -> GameClusterBroker: Give gamer's ip/token
+activate GameClusterBroker
+GameClusterBroker -> GameClusterBroker: Save Gamer as awaited connection
+GameClusterBroker -> Gateway: Acknowledge
+deactivate Gateway
+deactivate GameClusterBroker
+Gateway -> Gamer: Give ip/port  of game server
+== Game Connection ==
+Gamer -> GameClusterBroker: Connect with ip/port > use the given token as auth token
+activate GameClusterBroker
+GameClusterBroker -> GameClusterBroker: Verify ip/token
+Gamer <-- GameClusterBroker: acknowledge with data
+deactivate GameClusterBroker
+@enduml
