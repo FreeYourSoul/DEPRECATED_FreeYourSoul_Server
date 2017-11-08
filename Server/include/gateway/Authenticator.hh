@@ -18,8 +18,7 @@ namespace fys {
             public:
                 enum { IndexInBus = 0 };
 
-                ~Authenticator();
-                Authenticator(Gateway::ptr&);
+                explicit Authenticator(Gateway::ptr&);
 
                 void operator()(mq::QueueContainer<fys::pb::FySGtwMessage> msg);
 

@@ -8,9 +8,6 @@
 
 fys::utils::TokenGenerator *fys::utils::TokenGenerator::instance = nullptr;
 
-fys::utils::TokenGenerator::~TokenGenerator() {}
-fys::utils::TokenGenerator::TokenGenerator() {}
-
 const std::string fys::utils::TokenGenerator::generate() const {
     return boost::lexical_cast<std::string>((const_cast<TokenGenerator *>(this))->_generator());
 }

@@ -53,7 +53,7 @@ void addinlockfreequeue(const fys::mq::QueueContainer<std::string> &container) {
 void readLockFreeQueue() {
     for (int i = 0; i < 5000; ++i) {
         usleep(100);
-        if (static_cast<bool> (lockFreeQueue->pop())) {
+        if (lockFreeQueue->pop()) {
             ++readValues;
         }
     }

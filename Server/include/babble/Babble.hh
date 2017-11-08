@@ -23,9 +23,7 @@ namespace fys {
             public:
                 enum { IndexInBus = 1 };
 
-                ~Babble();
-
-                Babble(Gateway::ptr&);
+                explicit Babble(Gateway::ptr&);
 
                 void operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg);
 

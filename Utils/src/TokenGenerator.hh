@@ -26,8 +26,7 @@ namespace fys {
             const std::vector<char> generateByte();
 
         private:
-            ~TokenGenerator();
-            TokenGenerator();
+            TokenGenerator() = default;
 
         private:
             boost::uuids::random_generator _generator;

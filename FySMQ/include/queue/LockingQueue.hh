@@ -17,8 +17,7 @@ namespace fys {
         class LockingQueue {
 
         public:
-            ~LockingQueue() {}
-            LockingQueue(u_int sizeLfq) : _tail(0), _head(0), _sizeQueue(sizeLfq) {
+            explicit LockingQueue(u_int sizeLfq) : _tail(0), _head(0), _sizeQueue(sizeLfq) {
                 _queue.resize(sizeLfq);
             }
 
@@ -47,11 +46,11 @@ namespace fys {
             /**
              * Tail Point on the first non-used element of the queue
              */
-            u_int _tail;
+            u_int _tail = 0;
             /**
              * Head Point on the first filled element of the queue
              */
-            u_int _head;
+            u_int _head = 0;
 
             u_int _sizeQueue;
 

@@ -12,9 +12,9 @@ namespace fys {
 
         class GameServerInstance {
         public:
-            ~GameServerInstance();
-            GameServerInstance();
-            GameServerInstance(const GameServerInstance&);
+            ~GameServerInstance() = default;
+            GameServerInstance() = default;
+            GameServerInstance(const GameServerInstance&) = default;
             GameServerInstance(GameServerInstance&&) noexcept;
             GameServerInstance &operator=(GameServerInstance);
 

@@ -5,10 +5,6 @@
 #include <algorithm>
 #include "BabbleChannel.hh"
 
-fys::gateway::BabbleChannel::~BabbleChannel() {}
-
-fys::gateway::BabbleChannel::BabbleChannel() {}
-
 void fys::gateway::BabbleChannel::connectOnChannel(const std::string &addedConnect) {
     if (!addedConnect.empty() && std::find(_connectedOnChannel.begin(), _connectedOnChannel.end(), addedConnect) == _connectedOnChannel.end())
         _connectedOnChannel.push_back(addedConnect);

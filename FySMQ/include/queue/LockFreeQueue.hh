@@ -25,13 +25,12 @@ namespace fys {
             std::optional<TypeContainer> pop() {
                 u_int currentReadTail = getIndex(_maxReadTail.load(std::memory_order_relaxed));
                 u_int currentHead = getIndex(_head);
-                std::optional<TypeContainer> returnValue;
 
                 if (currentHead < currentReadTail) {
                     return _queue[_head++];
                 }
                 lockCondVar();
-                return returnValue;
+                return std::optional<TypeContainer> {};
             }
 
             void push(const TypeContainer &elem) {

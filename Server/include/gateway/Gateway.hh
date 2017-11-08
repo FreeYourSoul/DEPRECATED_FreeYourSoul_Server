@@ -27,6 +27,10 @@ namespace fys {
             ~Gateway();
             Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>::ptr &fysBus);
 
+            static inline ptr create(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>::ptr &fysBus) {
+                return std::make_shared<Gateway>(ctx, ios, fysBus);
+            }
+
             void runPlayerAccept();
             void runServerAccept();
 

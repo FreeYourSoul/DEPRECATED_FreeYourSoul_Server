@@ -21,12 +21,11 @@ namespace fys {
             using ptr = std::shared_ptr<SessionManager>;
             using wptr = std::weak_ptr<SessionManager>;
 
-            ~SessionManager();
-            SessionManager(const u_int size);
+            explicit SessionManager(const u_int size);
 
             std::string getConnectionToken(const uint indexInSession) const noexcept;
-            std::tuple<std::string, ushort> getConnectionData(const uint indexInSession) const noexcept;
-            const u_int addConnection(const TcpConnection::ptr &newConnection);
+            std::pair<std::string, ushort> getConnectionData(const uint indexInSession) const noexcept;
+            const u_int addConnection(const TcpConnection::ptr& newConnection);
             void disconnectUser(const Token &);
 
             void sendResponse(uint i, pb::FySGtwResponseMessage &&message) const noexcept;

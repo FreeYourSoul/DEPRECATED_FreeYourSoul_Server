@@ -5,9 +5,7 @@
 #include <TokenGenerator.hh>
 #include "SessionManager.hh"
 
-fys::network::SessionManager::~SessionManager() {}
-
-fys::network::SessionManager::SessionManager(const u_int size) : _connections(size, nullptr), _connectionsToken(size)
+fys::network::SessionManager::SessionManager(const u_int size) : _connections(size), _connectionsToken(size)
 {}
 
 const u_int fys::network::SessionManager::addConnection(const fys::network::TcpConnection::ptr &newConnection) {
@@ -28,8 +26,8 @@ const u_int fys::network::SessionManager::addConnection(const fys::network::TcpC
 void fys::network::SessionManager::connectionHandle(const fys::network::TcpConnection::ptr &newConnection, const uint i) {
     Token newToken = fys::utils::TokenGenerator::getInstance()->generateByte();
 
-    this->_connections[i] = newConnection;
-    this->_connectionsToken[i] = newToken;
+    this->_connections.at(i) = newConnection;
+    this->_connectionsToken.at(i) = newToken;
     newConnection->setSessionIndex(i);
     newConnection->setCustomShutdownHandler([this, newToken]() { this->disconnectUser(newToken); });
     std::cout << "index ->" << i <<std::endl;
@@ -41,7 +39,7 @@ void fys::network::SessionManager::disconnectUser(const fys::network::Token &tok
     for (; i < _connectionsToken.size(); ++i) {
         if (std::equal(_connectionsToken.at(i).begin(), _connectionsToken.at(i).end(), token.begin())) {
             std::cout << "Disconnect user " << i << " from Session manager" << std::endl;
-            _connections[i] = nullptr;
+            _connections.at(i) = nullptr;
             return;
         }
     }
@@ -59,7 +57,7 @@ void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::Fy
         _connections.at(indexInSession)->send(std::move(message));
 }
 
-std::tuple<std::string, ushort> fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
+std::pair<std::string, ushort>  fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
     return std::make_pair(_connections.at(indexInSession)->getIpAddress(), _connections.at(indexInSession)->getPort());
 }
 

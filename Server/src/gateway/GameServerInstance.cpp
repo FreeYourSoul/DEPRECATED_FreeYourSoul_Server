@@ -4,18 +4,6 @@
 
 #include "GameServerInstance.hh"
 
-fys::gateway::GameServerInstance::~GameServerInstance() {
-
-}
-
-fys::gateway::GameServerInstance::GameServerInstance() {
-
-}
-
-fys::gateway::GameServerInstance::GameServerInstance(const fys::gateway::GameServerInstance &other) :
-_ip(other._ip), _port(other._port)
-{}
-
 fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerInstance &&other) noexcept :
 _ip(std::move(other._ip)), _port(other._port)
 {}

@@ -4,8 +4,6 @@
 
 #include <Babble.hh>
 
-fys::gateway::buslistener::Babble::~Babble() {}
-
 fys::gateway::buslistener::Babble::Babble(Gateway::ptr &gtw) : _gtw(gtw) {
     _basicChannels.emplace_back("Default");
 }
@@ -36,8 +34,8 @@ void fys::gateway::buslistener::Babble::signOutFromBabble(fys::pb::FySBabbleMess
 }
 
 bool fys::gateway::buslistener::Babble::isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player) {
-    for (auto it = playerConnected.begin(); it != playerConnected.end(); ++it)
-        if (!it->compare(player))
+    for (const auto &it : playerConnected)
+        if (it != player)
             return true;
     return false;
 }

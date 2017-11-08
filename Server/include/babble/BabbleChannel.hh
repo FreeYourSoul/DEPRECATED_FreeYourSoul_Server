@@ -13,9 +13,6 @@ namespace fys {
 
         class BabbleChannel {
         public:
-            ~BabbleChannel();
-            BabbleChannel();
-
             void connectOnChannel(const std::string &addedConnect);
             void disconnectFromChannel(const std::string &disconnect);
 

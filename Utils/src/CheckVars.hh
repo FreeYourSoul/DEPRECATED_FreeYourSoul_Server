@@ -15,9 +15,7 @@ namespace fys {
         public:
             template <typename T, typename...Args>
             static bool check(const T &type, Args...vars) {
-                if (!check(type))
-                    return false;
-                return check(vars...);
+                return check(type) && check(vars...);
             }
 
             template <typename T>

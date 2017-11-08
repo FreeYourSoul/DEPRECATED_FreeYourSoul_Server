@@ -7,19 +7,16 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <tclap/ValueArg.h>
 #include <tclap/CmdLine.h>
-#include <zconf.h>
 #include "Context.hh"
-
-fys::gateway::Context::~Context() {}
 
 fys::gateway::Context::Context(const fys::gateway::Context &other) :
         _port(other._port), _serverPort(other._serverPort), _asioThread(other._asioThread), _busIniFilePath(other._busIniFilePath),
         _queuesSize(other._queuesSize), _verbose(other._verbose)
 {}
 
-fys::gateway::Context::Context(fys::gateway::Context &&other) :
-        _port(std::move(other._port)), _serverPort(std::move(other._serverPort)), _asioThread(std::move(other._asioThread)),
-        _busIniFilePath(std::move(other._busIniFilePath)), _queuesSize(std::move(other._queuesSize)), _verbose(std::move(other._verbose))
+fys::gateway::Context::Context(fys::gateway::Context &&other) noexcept :
+        _port(other._port), _serverPort(other._serverPort), _asioThread(other._asioThread),
+        _busIniFilePath(std::move(other._busIniFilePath)), _queuesSize(other._queuesSize), _verbose(other._verbose)
 {}
 
 fys::gateway::Context::Context(const int ac, const char *const *av) {

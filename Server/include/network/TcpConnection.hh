@@ -28,7 +28,7 @@ namespace fys {
                 return std::make_shared<TcpConnection>(io_service);
             }
 
-            TcpConnection(boost::asio::io_service& io_service);
+            explicit TcpConnection(boost::asio::io_service& io_service);
 
             boost::asio::ip::tcp::socket& getSocket();
 

@@ -19,7 +19,7 @@ fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io
 {}
 
 void fys::gateway::Gateway::runPlayerAccept() {
-    network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
+    const network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
 
     _acceptorPlayer.async_accept(session->getSocket(),
 
@@ -33,7 +33,7 @@ void fys::gateway::Gateway::runPlayerAccept() {
 }
 
 void fys::gateway::Gateway::runServerAccept() {
-    network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
+    const network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
 
     _acceptorServer.async_accept(session->getSocket(),
 

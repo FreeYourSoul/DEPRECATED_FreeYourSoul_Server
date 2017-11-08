@@ -17,8 +17,8 @@ namespace fys {
             class FysBusTest : public fys::mq::FysBus<T, SIZE_QUEUES> {
 
             public:
-                virtual ~FysBusTest() {}
-                FysBusTest(const int size) : fys::mq::FysBus<T, SIZE_QUEUES>::FysBus(size) { }
+                virtual ~FysBusTest() = default;
+                explicit FysBusTest(const int size) : fys::mq::FysBus<T, SIZE_QUEUES>::FysBus(size) { }
 
                 void validateBusConfiguration(const unsigned int queueNumbers) {
                     BOOST_CHECK(queueNumbers == this->_queues.size());

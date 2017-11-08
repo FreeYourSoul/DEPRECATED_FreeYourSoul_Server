@@ -23,10 +23,10 @@ namespace fys {
         class Context {
 
         public:
-            ~Context();
+            ~Context() = default;
             Context(const int ac, const char *const *av);
             Context(const Context&);
-            Context(Context&&);
+            Context(Context&&) noexcept;
 
             friend std::ostream &operator<<(std::ostream &os, const Context &context);
 

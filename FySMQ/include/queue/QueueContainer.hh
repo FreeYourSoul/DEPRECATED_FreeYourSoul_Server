@@ -19,10 +19,9 @@ namespace fys {
         template <class Type>
         class QueueContainer {
         public:
-            ~QueueContainer() = default;
-            QueueContainer() : _opCodeMsg(0) {}
-
-            QueueContainer(const Type &container) : _opCodeMsg(0), _contained(container) {}
+            QueueContainer() : _opCodeMsg(0), _indexSession(0) {}
+            explicit QueueContainer(const Type &container) : _opCodeMsg(0), _indexSession(0), _contained(container) {
+            }
 
             friend std::ostream &operator<<(std::ostream &os, const QueueContainer &container) {
                 os << "_opCodeMsg: " << container._opCodeMsg << " _tokenUser: " << container._indexSession << std::endl;
@@ -61,12 +60,12 @@ namespace fys {
             /**
              * OpCode of the message for the {@class fys::mq::Bus} to redirect it to the correct queue
              */
-            unsigned short _opCodeMsg;
+            unsigned short _opCodeMsg = 0;
 
             /**
              * index position of the session (information used to get back the connection for the answer)
              */
-            uint _indexSession;
+            uint _indexSession = 0;
 
             /**
              * Payload data to transfer via the queue

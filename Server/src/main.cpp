@@ -5,7 +5,6 @@
 #include <Babble.hh>
 #include <Authenticator.hh>
 #include <TokenGenerator.hh>
-#include <google/protobuf/stubs/common.h>
 
 using namespace fys::mq;
 using namespace fys::gateway;
@@ -22,7 +21,7 @@ int main(int argc, const char * const *argv) {
         boost::asio::io_service::work work(ios);
         Context ctx(argc, argv);
         auto fysBus = std::make_shared<FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE> > (fys::pb::FySGtwMessage::Type_ARRAYSIZE);
-        Gateway::ptr gtw = std::make_shared<Gateway>(ctx, ios, fysBus);
+        Gateway::ptr gtw = Gateway::create(ctx, ios, fysBus);
         buslistener::Babble babble(gtw);
         buslistener::Authenticator authenticator(gtw);
         BabbleBusListener babbleListener(babble);

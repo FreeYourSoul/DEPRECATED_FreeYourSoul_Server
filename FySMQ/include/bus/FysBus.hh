@@ -45,7 +45,7 @@ namespace fys {
             using ptr = std::shared_ptr<FysBus<T, SIZE_QUEUES> >;
             using wptr = std::weak_ptr<FysBus<T, SIZE_QUEUES> >;
 
-            ~FysBus() { // TODO delete correctly the _queues
+//            virtual ~FysBus() { // TODO delete correctly the _queues
 //                int toDelete = -1;
 //
 //                for (int i = 0; i < _queues.size(); ++i) {
@@ -55,7 +55,7 @@ namespace fys {
 //                    }
 //                    toDelete = i;
 //                }
-            }
+//            }
 
             explicit FysBus(const int queueNumber) {
                 for (int i = 0; i < queueNumber; ++i)
@@ -67,12 +67,10 @@ namespace fys {
             }
 
             std::optional<QueueContainer<T> > popFromBus(const int indexQueueInBus) {
-                std::optional<QueueContainer<T> > toReturn;
-
                 if (isIndexQueueLegitimate(indexQueueInBus)) {
-                    toReturn = _queues.at(indexQueueInBus)->pop();
+                    return _queues.at(indexQueueInBus)->pop();
                 }
-                return toReturn;
+                return std::optional<QueueContainer<T> > {};
             }
 
             inline bool isIndexQueueLegitimate(const int indexQueueInBus) {
