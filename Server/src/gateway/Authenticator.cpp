@@ -44,8 +44,11 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
     resp.mutable_content()->PackFrom(detail);
     std::cout << "TOKEN in authGameServer  : " << detail.token() << std::endl;
     if (!detail.token().empty()) {
+        if (gameServer.isworldserver())
+            _gtw->addGameServer(indexSession);
+        else
+            _gtw->setAuthServer(indexSession);
         _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));
-        _gtw->addGameServer(indexSession);
     }
 }
 

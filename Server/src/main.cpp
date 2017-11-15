@@ -13,7 +13,6 @@ using namespace fys::network;
 using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>>;
 using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>>;
 
-
 int main(int argc, const char * const *argv) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     try {

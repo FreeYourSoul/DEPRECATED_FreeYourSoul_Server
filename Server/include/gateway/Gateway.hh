@@ -35,6 +35,7 @@ namespace fys {
             void runServerAccept();
 
             void addGameServer(const uint);
+            void setAuthServer(const uint);
 
             const network::SessionManager &getGamerConnections() const;
             const network::SessionManager &getServerConnections() const;
@@ -48,6 +49,7 @@ namespace fys {
             network::SessionManager _gamerConnections;
             network::SessionManager _serverConnections;
             std::vector<GameServerInstance> _gameServers;
+            AuthServerInstance _authServer;
         };
 
     }

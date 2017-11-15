@@ -61,4 +61,10 @@ void fys::gateway::Gateway::addGameServer(const uint indexInSession) {
     instance.setPort(port);
 }
 
+void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
+    auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
+    _authServer.setIp(ip);
+    _authServer.setPort(port);
+}
+
 #pragma clang diagnostic pop

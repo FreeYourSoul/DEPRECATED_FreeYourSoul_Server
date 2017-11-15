@@ -10,6 +10,8 @@
 namespace fys {
     namespace gateway {
 
+        using AuthServerInstance = GameServerInstance;
+
         class GameServerInstance {
         public:
             ~GameServerInstance() = default;
