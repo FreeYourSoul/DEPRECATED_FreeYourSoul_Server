@@ -67,4 +67,9 @@ void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
     _authServer.setPort(port);
 }
 
+bool fys::gateway::Gateway::isAuthServerSet() const {
+//     return _authServer.getPort() > 0 && !_authServer.getIp().empty();
+    return true;
+}
+
 #pragma clang diagnostic pop

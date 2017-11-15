@@ -33,18 +33,23 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
 }
 
 void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession, pb::LoginMessage &&loginMessage) {
-    pb::LoginGameServer gameServer;
+    pb::LoginGameServer loginServer;
     pb::FySGtwResponseMessage resp;
 
-    loginMessage.content().UnpackTo(&gameServer);
-    // TODO check if server has the good magicKey
+    loginMessage.content().UnpackTo(&loginServer);
+    if ((!_gtw->isAuthServerSet() && _gtw.loginServer.isworldserver()) ||
+        (_gtw->isAuthServerSet() && !_gtw.loginServer.isworldserver())) {
+        // TODO manage error case
+        return;
+    }
+    // TODO check on auth server if server has the good magicKey
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
     resp.set_isok(true);
     resp.mutable_content()->PackFrom(detail);
     std::cout << "TOKEN in authGameServer  : " << detail.token() << std::endl;
     if (!detail.token().empty()) {
-        if (gameServer.isworldserver())
+        if (loginServer.isworldserver())
             _gtw->addGameServer(indexSession);
         else
             _gtw->setAuthServer(indexSession);
@@ -53,6 +58,14 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
 }
 
 void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb::LoginMessage &&loginMessage) {
+    if (!_gtw->isAuthServerSet()) {
+        // TODO Manage error case
+        return;
+    }
+    pb::LoginPlayerOnGateway loginPlayer;
+
+    loginMessage.content().UnpackTo(&loginPlayer);
+    // TODO on auth server if login/password
 
 }
 

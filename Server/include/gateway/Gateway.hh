@@ -37,6 +37,8 @@ namespace fys {
             void addGameServer(const uint);
             void setAuthServer(const uint);
 
+            bool isAuthServerSet() const;
+
             const network::SessionManager &getGamerConnections() const;
             const network::SessionManager &getServerConnections() const;
 
