@@ -8,7 +8,7 @@
 fys::gateway::buslistener::Authenticator::Authenticator(Gateway::ptr& gtw) : _gtw(gtw)
 {}
 
-void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySGtwMessage> msg) {
+void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySMessage> msg) {
     pb::LoginMessage authMessage;
 
     msg.getContained().content().UnpackTo(&authMessage);
@@ -34,11 +34,11 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
 
 void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession, pb::LoginMessage &&loginMessage) {
     pb::LoginGameServer loginServer;
-    pb::FySGtwResponseMessage resp;
+    pb::FySResponseMessage resp;
 
     loginMessage.content().UnpackTo(&loginServer);
-    if ((!_gtw->isAuthServerSet() && _gtw.loginServer.isworldserver()) ||
-        (_gtw->isAuthServerSet() && !_gtw.loginServer.isworldserver())) {
+    if ((!_gtw->isAuthServerSet() && loginServer.isworldserver()) ||
+        (_gtw->isAuthServerSet() && !loginServer.isworldserver())) {
         // TODO manage error case
         return;
     }

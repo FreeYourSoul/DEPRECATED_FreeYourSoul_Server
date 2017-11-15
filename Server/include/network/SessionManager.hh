@@ -7,7 +7,7 @@
 
 #include <zconf.h>
 #include <list>
-#include <FySGtwMessage.pb.h>
+#include <FySMessage.pb.h>
 #include "TcpConnection.hh"
 
 namespace fys {
@@ -28,7 +28,7 @@ namespace fys {
             const u_int addConnection(const TcpConnection::ptr& newConnection);
             void disconnectUser(const Token &);
 
-            void sendResponse(uint i, pb::FySGtwResponseMessage &&message) const noexcept;
+            void sendResponse(uint i, pb::FySResponseMessage &&message) const noexcept;
 
         private:
             inline void connectionHandle(const fys::network::TcpConnection::ptr &newConnection, const uint i);

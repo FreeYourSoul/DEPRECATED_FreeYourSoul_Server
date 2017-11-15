@@ -9,7 +9,7 @@
 #include <string>
 #include <unordered_map>
 #include <SessionManager.hh>
-#include <FySGtwMessage.pb.h>
+#include <FySMessage.pb.h>
 #include <FySBabbleMessage.pb.h>
 #include <Gateway.hh>
 #include "BabbleChannel.hh"
@@ -25,7 +25,7 @@ namespace fys {
 
                 explicit Babble(Gateway::ptr&);
 
-                void operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg);
+                void operator()(fys::mq::QueueContainer<fys::pb::FySMessage> msg);
 
             private:
                 void signInOnBabble(fys::pb::FySBabbleMessage &&babbleMessage);

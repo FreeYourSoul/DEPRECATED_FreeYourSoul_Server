@@ -8,7 +8,7 @@ fys::gateway::buslistener::Babble::Babble(Gateway::ptr &gtw) : _gtw(gtw) {
     _basicChannels.emplace_back("Default");
 }
 
-void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::pb::FySGtwMessage> msg) {
+void fys::gateway::buslistener::Babble::operator()(fys::mq::QueueContainer<fys::pb::FySMessage> msg) {
 
 }
 

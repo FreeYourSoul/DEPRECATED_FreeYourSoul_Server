@@ -10,8 +10,6 @@
 namespace fys {
     namespace gateway {
 
-        using AuthServerInstance = GameServerInstance;
-
         class GameServerInstance {
         public:
             ~GameServerInstance() = default;
@@ -30,6 +28,8 @@ namespace fys {
             std::string _ip;
             ushort _port;
         };
+
+        using AuthServerInstance = GameServerInstance;
 
     }
 }

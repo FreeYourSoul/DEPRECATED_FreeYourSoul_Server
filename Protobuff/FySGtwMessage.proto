@@ -9,14 +9,14 @@ enum Type {
     BABBLE = 1;
 }
 
-message FySGtwMessage {
+message FySMessage {
 
     Type type = 1;
     google.protobuf.Any content = 2;
 
 }
 
-message FySGtwResponseMessage {
+message FySResponseMessage {
 
     Type type = 1;
     google.protobuf.Any content = 2;

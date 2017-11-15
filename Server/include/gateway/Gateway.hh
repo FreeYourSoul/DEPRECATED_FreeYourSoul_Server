@@ -11,7 +11,7 @@
 #include <FysBus.hh>
 #include <TcpConnection.hh>
 #include <Context.hh>
-#include <FySGtwMessage.pb.h>
+#include <FySMessage.pb.h>
 
 namespace fys {
     namespace gateway {
@@ -25,9 +25,9 @@ namespace fys {
 
         public:
             ~Gateway();
-            Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>::ptr &fysBus);
+            Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus);
 
-            static inline ptr create(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>::ptr &fysBus) {
+            static inline ptr create(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) {
                 return std::make_shared<Gateway>(ctx, ios, fysBus);
             }
 
@@ -46,7 +46,7 @@ namespace fys {
             boost::asio::io_service &_ios;
             boost::asio::ip::tcp::acceptor _acceptorPlayer;
             boost::asio::ip::tcp::acceptor _acceptorServer;
-            fys::mq::FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>::ptr _fysBus;
+            fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr _fysBus;
 
             network::SessionManager _gamerConnections;
             network::SessionManager _serverConnections;

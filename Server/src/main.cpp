@@ -10,8 +10,8 @@ using namespace fys::mq;
 using namespace fys::gateway;
 using namespace fys::network;
 
-using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>>;
-using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE>>;
+using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
+using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
 
 int main(int argc, const char * const *argv) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -19,7 +19,7 @@ int main(int argc, const char * const *argv) {
         boost::asio::io_service ios;
         boost::asio::io_service::work work(ios);
         Context ctx(argc, argv);
-        auto fysBus = std::make_shared<FysBus<fys::pb::FySGtwMessage, BUS_QUEUES_SIZE> > (fys::pb::Type_ARRAYSIZE);
+        auto fysBus = std::make_shared<FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE> > (fys::pb::Type_ARRAYSIZE);
         Gateway::ptr gtw = Gateway::create(ctx, ios, fysBus);
         buslistener::Babble babble(gtw);
         buslistener::Authenticator authenticator(gtw);

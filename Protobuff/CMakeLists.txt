@@ -4,6 +4,6 @@ INCLUDE_DIRECTORIES(${PROTOBUF_INCLUDE_DIR})
 PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
         FySAuthenticationLoginMessage.proto
         FySBabbleMessage.proto
-        FySGtwMessage.proto
+        FySMessage.proto
         FySAuthenticationResponse.proto)
 ADD_LIBRARY(proto ${PROTO_HEADER} ${PROTO_SRC})

@@ -32,7 +32,7 @@ set(SOURCE_FILES_MM)
 
 set(SOURCE_PROTOBUF
         cmake-build-debug/Protobuff/FySBabbleMessage.pb.cc
-        cmake-build-debug/Protobuff/FySGtwMessage.pb.cc
+        cmake-build-debug/Protobuff/FySMessage.pb.cc
         cmake-build-debug/Protobuff/FySAuthenticationLoginMessage.pb.cc
         cmake-build-debug/Protobuff/FySAuthenticationResponse.pb.cc
 )

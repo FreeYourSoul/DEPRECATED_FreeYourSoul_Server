@@ -52,7 +52,7 @@ std::string fys::network::SessionManager::getConnectionToken(const uint indexInS
     return "";
 }
 
-void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::FySGtwResponseMessage &&message) const noexcept {
+void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::FySResponseMessage &&message) const noexcept {
     if (indexInSession < _connections.size())
         _connections.at(indexInSession)->send(std::move(message));
 }

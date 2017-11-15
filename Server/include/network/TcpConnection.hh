@@ -10,7 +10,7 @@
 #include <boost/asio/write.hpp>
 #include <Context.hh>
 #include <FysBus.hh>
-#include <FySGtwMessage.pb.h>
+#include <FySMessage.pb.h>
 
 namespace fys {
     namespace network {
@@ -32,8 +32,8 @@ namespace fys {
 
             boost::asio::ip::tcp::socket& getSocket();
 
-            void readOnSocket(fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
-            void send(fys::pb::FySGtwResponseMessage&& msg);
+            void readOnSocket(fys::mq::FysBus<fys::pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
+            void send(fys::pb::FySResponseMessage&& msg);
 
             void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
             void setSessionIndex(uint _sessionIndex);
@@ -48,7 +48,7 @@ namespace fys {
             void shuttingConnectionDown();
 
             void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
-                            fys::mq::FysBus<fys::pb::FySGtwMessage, gateway::BUS_QUEUES_SIZE>::ptr);
+                            fys::mq::FysBus<fys::pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr);
 
         private:
             bool _isShuttingDown;
