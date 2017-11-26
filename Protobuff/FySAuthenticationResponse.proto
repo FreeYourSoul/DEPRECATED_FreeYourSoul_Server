@@ -8,8 +8,9 @@ message LoginErrorResponse {
 
     enum Type {
         // Server Authentication
-        BAD_PASSWORD = 0;
-        UNKNOWN = 1;
+	    NO_ERROR = 0;
+        BAD_PASSWORD = 1;
+        UNKNOWN = 2;
 
     }
 

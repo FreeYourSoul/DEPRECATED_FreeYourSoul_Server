@@ -37,14 +37,16 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
     pb::FySResponseMessage resp;
 
     loginMessage.content().UnpackTo(&loginServer);
-    if ((!_gtw->isAuthServerSet() && loginServer.isworldserver()) ||
-        (_gtw->isAuthServerSet() && !loginServer.isworldserver())) {
+    if (!_gtw->isAuthServerSet() && loginServer.isworldserver()) {
         // TODO manage error case
+        std::cerr << "Error Auth Server not authenticated yet: islogingServer " << std::boolalpha << loginServer.isworldserver() << std::endl;
         return;
     }
     // TODO check on auth server if server has the good magicKey
+    std::cout << "Show loginServer message " << loginServer.ShortDebugString() << std::endl;
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
+    resp.set_type(pb::BABBLE);
     resp.set_isok(true);
     resp.mutable_content()->PackFrom(detail);
     std::cout << "TOKEN in authGameServer  : " << detail.token() << std::endl;

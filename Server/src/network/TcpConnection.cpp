@@ -19,7 +19,7 @@ void fys::network::TcpConnection::send(pb::FySResponseMessage&& msg) {
     std::ostream os(&b);
     msg.SerializeToOstream(&os);
 
-    _socket.async_write_some(b.prepare(msg.ByteSizeLong()),
+    _socket.async_write_some(b.data(),
                              [this](const boost::system::error_code& ec, std::size_t bytes_transferred) {
                                  std::cout << "Writting response : " <<  bytes_transferred << std::endl;
                                  if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
@@ -49,7 +49,10 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
         containerMsg.setIndexSession(this->_sessionIndex);
         containerMsg.setContained(message);
         containerMsg.setOpCodeMsg(message.type());
-        std::cout << "Raw Message to write on bus :" << message.ShortDebugString()  << " container op code : " << containerMsg.getOpCodeMsg() << " bytetransfered : " << bytesTransferred << " with index: " << _sessionIndex << std::endl;
+        std::cout << "Raw Message to write on bus :" << message.ShortDebugString()  << std::endl
+                  << "Container op code : " << containerMsg.getOpCodeMsg()
+                  << " bytetransfered : " << bytesTransferred
+                  << " with index: " << _sessionIndex << std::endl;
         fysBus->pushInBus(containerMsg);
     }
     else
