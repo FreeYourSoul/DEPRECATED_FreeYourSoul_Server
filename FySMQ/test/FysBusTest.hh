@@ -9,25 +9,21 @@
 #include <FysBus.hh>
 #include <boost/test/test_tools.hpp>
 
-namespace fys {
-    namespace mq {
-        namespace test {
+namespace fys::mq::test {
 
-            template <typename T, int SIZE_QUEUES>
-            class FysBusTest : public fys::mq::FysBus<T, SIZE_QUEUES> {
+    template <typename T, int SIZE_QUEUES>
+    class FysBusTest : public fys::mq::FysBus<T, SIZE_QUEUES> {
 
-            public:
-                virtual ~FysBusTest() = default;
-                explicit FysBusTest(const int size) : fys::mq::FysBus<T, SIZE_QUEUES>::FysBus(size) { }
+    public:
+        virtual ~FysBusTest() = default;
+        explicit FysBusTest(const int size) : fys::mq::FysBus<T, SIZE_QUEUES>::FysBus(size) { }
 
-                void validateBusConfiguration(const unsigned int queueNumbers) {
-                    BOOST_CHECK(queueNumbers == this->_queues.size());
-                }
-
-            };
-
+        void validateBusConfiguration(const unsigned int queueNumbers) {
+            BOOST_CHECK(queueNumbers == this->_queues.size());
         }
-    }
+
+    };
+
 }
 
 

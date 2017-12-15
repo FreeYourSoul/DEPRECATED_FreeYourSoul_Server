@@ -13,11 +13,9 @@
 #include <Context.hh>
 #include <FySMessage.pb.h>
 
-namespace fys {
-    namespace gateway {
+namespace fys::gateway {
 
         class Gateway {
-
         public:
             using uptr = std::unique_ptr<Gateway>;
             using ptr = std::shared_ptr<Gateway>;
@@ -54,7 +52,6 @@ namespace fys {
             AuthServerInstance _authServer;
         };
 
-    }
 }
 
 #endif //FREESOULS_GATEWAY_HH

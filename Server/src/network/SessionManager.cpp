@@ -30,7 +30,6 @@ void fys::network::SessionManager::connectionHandle(const fys::network::TcpConne
     this->_connectionsToken.at(i) = newToken;
     newConnection->setSessionIndex(i);
     newConnection->setCustomShutdownHandler([this, newToken]() { this->disconnectUser(newToken); });
-    std::cout << "index ->" << i <<std::endl;
 }
 
 void fys::network::SessionManager::disconnectUser(const fys::network::Token &token) {

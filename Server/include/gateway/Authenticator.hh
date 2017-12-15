@@ -6,33 +6,32 @@
 #define FREESOULS_AUTHENTICATION_HH
 
 #include <FySMessage.pb.h>
+#include <FySAuthenticationResponse.pb.h>
 #include <FySAuthenticationLoginMessage.pb.h>
 #include "Gateway.hh"
 
-namespace fys {
-    namespace gateway {
-        namespace buslistener {
+namespace fys::gateway::buslistener {
 
-            class Authenticator {
+    class Authenticator {
 
-            public:
-                enum { IndexInBus = 0 };
+    public:
+        enum { IndexInBus = 0 };
 
-                explicit Authenticator(Gateway::ptr&);
+        Authenticator(Gateway::ptr&);
 
-                void operator()(mq::QueueContainer<fys::pb::FySMessage> msg);
+        void operator()(mq::QueueContainer<fys::pb::FySMessage> msg);
 
-            private:
-                void authGameServer(const uint indexSession, pb::LoginMessage &&loginMessage);
-                void authPlayer(const uint indexSession, pb::LoginMessage &&loginMessage);
-                void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
+    private:
+        void authGameServer(const uint indexSession, pb::LoginMessage &&loginMessage);
+        void authPlayer(const uint indexSession, pb::LoginMessage &&loginMessage);
+        void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
 
-            private:
-                Gateway::ptr _gtw;
-            };
+        void sendError(const uint indexSession, std::string&& error, fys::pb::LoginErrorResponse::Type errorType);
 
-        }
-    }
+    private:
+        Gateway::ptr _gtw;
+    };
+
 }
 
 

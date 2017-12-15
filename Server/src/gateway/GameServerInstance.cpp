@@ -8,7 +8,7 @@ fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerIns
 _ip(std::move(other._ip)), _port(other._port)
 {}
 
-fys::gateway::GameServerInstance &fys::gateway::GameServerInstance::operator=(fys::gateway::GameServerInstance other) {
+fys::gateway::GameServerInstance &fys::gateway::GameServerInstance::operator=(fys::gateway::GameServerInstance&& other) noexcept {
     std::swap(_ip, other._ip);
     std::swap(_port, other._port);
     return *this;

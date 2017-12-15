@@ -8,21 +8,19 @@
 #include <string>
 #include <list>
 
-namespace fys {
-    namespace gateway {
+namespace fys::gateway {
 
-        class BabbleChannel {
-        public:
-            void connectOnChannel(const std::string &addedConnect);
-            void disconnectFromChannel(const std::string &disconnect);
+    class BabbleChannel {
+    public:
+        void connectOnChannel(const std::string &addedConnect);
+        void disconnectFromChannel(const std::string &disconnect);
 
-            const std::list<std::string> &getConnectedOnChannel() const;
+        const std::list<std::string> &getConnectedOnChannel() const;
 
-        private:
-            std::list<std::string> _connectedOnChannel;
-        };
+    private:
+        std::list<std::string> _connectedOnChannel;
+    };
 
-    }
 }
 
 #endif //FREESOULS_BABBLECHANNEL_HH

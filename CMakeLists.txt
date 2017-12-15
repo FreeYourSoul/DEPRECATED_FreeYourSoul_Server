@@ -80,7 +80,7 @@ set(SOURCE_FILES_TEST
         ${SOURCE_FILES_ALL}
         FySMQ/test/TestUnitMQ.cpp
         Utils/test/TestCheckVar.cpp
-        FySMQ/test/FysBusTest.hh)
+    )
 
 ### Server ###
 add_executable(FreeSouls ${SOURCE_FILES})
