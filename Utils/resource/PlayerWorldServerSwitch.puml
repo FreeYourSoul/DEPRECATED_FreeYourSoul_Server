@@ -1,0 +1,24 @@
+@startuml
+entity WorldServer
+entity Gateway
+collections WSCluster
+database DataServer
+autonumber
+== Server Autentication ==
+WorldServer -> Gateway: Change Server Request (ip/port/entryPointId)
+activate Gateway
+Gateway -> DataServer : Is Server auth
+activate DataServer
+Gateway <- DataServer: Validation
+deactivate DataServer
+WorldServer <-- Gateway: (if failure) Authentication failed
+Gateway -> Gateway: Add Server in register
+Gateway -> WSCluster: notify new server (ip/port/token)
+activate WSCluster
+WSCluster -> WSCluster: register new server
+Gateway -> Gateway: Generate Token
+deactivate WSCluster
+WorldServer <- Gateway: Autentication success(token)
+deactivate Gateway
+
+@enduml

@@ -1,18 +1,25 @@
 @startuml
 entity ExternalServer
 entity Gateway
+collections ServersCluster
 database DataServer
 autonumber
-== Initial Gateway Autentication ==
+== Server Autentication ==
 ExternalServer -> Gateway: Ask auth, typeserver pwd (for the specific server type)
 activate Gateway
 Gateway -> Gateway: Is Server can connect ?
 Gateway -> DataServer : Is Server auth
 activate DataServer
-Gateway <-- DataServer: Validation
+Gateway <- DataServer: Validation
 deactivate DataServer
+ExternalServer <-- Gateway: (if failure) Authentication failed
 Gateway -> Gateway: Add Server in register
+Gateway -> ServersCluster: notify new server (ip/port/token)
+activate ServersCluster
+ServersCluster -> ServersCluster: register new server
 Gateway -> Gateway: Generate Token
-ExternalServer <- Gateway: Give token
+deactivate ServersCluster
+ExternalServer <- Gateway: Autentication success(token)
 deactivate Gateway
+
 @enduml
