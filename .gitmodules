@@ -1,3 +1,6 @@
 [submodule "FySMQ"]
 	path = FySMQ
 	url = https://github.com/FreeYourSoul/FreeYourSoul_MQ.git
+[submodule "Protobuf"]
+	path = Protobuf
+	url = https://github.com/FreeYourSoul/FreeYourSoul_Protobuf.git
