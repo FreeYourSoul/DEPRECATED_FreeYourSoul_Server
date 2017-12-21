@@ -1,0 +1,3 @@
+[submodule "FySMQ"]
+	path = FySMQ
+	url = https://github.com/FreeYourSoul/FreeYourSoul_MQ.git
