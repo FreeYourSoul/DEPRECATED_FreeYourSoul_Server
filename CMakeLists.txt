@@ -16,7 +16,7 @@ endif()
 
 enable_testing()
 
-add_subdirectory( Protobuff )
+add_subdirectory(Protobuf)
 
 include_directories(
         cmake-build-debug/Protobuff
