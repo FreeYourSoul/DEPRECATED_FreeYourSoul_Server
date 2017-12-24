@@ -46,14 +46,6 @@ void fys::gateway::Gateway::runServerAccept() {
     );
 }
 
-const fys::network::SessionManager &fys::gateway::Gateway::getGamerConnections() const {
-    return _gamerConnections;
-}
-
-const fys::network::SessionManager &fys::gateway::Gateway::getServerConnections() const {
-    return _serverConnections;
-}
-
 void fys::gateway::Gateway::addGameServer(const uint indexInSession) {
     GameServerInstance instance;
     auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
@@ -67,9 +59,11 @@ void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
     _authServer.setPort(port);
 }
 
-bool fys::gateway::Gateway::isAuthServerSet() const {
-//     return _authServer.getPort() > 0 && !_authServer.getIp().empty();
-    return true;
+const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(uint xPos, uint yPos) {
+    for (const GameServerInstance& serverInstance: _gameServers)
+        if (serverInstance(xPos, yPos))
+            return serverInstance;
+    return {};
 }
 
 #pragma clang diagnostic pop

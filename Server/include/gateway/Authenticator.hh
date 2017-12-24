@@ -26,7 +26,12 @@ namespace fys::gateway::buslistener {
         void authPlayer(const uint indexSession, pb::LoginMessage &&loginMessage);
         void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
 
-        void sendError(const uint indexSession, std::string&& error, fys::pb::LoginErrorResponse::Type errorType);
+        void sendErrorToServer(const uint indexSession, std::string &&error,
+                               fys::pb::LoginErrorResponse::Type errorType);
+        void sendErrorToPlayer(const uint indexSession, std::string &&error,
+                               fys::pb::LoginErrorResponse::Type errorType);
+        inline void createErrorMessage(fys::pb::FySResponseMessage &resp, std::string &&error,
+                               fys::pb::LoginErrorResponse::Type errorType);
 
     private:
         Gateway::ptr _gtw;

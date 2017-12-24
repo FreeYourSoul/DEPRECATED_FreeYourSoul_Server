@@ -5,7 +5,7 @@
 #include "GameServerInstance.hh"
 
 fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerInstance &&other) noexcept :
-_ip(std::move(other._ip)), _port(other._port)
+_range(std::move(other._range)) ,_ip(std::move(other._ip)), _port(other._port)
 {}
 
 fys::gateway::GameServerInstance &fys::gateway::GameServerInstance::operator=(fys::gateway::GameServerInstance&& other) noexcept {
@@ -28,4 +28,8 @@ ushort fys::gateway::GameServerInstance::getPort() const {
 
 void fys::gateway::GameServerInstance::setPort(const ushort port) {
     GameServerInstance::_port = port;
+}
+
+bool fys::gateway::GameServerInstance::operator()(uint xPos, uint yPos) const noexcept {
+    return _range(xPos, yPos);
 }

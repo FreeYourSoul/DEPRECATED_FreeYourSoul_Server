@@ -19,7 +19,7 @@ enable_testing()
 add_subdirectory(Protobuf)
 
 include_directories(
-        cmake-build-debug/Protobuff
+        cmake-build-debug/Protobuf
         FySMQ/include/queue
         FySMQ/include/bus
         FySMemoryManager/include
@@ -31,10 +31,10 @@ include_directories(
 set(SOURCE_FILES_MM)
 
 set(SOURCE_PROTOBUF
-        cmake-build-debug/Protobuff/FySBabbleMessage.pb.cc
-        cmake-build-debug/Protobuff/FySMessage.pb.cc
-        cmake-build-debug/Protobuff/FySAuthenticationLoginMessage.pb.cc
-        cmake-build-debug/Protobuff/FySAuthenticationResponse.pb.cc
+        cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
+        cmake-build-debug/Protobuf/FySMessage.pb.cc
+        cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
+        cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
 )
 
 set(SOURCE_FILES_MQ
@@ -63,7 +63,7 @@ set(SOURCE_FILES_SRV
         Server/include/gateway/Authenticator.hh
 )
 
-set(SOURCE_FILES_UTILS Utils/src/CheckVars.hh Utils/src/TokenGenerator.cpp Utils/src/TokenGenerator.hh)
+set(SOURCE_FILES_UTILS Utils/src/CheckVars.hh Utils/src/TokenGenerator.cpp Utils/src/TokenGenerator.hh Utils/src/Range.hpp)
 
 set(SOURCE_FILES_ALL
         ${SOURCE_PROTOBUF}
