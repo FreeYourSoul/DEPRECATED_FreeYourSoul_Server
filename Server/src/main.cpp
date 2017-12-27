@@ -29,7 +29,6 @@ int main(int argc, const char * const *argv) {
         authenticatorListener.launchListenThread(fysBus);
         babbleListener.launchListenThread(fysBus);
         std::cout << ctx << std::endl;
-        std::cout << fys::utils::TokenGenerator::getInstance()->generate() << std::endl;
         gtw->runPlayerAccept();
         gtw->runServerAccept();
         ios.run();

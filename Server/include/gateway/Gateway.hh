@@ -34,7 +34,6 @@ namespace fys::gateway {
 
             void addGameServer(const uint);
             void setAuthServer(const uint);
-
             const GameServerInstance &getServerForAuthenticatedUser(uint xPos, uint yPos);
 
             bool isAuthServerSet() const {

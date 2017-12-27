@@ -24,7 +24,7 @@ namespace fys::network {
 
         std::string getConnectionToken(const uint indexInSession) const noexcept;
         std::pair<std::string, ushort> getConnectionData(const uint indexInSession) const noexcept;
-        const u_int addConnection(const TcpConnection::ptr& newConnection);
+        u_int addConnection(const TcpConnection::ptr& newConnection);
         void disconnectUser(const Token &);
 
         void sendResponse(uint i, pb::FySResponseMessage &&message) const noexcept;
@@ -34,10 +34,9 @@ namespace fys::network {
 
     private:
         std::vector<fys::network::TcpConnection::ptr> _connections;
-        std::vector<Token > _connectionsToken;
+        std::vector<Token> _connectionsToken;
     };
 
 }
-
 
 #endif //FREESOULS_CONNECTIONMANAGER_HH

@@ -8,7 +8,7 @@
 fys::network::SessionManager::SessionManager(const u_int size) : _connections(size), _connectionsToken(size)
 {}
 
-const u_int fys::network::SessionManager::addConnection(const fys::network::TcpConnection::ptr &newConnection) {
+u_int fys::network::SessionManager::addConnection(const fys::network::TcpConnection::ptr &newConnection) {
     u_int i = 0;
 
     for (; i < _connections.size(); ++i) {
@@ -57,9 +57,7 @@ void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::Fy
 }
 
 std::pair<std::string, ushort>  fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
+    if (indexInSession >= _connections.size() || !_connections.at(indexInSession))
+        return std::make_pair(std::string(""), static_cast<ushort>(0));
     return std::make_pair(_connections.at(indexInSession)->getIpAddress(), _connections.at(indexInSession)->getPort());
 }
-
-
-
-
