@@ -31,7 +31,7 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
 }
 
 void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
-    std::fill(_buffer, _buffer + MESSAGE_BUFFER_SIZE, 0);
+    std::memset(_buffer, 0, MESSAGE_BUFFER_SIZE);
     _socket.async_read_some(boost::asio::buffer(_buffer, MESSAGE_BUFFER_SIZE),
                             [this, &fysBus](boost::system::error_code ec, const std::size_t byteTransfered) {
                                 this->handleRead(ec, byteTransfered, fysBus);
