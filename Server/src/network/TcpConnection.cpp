@@ -14,7 +14,7 @@ boost::asio::ip::tcp::socket& fys::network::TcpConnection::getSocket() {
     return _socket;
 }
 
-void fys::network::TcpConnection::send(pb::FySResponseMessage&& msg) {
+void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
     boost::asio::streambuf b;
     std::ostream os(&b);
     msg.SerializeToOstream(&os);
@@ -48,7 +48,7 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
         readOnSocket(fysBus);
         containerMsg.setIndexSession(this->_sessionIndex);
         containerMsg.setOpCodeMsg(message.type());
-        std::cout << "Raw Message to write on bus :" << message.ShortDebugString()  << std::endl
+        std::cout << "Raw Message to read on bus :" << message.ShortDebugString()  << std::endl
                   << "Container op code : " << containerMsg.getOpCodeMsg()
                   << " bytetransfered : " << bytesTransferred
                   << " with index: " << _sessionIndex << std::endl;

@@ -56,7 +56,6 @@ void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     setPort(pt.get<u_short>(GTW_INI_PORT));
     setServerPort(pt.get<u_short>(GTW_INI_SERVER_PORT));
     setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));
-    setBusIniFilePath(pt.get<std::string>(GTW_INI_BUS_PATH));
     setQueuesSize(pt.get<std::size_t>(GTW_QUEUES_SIZE));
 }
 

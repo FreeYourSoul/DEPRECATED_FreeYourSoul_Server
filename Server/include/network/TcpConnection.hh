@@ -32,7 +32,7 @@ namespace fys::network {
         boost::asio::ip::tcp::socket& getSocket();
 
         void readOnSocket(fys::mq::FysBus<fys::pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
-        void send(fys::pb::FySResponseMessage&& msg);
+        void send(google::protobuf::Message&& msg);
 
         void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
         void setSessionIndex(uint _sessionIndex);

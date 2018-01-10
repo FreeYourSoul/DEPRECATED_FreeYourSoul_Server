@@ -24,8 +24,8 @@ void fys::gateway::Gateway::runPlayerAccept() {
     _acceptorPlayer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
-                session->readOnSocket(_fysBus);
                 this->_gamerConnections.addConnection(session);
+                session->readOnSocket(_fysBus);
                 this->runPlayerAccept();
             }
 
@@ -38,8 +38,8 @@ void fys::gateway::Gateway::runServerAccept() {
     _acceptorServer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
-                session->readOnSocket(_fysBus);
                 _serverConnections.addConnection(session);
+                session->readOnSocket(_fysBus);
                 this->runServerAccept();
             }
 

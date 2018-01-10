@@ -12,7 +12,6 @@
 #define GTW_INI_PORT "server.port"
 #define GTW_INI_SERVER_PORT "server.serverport"
 #define GTW_INI_ASIO_THREADS "server.asioThread"
-#define GTW_INI_BUS_PATH "bus.iniPath"
 #define GTW_QUEUES_SIZE "bus.queuesSize"
 
 namespace fys::gateway {
