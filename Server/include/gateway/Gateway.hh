@@ -22,7 +22,6 @@ namespace fys::gateway {
             using wptr = std::weak_ptr<Gateway>;
 
         public:
-            ~Gateway();
             Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus);
 
             static inline ptr create(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) {
@@ -34,7 +33,7 @@ namespace fys::gateway {
 
             void addGameServer(const uint);
             void setAuthServer(const uint);
-            const GameServerInstance &getServerForAuthenticatedUser(uint xPos, uint yPos);
+            const GameServerInstance &getServerForAuthenticatedUser(const uint xPos, const uint yPos);
 
             bool isAuthServerSet() const {
                 //     return _authServer.getPort() > 0 && !_authServer.getIp().empty();

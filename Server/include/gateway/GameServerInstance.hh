@@ -20,7 +20,7 @@ namespace fys::gateway {
         GameServerInstance(GameServerInstance&&) noexcept;
         GameServerInstance &operator=(GameServerInstance &&) noexcept;
 
-        bool operator()(uint xPos, uint yPos) const noexcept;
+        bool operator()(const uint xPos, const uint yPos) const noexcept;
 
         void setPort(const ushort port);
         void setIp(const std::string &ip);

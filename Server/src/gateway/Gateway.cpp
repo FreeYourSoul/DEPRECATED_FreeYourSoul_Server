@@ -4,12 +4,9 @@
 
 #include <Babble.hh>
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "InfiniteRecursion"
-
-fys::gateway::Gateway::~Gateway() = default;
-
-fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) :
+fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
+                               boost::asio::io_service &ios,
+                               fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) :
         _ios(ios),
         _acceptorPlayer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getPort())),
         _acceptorServer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getServerPort())),
@@ -59,11 +56,9 @@ void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
     _authServer.setPort(port);
 }
 
-const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(uint xPos, uint yPos) {
+const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const uint xPos, const uint yPos) {
     for (const GameServerInstance& serverInstance: _gameServers)
         if (serverInstance(xPos, yPos))
             return serverInstance;
     return {};
 }
-
-#pragma clang diagnostic pop
