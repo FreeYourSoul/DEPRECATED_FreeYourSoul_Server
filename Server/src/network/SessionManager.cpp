@@ -45,7 +45,7 @@ void fys::network::SessionManager::disconnectUser(const fys::network::Token &tok
     std::cerr << "Couldn't find the specified user's token to disconnect" << std::endl;
 }
 
-std::string fys::network::SessionManager::getConnectionToken(const uint indexInSession) const noexcept {
+const std::string fys::network::SessionManager::getConnectionToken(const uint indexInSession) const noexcept {
     if (indexInSession < _connectionsToken.size())
         return std::string(_connectionsToken.at(indexInSession).begin(), _connectionsToken.at(indexInSession).end());
     return "";

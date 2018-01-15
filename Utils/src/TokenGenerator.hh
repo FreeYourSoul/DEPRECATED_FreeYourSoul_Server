@@ -15,9 +15,9 @@ namespace fys {
         class TokenGenerator {
         public:
 
-            static TokenGenerator *getInstance() {
+            static std::unique_ptr<TokenGenerator> getInstance() {
                 if (!instance) {
-                    instance = new TokenGenerator();
+                    instance = std::make_unique<TokenGenerator>();
                 }
                 return instance;
             }
@@ -31,7 +31,7 @@ namespace fys {
         private:
             boost::uuids::random_generator _generator;
 
-            static TokenGenerator *instance;
+            static std::unique_ptr<TokenGenerator> instance;
 
         };
     }

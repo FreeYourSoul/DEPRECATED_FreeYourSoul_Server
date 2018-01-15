@@ -27,18 +27,19 @@ namespace fys::network {
             return std::make_shared<TcpConnection>(io_service);
         }
 
+        ~TcpConnection();
         explicit TcpConnection(boost::asio::io_service& io_service);
 
         boost::asio::ip::tcp::socket& getSocket();
-
         void readOnSocket(fys::mq::FysBus<fys::pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
+
         void send(google::protobuf::Message&& msg);
-
         void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
-        void setSessionIndex(uint _sessionIndex);
 
+        void setSessionIndex(uint _sessionIndex);
         uint getSessionIndex() const;
         std::string getIpAddress() const;
+
         ushort  getPort() const;
 
 

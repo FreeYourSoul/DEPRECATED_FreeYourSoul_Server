@@ -41,14 +41,14 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
         return;
     }
     // TODO check on auth server if server has the good magicKey
-    pb::FySResponseMessage resp;
     std::cout << "Show loginServer message " << loginServer.ShortDebugString() << std::endl;
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
-    resp.set_type(pb::AUTH);
-    resp.set_isok(true);
-    resp.mutable_content()->PackFrom(detail);
     if (!detail.token().empty()) {
+        pb::FySResponseMessage resp;
+        resp.set_type(pb::AUTH);
+        resp.set_isok(true);
+        resp.mutable_content()->PackFrom(detail);
         if (loginServer.isworldserver())
             _gtw->addGameServer(indexSession);
         else

@@ -7,6 +7,10 @@
 #include <Gateway.hh>
 #include <bitset>
 
+fys::network::TcpConnection::~TcpConnection() {
+    shuttingConnectionDown();
+}
+
 fys::network::TcpConnection::TcpConnection(boost::asio::io_service& io_service) : _isShuttingDown(false), _socket(io_service) {
 }
 
