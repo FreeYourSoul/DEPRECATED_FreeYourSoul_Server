@@ -24,8 +24,8 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
     msg.SerializeToOstream(&os);
 
     _socket.async_write_some(b.data(),
-                             [this](const boost::system::error_code& ec, std::size_t bytes_transferred) {
-                                 std::cout << "Writting response : " <<  bytes_transferred << std::endl;
+                             [this](const boost::system::error_code& ec, std::size_t byteTransferred) {
+                                 std::cout << "Writting response : " <<  byteTransferred << std::endl;
                                  if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
                                      std::cerr << "An Error Occured during writting" << std::endl;
                                      shuttingConnectionDown();
@@ -37,8 +37,8 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
 void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
     std::memset(_buffer, 0, MESSAGE_BUFFER_SIZE);
     _socket.async_read_some(boost::asio::buffer(_buffer, MESSAGE_BUFFER_SIZE),
-                            [this, &fysBus](boost::system::error_code ec, const std::size_t byteTransfered) {
-                                this->handleRead(ec, byteTransfered, fysBus);
+                            [this, &fysBus](boost::system::error_code ec, const std::size_t byteTransferred) {
+                                this->handleRead(ec, byteTransferred, fysBus);
                             });
 }
 
