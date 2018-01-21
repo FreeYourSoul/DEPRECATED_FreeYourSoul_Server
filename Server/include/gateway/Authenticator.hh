@@ -22,9 +22,8 @@ namespace fys::gateway::buslistener {
         void operator()(mq::QueueContainer<fys::pb::FySMessage> msg);
 
     private:
-        void authGameServer(const uint indexSession, pb::LoginMessage &&loginMessage);
+        void authServer(const uint indexSession, pb::LoginMessage &&loginMessage);
         void authPlayer(const uint indexSession, pb::LoginMessage &&loginMessage);
-        void authAuthServer(const uint indexSession, pb::LoginMessage &&loginMessage);
 
         void sendErrorToServer(const uint indexSession, std::string &&error,
                                fys::pb::LoginErrorResponse::Type errorType);

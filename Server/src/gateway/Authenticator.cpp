@@ -4,8 +4,7 @@
 
 #include "Authenticator.hh"
 
-fys::gateway::buslistener::Authenticator::Authenticator(Gateway::ptr& gtw) : _gtw(gtw)
-{}
+fys::gateway::buslistener::Authenticator::Authenticator(Gateway::ptr& gtw) : _gtw(gtw) {}
 
 void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySMessage> msg) {
     pb::LoginMessage authMessage;
@@ -18,11 +17,11 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
                 break;
 
             case pb::LoginMessage_Type_LoginGameServer:
-                authGameServer(msg.getIndexSession(), std::move(authMessage));
+                authServer(msg.getIndexSession(), std::move(authMessage));
                 break;
 
             case pb::LoginMessage_Type_LoginAuthServer:
-                authAuthServer(msg.getIndexSession(), std::move(authMessage));
+                authServer(msg.getIndexSession(), std::move(authMessage));
                 break;
 
             default:
@@ -31,7 +30,7 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
     }
 }
 
-void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession, pb::LoginMessage &&loginMessage) {
+void fys::gateway::buslistener::Authenticator::authServer(const uint indexSession, pb::LoginMessage &&loginMessage) {
     pb::LoginGameServer loginServer;
 
     loginMessage.content().UnpackTo(&loginServer);
@@ -40,8 +39,8 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
                           fys::pb::LoginErrorResponse::Type::LoginErrorResponse_Type_AUTH_SERVER_UNAVAILABLE);
         return;
     }
-    // TODO check on auth server if server has the good magicKey
-    std::cout << "Show loginServer message " << loginServer.ShortDebugString() << std::endl;
+    // TODO check on auth server if server has the good magicKey -> thanks to the PositionId
+    std::cout << " Show loginServer message " << loginServer.ShortDebugString() << std::endl << std::endl;
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
     if (!detail.token().empty()) {
@@ -50,7 +49,7 @@ void fys::gateway::buslistener::Authenticator::authGameServer(uint indexSession,
         resp.set_isok(true);
         resp.mutable_content()->PackFrom(detail);
         if (loginServer.isworldserver())
-            _gtw->addGameServer(indexSession);
+            _gtw->addGameServer(indexSession, loginServer.magicpassword());
         else
             _gtw->setAuthServer(indexSession);
         _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));
@@ -69,8 +68,8 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     std::cout << "Show loginPlayer message " << loginPlayer.ShortDebugString() << std::endl;
     // TODO on auth server if login/password
 
-    auto[xPos, yPos] = std::make_pair(1, 1);
-    const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(xPos, yPos);
+    std::string positionId = "UNIV_1a"; // todo get the good positionId from db
+    const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
     pb::FySResponseMessage resp;
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
@@ -80,10 +79,6 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     resp.set_isok(true);
     resp.mutable_content()->PackFrom(detail);
     _gtw->getGamerConnections().sendResponse(indexSession, std::move(resp));
-}
-
-void fys::gateway::buslistener::Authenticator::authAuthServer(uint indexSession, pb::LoginMessage &&loginMessage) {
-
 }
 
 void fys::gateway::buslistener::Authenticator::sendErrorToServer(

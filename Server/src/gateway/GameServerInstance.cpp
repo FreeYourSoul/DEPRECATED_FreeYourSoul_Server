@@ -4,16 +4,6 @@
 
 #include "GameServerInstance.hh"
 
-fys::gateway::GameServerInstance::GameServerInstance(fys::gateway::GameServerInstance &&other) noexcept :
-_range(other._range) ,_ip(std::move(other._ip)), _port(other._port)
-{}
-
-fys::gateway::GameServerInstance &fys::gateway::GameServerInstance::operator=(fys::gateway::GameServerInstance&& other) noexcept {
-    std::swap(_ip, other._ip);
-    std::swap(_port, other._port);
-    return *this;
-}
-
 const std::string &fys::gateway::GameServerInstance::getIp() const {
     return _ip;
 }
@@ -30,6 +20,14 @@ void fys::gateway::GameServerInstance::setPort(const ushort port) {
     GameServerInstance::_port = port;
 }
 
-bool fys::gateway::GameServerInstance::operator()(const uint xPos, const uint yPos) const noexcept {
-    return _range(xPos, yPos);
+bool fys::gateway::GameServerInstance::operator()(const std::string &) const noexcept {
+    return false;
+}
+
+void fys::gateway::GameServerInstance::setPositionId(const std::string &postionId) {
+    _positionId = postionId;
+}
+
+const std::string &fys::gateway::GameServerInstance::getPositionId() const {
+    return _positionId;
 }

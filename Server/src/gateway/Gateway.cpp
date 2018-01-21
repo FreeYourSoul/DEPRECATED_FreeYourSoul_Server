@@ -75,11 +75,13 @@ void fys::gateway::Gateway::runServerAccept() {
     );
 }
 
-void fys::gateway::Gateway::addGameServer(const uint indexInSession) {
+void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &mp) {
     GameServerInstance instance;
     auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
     instance.setIp(ip);
     instance.setPort(port);
+    instance.setPositionId(mp.substr(12));
+    _gameServers.push_back(instance);
 }
 
 void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
@@ -88,9 +90,9 @@ void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
     _authServer.setPort(port);
 }
 
-const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const uint xPos, const uint yPos) {
+const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const std::string& positionId) {
     for (const GameServerInstance& serverInstance: _gameServers)
-        if (serverInstance(xPos, yPos))
+        if (serverInstance(positionId))
             return serverInstance;
     return {};
 }

@@ -33,9 +33,9 @@ namespace fys::gateway {
             void runPlayerAccept();
             void runServerAccept();
 
-            void addGameServer(const uint);
+            void addGameServer(uint, const std::string &string);
             void setAuthServer(const uint);
-            const GameServerInstance &getServerForAuthenticatedUser(const uint xPos, const uint yPos);
+            const GameServerInstance &getServerForAuthenticatedUser(const std::string&);
 
             bool isAuthServerSet() const {
                 //     return _authServer.getPort() > 0 && !_authServer.getIp().empty();
