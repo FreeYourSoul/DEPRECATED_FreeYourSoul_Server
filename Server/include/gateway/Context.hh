@@ -22,6 +22,7 @@ namespace fys::gateway {
 
     public:
         ~Context() = default;
+        Context() = default;
         Context(const int ac, const char *const *av);
         Context(const Context&);
         Context(Context&&) noexcept;

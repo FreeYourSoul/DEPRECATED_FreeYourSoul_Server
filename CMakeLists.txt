@@ -26,7 +26,9 @@ include_directories(
         Server/include/gateway
         Server/include/network
         Server/include/babble
-        Server/include/game Utils/src)
+        Server/include/game Utils/src
+        Server/test/itClient/include
+)
 
 set(SOURCE_FILES_MM)
 
@@ -80,7 +82,7 @@ set(SOURCE_FILES_TEST
         ${SOURCE_FILES_ALL}
         FySMQ/test/TestUnitMQ.cpp
         Utils/test/TestCheckVar.cpp
-    )
+        )
 
 ### Server ###
 add_executable(FreeSouls ${SOURCE_FILES})

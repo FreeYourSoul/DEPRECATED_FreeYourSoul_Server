@@ -3,6 +3,38 @@
 //
 
 #include <Babble.hh>
+#include <Authenticator.hh>
+#include <BusListener.hh>
+
+void fys::gateway::Gateway::start(const Context& ctx) {
+    using namespace fys::mq;
+    using namespace fys::gateway;
+    using namespace fys::network;
+
+    using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
+    using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
+
+    try {
+        boost::asio::io_service ios;
+        boost::asio::io_service::work work(ios);
+        auto fysBus = std::make_shared<FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE> > (fys::pb::Type_ARRAYSIZE);
+        Gateway::ptr gtw = Gateway::create(ctx, ios, fysBus);
+        buslistener::Babble babble(gtw);
+        buslistener::Authenticator authenticator(gtw);
+        BabbleBusListener babbleListener(babble);
+        AuthBusListener authenticatorListener(authenticator);
+
+        authenticatorListener.launchListenThread(fysBus);
+        babbleListener.launchListenThread(fysBus);
+        std::cout << ctx << std::endl;
+        gtw->runPlayerAccept();
+        gtw->runServerAccept();
+        ios.run();
+    }
+    catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
 
 fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
                                boost::asio::io_service &ios,

@@ -24,6 +24,8 @@ namespace fys::gateway {
         public:
             Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus);
 
+            static void start(const Context &ctx);
+
             static inline ptr create(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) {
                 return std::make_shared<Gateway>(ctx, ios, fysBus);
             }
