@@ -2,6 +2,7 @@
 // Created by FyS on 31/08/17.
 //
 
+#include "ServerMagicExtractor.hh"
 #include "Authenticator.hh"
 
 fys::gateway::buslistener::Authenticator::Authenticator(Gateway::ptr& gtw) : _gtw(gtw) {}
@@ -39,17 +40,19 @@ void fys::gateway::buslistener::Authenticator::authServer(const uint indexSessio
                           fys::pb::LoginErrorResponse::Type::LoginErrorResponse_Type_AUTH_SERVER_UNAVAILABLE);
         return;
     }
+    ServerMagicExtractor sme(loginServer.magicpassword());
     // TODO check on auth server if server has the good magicKey -> thanks to the PositionId
     std::cout << " Show loginServer message " << loginServer.ShortDebugString() << std::endl << std::endl;
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
     if (!detail.token().empty()) {
         pb::FySResponseMessage resp;
+
         resp.set_type(pb::AUTH);
         resp.set_isok(true);
         resp.mutable_content()->PackFrom(detail);
         if (loginServer.isworldserver())
-            _gtw->addGameServer(indexSession, loginServer.magicpassword());
+            _gtw->addGameServer(indexSession, sme.getPositionId());
         else
             _gtw->setAuthServer(indexSession);
         _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));

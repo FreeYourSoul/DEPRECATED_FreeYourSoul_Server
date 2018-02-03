@@ -28,7 +28,7 @@ include_directories(
         Server/include/babble
         Server/include/game Utils/src
         Server/test/itClient/include
-)
+    )
 
 set(SOURCE_FILES_MM)
 
@@ -37,14 +37,15 @@ set(SOURCE_PROTOBUF
         cmake-build-debug/Protobuf/FySMessage.pb.cc
         cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
         cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
-)
+    )
 
 set(SOURCE_FILES_MQ
         FySMQ/include/queue/LockFreeQueue.hh
         FySMQ/include/queue/QueueContainer.hh
         FySMQ/include/queue/LockingQueue.hh
         FySMQ/include/bus/BusListener.hh
-        FySMQ/include/bus/FysBus.hh)
+        FySMQ/include/bus/FysBus.hh
+    )
 
 set(SOURCE_FILES_SRV
         Server/src/gateway/Gateway.cpp
@@ -63,36 +64,47 @@ set(SOURCE_FILES_SRV
         Server/include/gateway/GameServerInstance.hh
         Server/src/gateway/Authenticator.cpp
         Server/include/gateway/Authenticator.hh
-)
+        Server/src/gateway/ServerMagicExtractor.cpp
+        Server/include/gateway/ServerMagicExtractor.hh
+    )
 
-set(SOURCE_FILES_UTILS Utils/src/CheckVars.hh Utils/src/TokenGenerator.cpp Utils/src/TokenGenerator.hh Utils/src/Range.hpp)
+set(SOURCE_FILES_UTILS
+        Utils/src/CheckVars.hh
+        Utils/src/TokenGenerator.cpp
+        Utils/src/TokenGenerator.hh
+        Utils/src/Range.hpp
+    )
 
 set(SOURCE_FILES_ALL
         ${SOURCE_PROTOBUF}
         ${SOURCE_FILES_UTILS}
         ${SOURCE_FILES_MQ}
         ${SOURCE_FILES_MM}
-        ${SOURCE_FILES_SRV})
+        ${SOURCE_FILES_SRV}
+    )
 
 set(SOURCE_FILES
         ${SOURCE_FILES_ALL}
-        Server/src/main.cpp)
+        Server/src/main.cpp
+    )
 
 set(SOURCE_FILES_TEST
         ${SOURCE_FILES_ALL}
         FySMQ/test/TestUnitMQ.cpp
         Utils/test/TestCheckVar.cpp
-        )
+    )
 
 ### Server ###
 add_executable(FreeSouls ${SOURCE_FILES})
-target_link_libraries(FreeSouls proto )
+target_link_libraries(FreeSouls proto)
 
 # link against dynamic libraries
 add_definitions(-DBOOST_ALL_DYN_LINK)
 
 ## Test executable
+#add_subdirectory(Server/test/AuthenticatorTestCases)
+
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 add_executable(UnitTests ${SOURCE_FILES_TEST})
-target_link_libraries(UnitTests ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+target_link_libraries(UnitTests atc ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 add_test(UnitTests UnitTests)

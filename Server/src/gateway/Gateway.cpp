@@ -5,6 +5,7 @@
 #include <Babble.hh>
 #include <Authenticator.hh>
 #include <BusListener.hh>
+#include <ServerMagicExtractor.hh>
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::mq;
@@ -75,12 +76,13 @@ void fys::gateway::Gateway::runServerAccept() {
     );
 }
 
-void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &mp) {
+void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &positionId) {
     GameServerInstance instance;
     auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
+
     instance.setIp(ip);
     instance.setPort(port);
-    instance.setPositionId(mp.substr(12));
+    instance.setPositionId(positionId);
     _gameServers.push_back(instance);
 }
 
