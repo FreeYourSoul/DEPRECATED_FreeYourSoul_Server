@@ -1,31 +1,22 @@
 cmake_minimum_required(VERSION 3.3)
-
-include_directories(
-        /cmake-build-debug/Protobuf
-        /Server/include/gateway/ServerMagicExtractor.hh
-        /Server/test/mock/FySMock.hpp
-        /Server/test/mock/Gateway.hh
-)
-
-#set(SOURCE_FILES_MOCK_AUTHENTICATOR_TESTCASE
-#        /Server/test/mock/Gateway.hh
-#        /Server/test/mock/FySMock.hpp
-#    )
+include(${CMAKE_SOURCE_DIR}/BoostTestHelpers.cmake)
 
 set(SOURCE_FILES_AUTHENTICATOR_TESTCASE
-        ../../src/gateway/Authenticator.cpp
-        ../../src/gateway/GameServerInstance.cpp
-    )
-
-set(SOURCE_FILES_TEST_AUTHENTICATOR_TESTCASE
-        ${SOURCE_FILES_AUTHENTICATOR_TESTCASE}
-        ${SOURCE_FILES_UTILS}
+        ${SOURCE_FILES_ALL}
+        ${CMAKE_SOURCE_DIR}/Server/test/mock/GatewayMock.cpp
         AuthenticatorTestCase.cpp
     )
-
-# link against dynamic libraries
-add_definitions(-DBOOST_ALL_DYN_LINK)
+list(REMOVE_ITEM SOURCE_FILES_AUTHENTICATOR_TESTCASE ${CMAKE_SOURCE_DIR}/Server/src/gateway/Gateway.cpp)
+message(TEST AuthenticatorTestCase.cpp COMPILED > ${SOURCE_FILES_AUTHENTICATOR_TESTCASE})
 
 ## Test executable
-enable_language(CXX)
-add_library(atc ${SOURCE_FILES_TEST_AUTHENTICATOR_TESTCASE})
+find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN)
+
+add_executable(atc ${SOURCE_FILES_AUTHENTICATOR_TESTCASE})
+target_link_libraries(atc ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+set_target_properties(atc PROPERTIES LINKER_LANGUAGE CXX)
+
+enable_testing()
+add_test(atc atc)
+

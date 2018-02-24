@@ -3,9 +3,7 @@ cmake_minimum_required(VERSION 3.3)
 project(FreeSouls CXX)
 
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lprotobuf -lboost_timer -lboost_system -lboost_thread")
-
 set(CMAKE_CXX_STANDARD 17)
 
 if ( UNIX )
@@ -14,65 +12,63 @@ if ( UNIX )
     message( STATUS Set Warnings flag : ${CMAKE_CXX_FLAGS})
 endif()
 
-enable_testing()
-
 add_subdirectory(Protobuf)
 
 include_directories(
-        cmake-build-debug/Protobuf
-        FySMQ/include/queue
-        FySMQ/include/bus
-        FySMemoryManager/include
-        Server/include/gateway
-        Server/include/network
-        Server/include/babble
-        Server/include/game Utils/src
-        Server/test/itClient/include
+        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/queue
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/bus
+        ${CMAKE_SOURCE_DIR}/FySMemoryManager/include
+        ${CMAKE_SOURCE_DIR}/Server/include/gateway
+        ${CMAKE_SOURCE_DIR}/Server/include/network
+        ${CMAKE_SOURCE_DIR}/Server/include/babble
+        ${CMAKE_SOURCE_DIR}/Server/include/game Utils/src
+        ${CMAKE_SOURCE_DIR}/Server/test/itClient/include
     )
 
 set(SOURCE_FILES_MM)
 
 set(SOURCE_PROTOBUF
-        cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
-        cmake-build-debug/Protobuf/FySMessage.pb.cc
-        cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
-        cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
+        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
+        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySMessage.pb.cc
+        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
+        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
     )
 
 set(SOURCE_FILES_MQ
-        FySMQ/include/queue/LockFreeQueue.hh
-        FySMQ/include/queue/QueueContainer.hh
-        FySMQ/include/queue/LockingQueue.hh
-        FySMQ/include/bus/BusListener.hh
-        FySMQ/include/bus/FysBus.hh
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/queue/LockFreeQueue.hh
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/queue/QueueContainer.hh
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/queue/LockingQueue.hh
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/bus/BusListener.hh
+        ${CMAKE_SOURCE_DIR}/FySMQ/include/bus/FysBus.hh
     )
 
 set(SOURCE_FILES_SRV
-        Server/src/gateway/Gateway.cpp
-        Server/include/gateway/Gateway.hh
-        Server/src/gateway/Context.cpp
-        Server/include/gateway/Context.hh
-        Server/src/network/SessionManager.cpp
-        Server/include/network/SessionManager.hh
-        Server/src/babble/Babble.cpp
-        Server/include/babble/Babble.hh
-        Server/src/babble/BabbleChannel.cpp
-        Server/include/babble/BabbleChannel.hh
-        Server/src/network/TcpConnection.cpp
-        Server/include/network/TcpConnection.hh
-        Server/src/gateway/GameServerInstance.cpp
-        Server/include/gateway/GameServerInstance.hh
-        Server/src/gateway/Authenticator.cpp
-        Server/include/gateway/Authenticator.hh
-        Server/src/gateway/ServerMagicExtractor.cpp
-        Server/include/gateway/ServerMagicExtractor.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/gateway/Gateway.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/gateway/Gateway.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/gateway/Context.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/gateway/Context.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/network/SessionManager.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/network/SessionManager.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/babble/Babble.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/babble/Babble.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/babble/BabbleChannel.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/babble/BabbleChannel.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/network/TcpConnection.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/network/TcpConnection.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/gateway/GameServerInstance.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/gateway/GameServerInstance.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/gateway/Authenticator.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/gateway/Authenticator.hh
+        ${CMAKE_SOURCE_DIR}/Server/src/gateway/ServerMagicExtractor.cpp
+        ${CMAKE_SOURCE_DIR}/Server/include/gateway/ServerMagicExtractor.hh
     )
 
 set(SOURCE_FILES_UTILS
-        Utils/src/CheckVars.hh
-        Utils/src/TokenGenerator.cpp
-        Utils/src/TokenGenerator.hh
-        Utils/src/Range.hpp
+        ${CMAKE_SOURCE_DIR}/Utils/src/CheckVars.hh
+        ${CMAKE_SOURCE_DIR}/Utils/src/TokenGenerator.cpp
+        ${CMAKE_SOURCE_DIR}/Utils/src/TokenGenerator.hh
+        ${CMAKE_SOURCE_DIR}/Utils/src/Range.hpp
     )
 
 set(SOURCE_FILES_ALL
@@ -85,26 +81,21 @@ set(SOURCE_FILES_ALL
 
 set(SOURCE_FILES
         ${SOURCE_FILES_ALL}
-        Server/src/main.cpp
+        ${CMAKE_SOURCE_DIR}/Server/src/main.cpp
     )
 
 set(SOURCE_FILES_TEST
         ${SOURCE_FILES_ALL}
-        FySMQ/test/TestUnitMQ.cpp
-        Utils/test/TestCheckVar.cpp
+        ${CMAKE_SOURCE_DIR}/FySMQ/test/TestUnitMQ.cpp
+        ${CMAKE_SOURCE_DIR}/Utils/test/TestCheckVar.cpp
     )
 
+## Test executable
+enable_testing()
+add_subdirectory(${CMAKE_SOURCE_DIR}/Server/test/AuthenticatorTestCases)
+add_subdirectory(${CMAKE_SOURCE_DIR}/FySMQ)
+
 ### Server ###
+message("Build FreeSouls binary")
 add_executable(FreeSouls ${SOURCE_FILES})
 target_link_libraries(FreeSouls proto)
-
-# link against dynamic libraries
-add_definitions(-DBOOST_ALL_DYN_LINK)
-
-## Test executable
-#add_subdirectory(Server/test/AuthenticatorTestCases)
-
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-add_executable(UnitTests ${SOURCE_FILES_TEST})
-target_link_libraries(UnitTests atc ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-add_test(UnitTests UnitTests)

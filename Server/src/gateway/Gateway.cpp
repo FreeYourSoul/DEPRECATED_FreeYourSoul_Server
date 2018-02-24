@@ -18,7 +18,7 @@ void fys::gateway::Gateway::start(const Context& ctx) {
     try {
         boost::asio::io_service ios;
         boost::asio::io_service::work work(ios);
-        auto fysBus = std::make_shared<FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE> > (fys::pb::Type_ARRAYSIZE);
+        auto fysBus = std::make_shared<FysBus<fys::pb::FySMessage, fys::gateway::BUS_QUEUES_SIZE> > (fys::pb::Type_ARRAYSIZE);
         Gateway::ptr gtw = Gateway::create(ctx, ios, fysBus);
         buslistener::Babble babble(gtw);
         buslistener::Authenticator authenticator(gtw);
@@ -44,8 +44,8 @@ fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
         _acceptorPlayer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getPort())),
         _acceptorServer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getServerPort())),
         _fysBus(fysBus),
-        _gamerConnections(1000),
-        _serverConnections(10)
+        _gamerConnections(static_cast<uint>(1000)),
+        _serverConnections(static_cast<uint>(10))
 {}
 
 void fys::gateway::Gateway::runPlayerAccept() {

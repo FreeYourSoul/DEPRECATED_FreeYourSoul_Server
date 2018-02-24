@@ -20,10 +20,10 @@ namespace fys::network {
         using ptr = std::shared_ptr<SessionManager>;
         using wptr = std::weak_ptr<SessionManager>;
 
-        explicit SessionManager(const u_int size);
+        explicit SessionManager(const uint size);
 
         std::pair<std::string, ushort> getConnectionData(const uint indexInSession) const noexcept;
-        u_int addConnection(const TcpConnection::ptr& newConnection);
+        uint addConnection(const TcpConnection::ptr& newConnection);
         void disconnectUser(const Token &);
 
         const std::string getConnectionToken(const uint indexInSession) const noexcept;
