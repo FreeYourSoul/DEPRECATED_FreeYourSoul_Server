@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.3)
-include(${CMAKE_SOURCE_DIR}/BoostTestHelpers.cmake)
 
 set(SOURCE_FILES_AUTHENTICATOR_TESTCASE
         ${SOURCE_FILES_ALL}
         ${CMAKE_SOURCE_DIR}/Server/test/mock/GatewayMock.cpp
+        ${CMAKE_SOURCE_DIR}/Server/test/mock/MockVerifier.hpp
         AuthenticatorTestCase.cpp
     )
 list(REMOVE_ITEM SOURCE_FILES_AUTHENTICATOR_TESTCASE ${CMAKE_SOURCE_DIR}/Server/src/gateway/Gateway.cpp)
