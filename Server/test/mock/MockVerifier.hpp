@@ -10,67 +10,126 @@
 #include <boost/test/test_tools.hpp>
 #include <map>
 
-namespace fys::test {
+namespace FSeam {
 
-    template <typename T>
-    class MockVerifier {
+    /**
+     * \brief basic structure that contains description and utilisation of mocked method
+     *
+     */
+    struct MethodCallVerifier {
+        std::string _methodName;
+        std::size_t _called = 0;
+
+//        void _handler;
+    };
+
+    /**
+     * \brief Mocking class, it contains all mocked method / save all calls to methods
+     * \todo improve the mocking class to take the arguments and compare them in a verify
+     */
+    class MockClassVerifier {
+    public:
+        /**
+         * This method has to be called each time a mocked class is calling a method (in order to register the call)
+         *
+         * \param className name of the mocked class
+         * \param methodName name of the method called
+         */
+        void methodCall(std::string &&className, std::string &&methodName) {
+            auto methodCallVerifier = std::make_shared<MethodCallVerifier>();
+            std::string key = std::move(className) + methodName;
+
+            if (_verifiers.find(key) != _verifiers.end())
+                methodCallVerifier = _verifiers.at(key);
+            methodCallVerifier->_methodName = std::move(methodName);
+            methodCallVerifier->_called += 1;
+            _verifiers[key] = methodCallVerifier;
+            std::cout << "The method " << key << " has been called " << methodCallVerifier->_called << " times" << std::endl;
+        }
+
+        /**
+         * \brief This method make it possible to dupe a method in order to have it do what you want.
+         *
+         * \tparam T handler type
+         * \param className name of the class to mock
+         * \param methodName method name to dupe
+         * \param handler dupped method
+         */
+        template <typename T>
+        void dupeMethod(std::string &&className, std::string &&methodName, T handler) {
+            auto methodCallVerifier = std::make_shared<MethodCallVerifier>();
+            std::string key = std::move(className) + methodName;
+
+            if (_verifiers.find(key) != _verifiers.end())
+                methodCallVerifier = _verifiers.at(key);
+            methodCallVerifier->_methodName = std::move(methodName);
+            methodCallVerifier->_called = 0;
+//            methodCallVerifier->_handler = handler;
+            std::cout << "The method " << key << " has been mocked" << std::endl;
+
+        }
+
+        /**
+         * \brief Verify if a method has been called under certain conditions (number of times)
+         *
+         * \param className class name to verify
+         * \param methodName method to verify
+         * \param times number of times you verify that the mocked method has been called, if no value set, this method
+         * verify you at least have the mocked method called once
+         * \return true if the method encounter your conditions (number of times called), false otherwise
+         */
+        bool verify(std::string &&className, std::string &&methodName, const int times = -1) const {
+            std::string key = std::move(className) + std::move(methodName);
+
+            if (_verifiers.find(key) == _verifiers.end()) {
+                std::cerr << key << " method hasn't been mocked" << std::endl;
+                return false;
+            }
+            return (_verifiers.at(key)->_called > 0 && times == -1) ||
+                   (_verifiers.at(key)->_called == times);
+        }
 
     private:
-        template<typename... T>
-        struct MethodCallVerifier {
-            std::string _methodName;
-            std::size_t _called = 0;
-            std::tuple<T...> args;
-        };
+        std::map<std::string, std::shared_ptr<MethodCallVerifier> > _verifiers;
+    };
+
+    /**
+     * \brief Mocking singleton, this class contains all the mock
+     */
+    class MockVerifier {
+        static std::unique_ptr<MockVerifier> inst;
+        static std::once_flag once_flag;
 
     public:
-        class MockClassVerifier {
-        public:
-            template<typename... A>
-            void addMethdoCall(std::string &&className, std::string &&methodName, A... args) {
-                MethodCallVerifier methodCallVerifier;
-                std::string key = std::move(className) + std::move(methodName);
+        MockVerifier() = default;
+        ~MockVerifier() = default;
 
-                if (_verifiers.find(key) != _verifiers.end())
-                    methodCallVerifier = _verifiers.at(key);
-                methodCallVerifier._methodName = methodName;
-                methodCallVerifier._called += 1;
-                _verifiers[key] = methodCallVerifier;
-                std::cout << "The method " << key << " has been called " << methodCallVerifier._called << " times" << std::endl;
-            }
+        static MockVerifier &instance() {
+            std::call_once(once_flag, []() {
+                inst = std::make_unique<MockVerifier>();
+            });
+            return *(inst.get());
+        }
 
-            bool verify(std::string &&className, std::string &&methodName) const {
-                std::string key = std::move(className) + std::move(methodName);
+        std::shared_ptr<MockClassVerifier> &getMock(const void *mockPtr) {
+            if (inst->_mockedClass.find(mockPtr) == inst->_mockedClass.end())
+                return addMock(mockPtr);
+            return inst->_mockedClass.at(mockPtr);
+        }
 
-                if (_verifiers.find(key) == _verifiers.end())
-                    return false;
-                return _verifiers.at(key).called > 0;
-            }
-
-            template <typename T, typename... Args>
-            bool verify(std::string &&className, std::string &&methodName, T arg, Args... args) const {
-                if (_verifiers.find(className + methodName) == _verifiers.end())
-                    return false;
-                return verify(std::move(className), std::move(methodName), args);
-            }
-
-            template <typename... Args>
-            bool verify(std::string &&className, std::string &&methodName, Args... args) const {
-                std::string key = className + methodName;
-                if (_verifiers.find(key) == _verifiers.end())
-                    return false;
-                return verify(std::move(className), std::move(methodName), args);
-            }
-
-        private:
-            std::map<std::string, MethodCallVerifier> _verifiers;
-        };
-
+        template <typename T>
+        std::shared_ptr<MockClassVerifier> &addMock(const T *mockPtr) {
+            auto classVerifier = std::make_shared<MockClassVerifier>();
+            inst->_mockedClass[mockPtr] = classVerifier;
+            return inst->_mockedClass.at(mockPtr);
+        }
 
     private:
-
-
+        std::map<const void*, std::shared_ptr<MockClassVerifier> > _mockedClass;
     };
+
+    std::unique_ptr<MockVerifier> MockVerifier::inst = nullptr;
+    std::once_flag  MockVerifier::once_flag = {};
 
 }
 

@@ -6,6 +6,7 @@
 #define FREESOULS_GATEWAY_HPP
 
 #include <Gateway.hh>
+#include "MockVerifier.hpp"
 
 fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
                                boost::asio::io_service &ios,
@@ -23,23 +24,23 @@ void fys::gateway::Gateway::start(const Context& ctx) {
 }
 
 void fys::gateway::Gateway::runPlayerAccept() {
-    std::cout << "Gateway > runPlayerAccept called"<<std::endl;
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 void fys::gateway::Gateway::runServerAccept() {
-    std::cout << "Gateway > runServerAccept called"<<std::endl;
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &positionId) {
-    std::cout << "Gateway > addGameServer called"<<std::endl;
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
-    std::cout << "Gateway > runServerAccept called"<<std::endl;
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const std::string& positionId) {
-    std::cout << "Gateway > getServerForAuthenticatedUser called"<<std::endl;
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 #endif //FREESOULS_GATEWAY_HPP

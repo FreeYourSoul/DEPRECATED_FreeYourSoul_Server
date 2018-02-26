@@ -26,6 +26,7 @@ struct mockFixture {
 BOOST_FIXTURE_TEST_SUITE(correctTestSuite, mockFixture)
 
     BOOST_FIXTURE_TEST_CASE( test_auth_player, mockFixture ) {
+        gtwMock->runPlayerAccept();
         fys::gateway::buslistener::Authenticator auth(gtwMock);
         std::cout << "THE TEST THAT MAKE ME CRAZY" << std::endl;
         assert(true);
