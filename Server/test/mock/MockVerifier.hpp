@@ -8,6 +8,7 @@
 #include <string>
 #include <FysBus.hh>
 #include <boost/test/test_tools.hpp>
+#include <functional>
 #include <map>
 
 namespace FSeam {
@@ -20,7 +21,7 @@ namespace FSeam {
         std::string _methodName;
         std::size_t _called = 0;
 
-//        void _handler;
+        std::function<void(void*)> _handler;
     };
 
     /**
@@ -29,6 +30,14 @@ namespace FSeam {
      */
     class MockClassVerifier {
     public:
+        void invokeDupedMethod(std::string &&className, std::string &&methodName, void *arg = nullptr) {
+            std::string key = std::move(className) + std::move(methodName);
+
+            if (_verifiers.find(key) != _verifiers.end()) {
+                _verifiers.at(key)->_handler(arg);
+            }
+        }
+
         /**
          * This method has to be called each time a mocked class is calling a method (in order to register the call)
          *
@@ -55,8 +64,7 @@ namespace FSeam {
          * \param methodName method name to dupe
          * \param handler dupped method
          */
-        template <typename T>
-        void dupeMethod(std::string &&className, std::string &&methodName, T handler) {
+        void dupeMethod(std::string &&className, std::string &&methodName, std::function<void(void*)> handler) {
             auto methodCallVerifier = std::make_shared<MethodCallVerifier>();
             std::string key = std::move(className) + methodName;
 
@@ -64,9 +72,9 @@ namespace FSeam {
                 methodCallVerifier = _verifiers.at(key);
             methodCallVerifier->_methodName = std::move(methodName);
             methodCallVerifier->_called = 0;
-//            methodCallVerifier->_handler = handler;
+            methodCallVerifier->_handler = handler;
+            _verifiers[key] = methodCallVerifier;
             std::cout << "The method " << key << " has been mocked" << std::endl;
-
         }
 
         /**
@@ -128,8 +136,8 @@ namespace FSeam {
         std::map<const void*, std::shared_ptr<MockClassVerifier> > _mockedClass;
     };
 
-    std::unique_ptr<MockVerifier> MockVerifier::inst = nullptr;
-    std::once_flag  MockVerifier::once_flag = {};
+    // ------------------------ Helper Method --------------------------
+
 
 }
 

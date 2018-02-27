@@ -2,9 +2,6 @@
 // Created by FyS on 21/01/18.
 //
 
-#ifndef FREESOULS_GATEWAY_HPP
-#define FREESOULS_GATEWAY_HPP
-
 #include <Gateway.hh>
 #include "MockVerifier.hpp"
 
@@ -16,8 +13,8 @@ fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
         _acceptorServer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 4222)),
         _fysBus(fysBus),
         _gamerConnections(static_cast<uint>(1000)),
-        _serverConnections(static_cast<uint>(10))
-{}
+        _serverConnections(static_cast<uint>(10)) {
+}
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     std::cout << "Gateway > start called" << std::endl;
@@ -42,5 +39,3 @@ void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
 const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const std::string& positionId) {
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
-
-#endif //FREESOULS_GATEWAY_HPP
