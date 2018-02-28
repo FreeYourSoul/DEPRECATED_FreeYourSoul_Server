@@ -102,4 +102,38 @@ BOOST_FIXTURE_TEST_SUITE(correctTestSuite, mockFixture)
     }
 
 
+    /**
+     * Test authentication call for a server with bad token
+     */
+    BOOST_FIXTURE_TEST_CASE( test_auth_serverbadtoken, mockFixture ) {
+        // Mock initialization
+        std::shared_ptr<std::string> returnValue = std::make_shared<std::string>("");
+        FSeam::MockVerifier::instance().getMock(serverSessionManagerMock)->dupeMethod("SessionManager", "getConnectionToken", [returnValue](void *ptr) {
+            auto *data = static_cast<FSeam::SessionManagerData *>(ptr);
+            data->getConnectionToken_Ret = returnValue.get();
+        });
+
+        // Launch test
+        fys::gateway::buslistener::Authenticator auth(gtwMock);
+        fys::pb::FySMessage fm;
+        fys::pb::LoginMessage loginMsg;
+        fys::pb::LoginGameServer gameServerMessage;
+
+        gameServerMessage.set_isworldserver(true);
+        gameServerMessage.set_magicpassword("magie magie");
+        loginMsg.set_typemessage(fys::pb::LoginMessage_Type_LoginGameServer);
+        loginMsg.mutable_content()->PackFrom(gameServerMessage);
+        fm.set_type(fys::pb::AUTH);
+        fm.mutable_content()->PackFrom(loginMsg);
+        fys::mq::QueueContainer<fys::pb::FySMessage> msg(fm);
+        msg.setIndexSession(0);
+        auth(msg);
+
+        //Testing assertion
+        BOOST_CHECK(FSeam::MockVerifier::instance().getMock(gtwMock.get())->verify("Gateway", "addGameServer", 0));
+        BOOST_CHECK(FSeam::MockVerifier::instance().getMock(gtwMock.get())->verify("Gateway", "setAuthServer", 0));
+        BOOST_CHECK(FSeam::MockVerifier::instance().getMock(serverSessionManagerMock)->verify("SessionManager", "sendResponse", 0));
+    }
+
+
 BOOST_AUTO_TEST_SUITE_END()
