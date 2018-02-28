@@ -16,7 +16,7 @@ message(TEST AuthenticatorTestCase.cpp COMPILED > ${SOURCE_FILES_AUTHENTICATOR_T
 
 ## Test executable
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN)
+ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 
 add_executable(atc ${SOURCE_FILES_AUTHENTICATOR_TESTCASE})
 target_link_libraries(atc ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})

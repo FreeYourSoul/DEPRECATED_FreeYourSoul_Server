@@ -30,7 +30,7 @@ const std::string fys::network::SessionManager::getConnectionToken(const uint in
     FSeam::SessionManagerData data;
     FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("SessionManager", __FUNCTION__, &data);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("SessionManager", __FUNCTION__);
-    return *data.getConnectionToken_Ret;
+    return data.getConnectionToken_Ret ? *data.getConnectionToken_Ret : "";
 }
 
 void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::FySResponseMessage &&message) const noexcept {

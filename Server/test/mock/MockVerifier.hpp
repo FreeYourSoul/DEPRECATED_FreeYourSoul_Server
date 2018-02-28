@@ -94,11 +94,14 @@ namespace FSeam {
             std::string key = std::move(className) + std::move(methodName);
 
             if (_verifiers.find(key) == _verifiers.end()) {
+                if (times == 0)
+                    return true;
                 std::cerr << key << " method hasn't been mocked" << std::endl;
                 return false;
             }
-            return (_verifiers.at(key)->_called > 0 && times == -1) ||
-                   (_verifiers.at(key)->_called == times);
+            std::cout << "verify method " << key << " which has been called " << _verifiers.at(key)->_called << " times" << std::endl;
+            return ((times <= -1 && _verifiers.at(key)->_called > 0) ||
+                   (_verifiers.at(key)->_called == times));
         }
 
     private:
@@ -110,17 +113,20 @@ namespace FSeam {
      */
     class MockVerifier {
         static std::unique_ptr<MockVerifier> inst;
-        static std::once_flag once_flag;
 
     public:
         MockVerifier() = default;
         ~MockVerifier() = default;
 
         static MockVerifier &instance() {
-            std::call_once(once_flag, []() {
+            if (inst == nullptr) {
                 inst = std::make_unique<MockVerifier>();
-            });
+            };
             return *(inst.get());
+        }
+
+        static void cleanUp() {
+            inst = nullptr;
         }
 
         std::shared_ptr<MockClassVerifier> &getMock(const void *mockPtr) {
