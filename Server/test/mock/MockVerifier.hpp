@@ -34,8 +34,12 @@ namespace FSeam {
             std::string key = std::move(className) + std::move(methodName);
 
             if (_verifiers.find(key) != _verifiers.end()) {
-                _verifiers.at(key)->_handler(arg);
+                auto dupedMethod = _verifiers.at(key)->_handler;
+                if (dupedMethod)
+                    dupedMethod(arg);
             }
+            else
+                std::cout << "The method " << key << " has not been duped" << std::endl;
         }
 
         /**
@@ -140,7 +144,5 @@ namespace FSeam {
 
 
 }
-
-
 
 #endif //FREESOULS_MOCKVERIFIER_HH

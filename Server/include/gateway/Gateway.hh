@@ -44,7 +44,10 @@ namespace fys::gateway {
             const network::SessionManager &getGamerConnections() const { return _gamerConnections; }
             const network::SessionManager &getServerConnections() const { return _serverConnections; }
 
-        private:
+            void setGamerConnections(const network::SessionManager &_gamerConnections) {}
+            void setGerverConnections(const network::SessionManager &_serverConnections) {}
+
+        protected:
             boost::asio::io_service &_ios;
             boost::asio::ip::tcp::acceptor _acceptorPlayer;
             boost::asio::ip::tcp::acceptor _acceptorServer;

@@ -4,6 +4,7 @@
 
 #include <Gateway.hh>
 #include "MockVerifier.hpp"
+#include "MockData.hpp"
 
 fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
                                boost::asio::io_service &ios,
@@ -21,21 +22,29 @@ void fys::gateway::Gateway::start(const Context& ctx) {
 }
 
 void fys::gateway::Gateway::runPlayerAccept() {
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 void fys::gateway::Gateway::runServerAccept() {
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &positionId) {
+    FSeam::GatewayData data;
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__, &data);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
 const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const std::string& positionId) {
+    FSeam::GatewayData data;
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__, &data);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
+    return *data.getServerForAuthenticatedUser_Ret;
 }

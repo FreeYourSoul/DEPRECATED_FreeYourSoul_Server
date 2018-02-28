@@ -56,7 +56,7 @@ void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::Fy
         _connections.at(indexInSession)->send(std::move(message));
 }
 
-std::pair<std::string, ushort>  fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
+std::pair<std::string, ushort> fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
     if (indexInSession >= _connections.size() || !_connections.at(indexInSession))
         return std::make_pair(std::string(""), static_cast<ushort>(0));
     return std::make_pair(_connections.at(indexInSession)->getIpAddress(), _connections.at(indexInSession)->getPort());

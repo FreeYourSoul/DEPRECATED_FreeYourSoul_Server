@@ -42,7 +42,7 @@ void fys::gateway::buslistener::Authenticator::authServer(const uint indexSessio
     }
     ServerMagicExtractor sme(loginServer.magicpassword());
     // TODO check on auth server if server has the good magicKey -> thanks to the PositionId
-    std::cout << " Show loginServer message " << loginServer.ShortDebugString() << std::endl << std::endl;
+    std::cout << "Show loginServer message " << loginServer.ShortDebugString() << std::endl << std::endl;
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
     if (!detail.token().empty()) {
