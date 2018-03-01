@@ -98,3 +98,13 @@ const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthe
             return serverInstance;
     return {};
 }
+
+bool fys::gateway::Gateway::isGameServerInstancesHasPositionId(const std::string& positionId) const {
+    if (_gameServers.empty())
+        return false;
+    for (const GameServerInstance &gsi : _gameServers) {
+        if (gsi.getPort() <= 0 || gsi.getIp().empty() || gsi.getIp().empty())
+            return false;
+    }
+    return true;
+}

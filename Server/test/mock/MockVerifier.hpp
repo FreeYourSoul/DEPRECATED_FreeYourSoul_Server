@@ -38,8 +38,6 @@ namespace FSeam {
                 if (dupedMethod)
                     dupedMethod(arg);
             }
-            else
-                std::cout << "The method " << key << " has not been duped" << std::endl;
         }
 
         /**
@@ -57,7 +55,6 @@ namespace FSeam {
             methodCallVerifier->_methodName = std::move(methodName);
             methodCallVerifier->_called += 1;
             _verifiers[key] = methodCallVerifier;
-            std::cout << "The method " << key << " has been called " << methodCallVerifier->_called << " times" << std::endl;
         }
 
         /**
@@ -94,14 +91,13 @@ namespace FSeam {
             std::string key = std::move(className) + std::move(methodName);
 
             if (_verifiers.find(key) == _verifiers.end()) {
-                if (times == 0)
-                    return true;
-                std::cerr << key << " method hasn't been mocked" << std::endl;
-                return false;
+                return times == 0;
             }
-            std::cout << "verify method " << key << " which has been called " << _verifiers.at(key)->_called << " times" << std::endl;
-            return ((times <= -1 && _verifiers.at(key)->_called > 0) ||
-                   (_verifiers.at(key)->_called == times));
+            bool result = ((times <= -1 && _verifiers.at(key)->_called > 0) || (_verifiers.at(key)->_called == times));
+            if (!result)
+                std::cout << "Verify error for method " << key << ", method has been called "
+                          << _verifiers.at(key)->_called << " and not " << times << std::endl;
+            return result;
         }
 
     private:

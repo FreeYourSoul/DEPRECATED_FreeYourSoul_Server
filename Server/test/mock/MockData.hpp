@@ -14,6 +14,7 @@ namespace FSeam {
     };
 
     struct GatewayData {
+        bool *isGameServerInstancesHasPositionId_Ret = nullptr;
         fys::gateway::GameServerInstance *getServerForAuthenticatedUser_Ret = nullptr;
     };
 

@@ -72,16 +72,18 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     // TODO on auth server if login/password
 
     std::string positionId = "UNIV_1a"; // todo get the good positionId from db
-    const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
-    pb::FySResponseMessage resp;
-    pb::AuthenticationResponse detail;
-    detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
-    detail.set_ip(gsi.getIp());
-    detail.set_port(std::to_string(gsi.getPort()));
-    resp.set_type(pb::AUTH);
-    resp.set_isok(true);
-    resp.mutable_content()->PackFrom(detail);
-    _gtw->getGamerConnections().sendResponse(indexSession, std::move(resp));
+    if (!positionId.empty() && _gtw->isGameServerInstancesHasPositionId(positionId)) {
+        const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
+        pb::FySResponseMessage resp;
+        pb::AuthenticationResponse detail;
+        detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
+        detail.set_ip(gsi.getIp());
+        detail.set_port(std::to_string(gsi.getPort()));
+        resp.set_type(pb::AUTH);
+        resp.set_isok(true);
+        resp.mutable_content()->PackFrom(detail);
+        _gtw->getGamerConnections().sendResponse(indexSession, std::move(resp));
+    }
 }
 
 void fys::gateway::buslistener::Authenticator::sendErrorToServer(

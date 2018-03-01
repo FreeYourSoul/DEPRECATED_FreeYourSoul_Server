@@ -48,3 +48,10 @@ const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthe
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
     return *data.getServerForAuthenticatedUser_Ret;
 }
+
+bool fys::gateway::Gateway::isGameServerInstancesHasPositionId(const std::string& positionId) const {
+    FSeam::GatewayData data;
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__, &data);
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
+    return *data.isGameServerInstancesHasPositionId_Ret;
+}
