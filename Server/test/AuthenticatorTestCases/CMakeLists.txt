@@ -4,9 +4,12 @@ set(SOURCE_FILES_AUTHENTICATOR_TESTCASE
         ${SOURCE_FILES_ALL}
         ${CMAKE_SOURCE_DIR}/Server/test/mock/GatewayMock.cpp
         ${CMAKE_SOURCE_DIR}/Server/test/mock/SessionManagerMock.cpp
-        AuthenticatorTestCase.cpp
         ${CMAKE_SOURCE_DIR}/Server/test/mock/MockVerifier.hpp
         ${CMAKE_SOURCE_DIR}/Server/test/mock/MockData.hpp)
+
+set(SRC_TESTCASE_AUTHENTICATOR
+        testAuthenticatorTestCase.cpp
+    )
 
 # remove real class (to be replaced by mocked ones)
 list(REMOVE_ITEM SOURCE_FILES_AUTHENTICATOR_TESTCASE ${CMAKE_SOURCE_DIR}/Server/src/gateway/Gateway.cpp)
@@ -15,13 +18,11 @@ list(REMOVE_ITEM SOURCE_FILES_AUTHENTICATOR_TESTCASE ${CMAKE_SOURCE_DIR}/Server/
 message(TEST AuthenticatorTestCase.cpp COMPILED > ${SOURCE_FILES_AUTHENTICATOR_TESTCASE})
 
 ## Test executable
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
-
+add_library(atcLib ${SRC_TESTCASE_AUTHENTICATOR})
 add_executable(atc ${SOURCE_FILES_AUTHENTICATOR_TESTCASE})
-target_link_libraries(atc ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+target_link_libraries(atc atcLib)
 set_target_properties(atc PROPERTIES LINKER_LANGUAGE CXX)
 
 enable_testing()
-add_test(atc atc)
+#add_test(atc atc)
 
