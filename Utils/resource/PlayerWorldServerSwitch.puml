@@ -1,24 +1,33 @@
 @startuml
+actor Player
 entity WorldServer
 entity Gateway
-collections WSCluster
-database DataServer
+entity OtherServerInCluster
 autonumber
-== Server Autentication ==
-WorldServer -> Gateway: Change Server Request (ip/port/entryPointId)
+== Check server changement ==
+Player -> WorldServer: Player moving
+WorldServer -> WorldServer: Is a player changing server?
+
+
+== Notify Other World Server ==
+WorldServer -> Gateway: Change Server Request (positionId)
+
 activate Gateway
-Gateway -> DataServer : Is Server auth
-activate DataServer
-Gateway <- DataServer: Validation
-deactivate DataServer
-WorldServer <-- Gateway: (if failure) Authentication failed
-Gateway -> Gateway: Add Server in register
-Gateway -> WSCluster: notify new server (ip/port/token)
-activate WSCluster
-WSCluster -> WSCluster: register new server
-Gateway -> Gateway: Generate Token
-deactivate WSCluster
-WorldServer <- Gateway: Autentication success(token)
+
+    Gateway -> Gateway: Check if server is still authenticated
+    WorldServer <-- Gateway: (if failure) Authentication failed
+        activate WorldServer
+        Player <-- WorldServer: (if failure) Authentication failed
+        deactivate WorldServer
+    Gateway -> Gateway: Generate Token
+    Gateway -> OtherServerInCluster: notify new player (token)
+
+    activate OtherServerInCluster
+    OtherServerInCluster -> OtherServerInCluster: register new player in waiting list
+    WorldServer <- Gateway: Pre-Autentication on other server success(token)
+    deactivate OtherServerInCluster
+
 deactivate Gateway
+WorldServer -> Player: notify player (give ip/token)
 
 @enduml

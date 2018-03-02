@@ -126,12 +126,30 @@ namespace FSeam {
             inst = nullptr;
         }
 
+        /**
+         * \brief This method get the mock verifier instance class
+         *
+         * \details Method that retrieve the mock verifier instance class corresponding to the pointer given as parameter
+         * \note A mock verifier instance class is a class that acknowledge all utilisation (method calls) of the mocked class
+         * this class also contains the mocked method (dupped).
+         *
+         * \param mockPtr
+         * \return the mock verifier instance class, if not referenced yet, create one by calling the ::addMock(T) method
+         */
         std::shared_ptr<MockClassVerifier> &getMock(const void *mockPtr) {
             if (inst->_mockedClass.find(mockPtr) == inst->_mockedClass.end())
                 return addMock(mockPtr);
             return inst->_mockedClass.at(mockPtr);
         }
 
+        /**
+         * \brief Add a mock verifier instance class into the current testing context
+         * \note A mock verifier instance class is a class that acknowledge all utilisation (method calls) of the mocked class
+         * this class also contains the mocked method (dupped).
+         * \tparam T
+         * \param mockPtr
+         * \return
+         */
         template <typename T>
         std::shared_ptr<MockClassVerifier> &addMock(const T *mockPtr) {
             auto classVerifier = std::make_shared<MockClassVerifier>();

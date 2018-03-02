@@ -93,7 +93,6 @@ set(SOURCE_FILES_TEST
 ## Test executable
 enable_testing()
 add_subdirectory(${CMAKE_SOURCE_DIR}/Server/test/AuthenticatorTestCases)
-add_subdirectory(${CMAKE_SOURCE_DIR}/Server/test/GatewayTestCases)
 add_subdirectory(${CMAKE_SOURCE_DIR}/FySMQ)
 
 ### Server ###
