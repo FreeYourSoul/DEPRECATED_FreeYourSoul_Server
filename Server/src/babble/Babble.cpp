@@ -2,7 +2,9 @@
 // Created by FyS on 24/06/17.
 //
 
+#include <spdlog/spdlog.h>
 #include <Babble.hh>
+
 
 fys::gateway::buslistener::Babble::Babble(Gateway::ptr &gtw) : _gtw(gtw) {
     _basicChannels.emplace_back("Default");
@@ -16,7 +18,7 @@ void fys::gateway::buslistener::Babble::signInOnBabble(fys::pb::FySBabbleMessage
 }
 
 void fys::gateway::buslistener::Babble::signOutFromBabble(fys::pb::FySBabbleMessage &&babbleMessage) {
-    std::cout << "User signOutFromBabble in Babble" << std::endl;
+    spdlog::get("c")->debug("User signOutFromBabble in Babble");
     if (!babbleMessage.token().empty()) {
         if (babbleMessage.iswhisper()) {
             std::list<std::string> &playerConnected = _mapPlayerChannels.at(babbleMessage.content().dest());

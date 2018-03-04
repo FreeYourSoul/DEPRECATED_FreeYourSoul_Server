@@ -3,10 +3,11 @@
 //
 
 #include <iostream>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/ini_parser.hpp>
+#include <spdlog/spdlog.h>
 #include <tclap/ValueArg.h>
 #include <tclap/CmdLine.h>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 #include "Context.hh"
 
 fys::gateway::Context::Context(const fys::gateway::Context &other) :
@@ -52,7 +53,7 @@ void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     boost::property_tree::ptree pt;
     boost::property_tree::read_ini(iniPath, pt);
 
-    std::cout << "Context Initialization..." << std::endl;
+    spdlog::get("c")->info("Context Initialization...");
     setPort(pt.get<u_short>(GTW_INI_PORT));
     setServerPort(pt.get<u_short>(GTW_INI_SERVER_PORT));
     setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));

@@ -2,10 +2,12 @@
 // Created by FyS on 23/05/17.
 //
 
+#include <spdlog/spdlog.h>
 #include <boost/asio.hpp>
 #include <iostream>
 #include <Gateway.hh>
 #include <bitset>
+
 
 fys::network::TcpConnection::~TcpConnection() {
     shuttingConnectionDown();
@@ -25,9 +27,9 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
 
     _socket.async_write_some(b.data(),
                              [this](const boost::system::error_code& ec, std::size_t byteTransferred) {
-                                 std::cout << "Writting response : " <<  byteTransferred << std::endl;
+                                 spdlog::get("c")->debug("Writting response : ", byteTransferred);
                                  if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
-                                     std::cerr << "An Error Occured during writting" << std::endl;
+                                     spdlog::get("c")->debug("An Error Occured during writting");
                                      shuttingConnectionDown();
                                  }
                              }
@@ -52,10 +54,8 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
         readOnSocket(fysBus);
         containerMsg.setIndexSession(this->_sessionIndex);
         containerMsg.setOpCodeMsg(message.type());
-        std::cout << "Raw Message to read on bus :" << message.ShortDebugString()  << std::endl
-                  << "Container op code : " << containerMsg.getOpCodeMsg()
-                  << " bytetransfered : " << bytesTransferred
-                  << " with index: " << _sessionIndex << std::endl;
+        spdlog::get("c")->debug("Raw Message to read on bus :{} Container op code : {} bytetransfered : {} with index: {}",
+                                message.ShortDebugString(), containerMsg.getOpCodeMsg(), bytesTransferred, _sessionIndex);
         containerMsg.setContained(std::move(message));
         fysBus->pushInBus(std::move(containerMsg));
     }
@@ -66,7 +66,7 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
 
 void fys::network::TcpConnection::shuttingConnectionDown() {
     if (!_isShuttingDown) {
-        std::cout << "Shutting down socket connection..." << std::endl;
+        spdlog::get("c")->debug("Shutting down socket connection...");
         _isShuttingDown = true;
         try {
             _customShutdownHandler();

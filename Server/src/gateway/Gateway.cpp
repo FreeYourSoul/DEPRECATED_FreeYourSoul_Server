@@ -2,6 +2,7 @@
 // Created by FyS on 23/05/17.
 //
 
+#include <spdlog/spdlog.h>
 #include <Babble.hh>
 #include <Authenticator.hh>
 #include <BusListener.hh>
@@ -27,13 +28,12 @@ void fys::gateway::Gateway::start(const Context& ctx) {
 
         authenticatorListener.launchListenThread(fysBus);
         babbleListener.launchListenThread(fysBus);
-        std::cout << ctx << std::endl;
         gtw->runPlayerAccept();
         gtw->runServerAccept();
         ios.run();
     }
     catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        spdlog::get("c")->error("An exception has been thrown at the gateway startup {}", e.what());
     }
 }
 

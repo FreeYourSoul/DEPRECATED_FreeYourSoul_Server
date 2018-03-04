@@ -2,6 +2,7 @@
 // Created by FyS on 31/08/17.
 //
 
+#include <spdlog/spdlog.h>
 #include "ServerMagicExtractor.hh"
 #include "Authenticator.hh"
 
@@ -42,7 +43,7 @@ void fys::gateway::buslistener::Authenticator::authServer(const uint indexSessio
     }
     ServerMagicExtractor sme(loginServer.magicpassword());
     // TODO check on auth server if server has the good magicKey -> thanks to the PositionId
-    std::cout << "Show loginServer message " << loginServer.ShortDebugString() << std::endl << std::endl;
+    spdlog::get("c")->debug("Show loginServer message: " + loginServer.ShortDebugString());
     pb::AuthenticationResponse detail;
     detail.set_token(_gtw->getServerConnections().getConnectionToken(indexSession));
     if (!detail.token().empty()) {
@@ -68,7 +69,7 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     pb::LoginPlayerOnGateway loginPlayer;
 
     loginMessage.content().UnpackTo(&loginPlayer);
-    std::cout << "Show loginPlayer message " << loginPlayer.ShortDebugString() << std::endl;
+    spdlog::get("c")->debug("Show loginPlayer message: " + loginPlayer.ShortDebugString());
     // TODO on auth server if login/password
 
     std::string positionId = "UNIV_1a"; // todo get the good positionId from db

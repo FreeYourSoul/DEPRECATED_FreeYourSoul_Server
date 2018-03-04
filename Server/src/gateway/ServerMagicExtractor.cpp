@@ -3,11 +3,12 @@
 //
 
 #include <iostream>
+#include <spdlog/spdlog.h>
 #include "ServerMagicExtractor.hh"
 
 fys::gateway::ServerMagicExtractor::ServerMagicExtractor(const std::string &fullMagic) {
     if (fullMagic.size() < 7)
-        std::cout << fullMagic << " is not a magic number" << std::endl;
+        spdlog::get("c")->warn("{} is not a magic number", fullMagic);
     else {
         _magic = fullMagic.substr(0, fullMagic.size() - 7);
         _positionId = fullMagic.substr(fullMagic.size() - 7);
