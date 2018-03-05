@@ -53,7 +53,7 @@ void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     boost::property_tree::ptree pt;
     boost::property_tree::read_ini(iniPath, pt);
 
-    spdlog::get("c")->info("Context Initialization...");
+    spdlog::get("c")->info("{} Context Initialization...", iniPath);
     setPort(pt.get<u_short>(GTW_INI_PORT));
     setServerPort(pt.get<u_short>(GTW_INI_SERVER_PORT));
     setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));

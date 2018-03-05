@@ -57,12 +57,19 @@ void welcome() {
     spdlog::set_pattern("[%x %H:%M:%S] [%l] %v");
     spdlog::stdout_logger_mt("c");
     spdlog::get("c")->info(welcomeMsg);
+#ifdef DEBUG_LEVEL
+    spdlog::get("c")->set_level(spdlog::level::debug);
+#else
+    spdlog::get("c")->set_level(spdlog::level::debug);
+#endif
+    spdlog::get("c")->info("Logger set to level {}", spdlog::get("c")->level());
 }
 
 int main(int argc, const char * const *argv) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     welcome();
     fys::gateway::Context ctx(argc, argv);
+    spdlog::get("c")->info("Context of process:", ctx);
     fys::gateway::Gateway::start(ctx);
     google::protobuf::ShutdownProtobufLibrary();
     return 0;
