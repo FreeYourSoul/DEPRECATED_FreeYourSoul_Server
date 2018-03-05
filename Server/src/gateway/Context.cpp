@@ -27,7 +27,7 @@ fys::gateway::Context::Context(const int ac, const char *const *av) {
         TCLAP::ValueArg<u_short> changePort("p", "port", "Listening Port", false, 0, "integer");
         TCLAP::ValueArg<u_short> changeServerPort("s", "sport", "Listening Port for servers", false, 0, "integer");
         TCLAP::ValueArg<std::size_t> changeThread("t", "thread", "Thread Numbers for listening", false, 0, "integer");
-        TCLAP::ValueArg<bool> verbose("v", "verbose", "Print logs on standard output", false, false, "boolean");
+        TCLAP::ValueArg<bool> verbose("v", "verbose", "Print logs on standard output", false, true, "boolean");
 
         cli.add(configPath);
         cli.add(changePort);
@@ -53,7 +53,6 @@ void fys::gateway::Context::initializeFromIni(const std::string &iniPath) {
     boost::property_tree::ptree pt;
     boost::property_tree::read_ini(iniPath, pt);
 
-    spdlog::get("c")->info("{} Context Initialization...", iniPath);
     setPort(pt.get<u_short>(GTW_INI_PORT));
     setServerPort(pt.get<u_short>(GTW_INI_SERVER_PORT));
     setAsioThread(pt.get<std::size_t>(GTW_INI_ASIO_THREADS));
@@ -92,11 +91,10 @@ void fys::gateway::Context::setQueuesSize(std::size_t _queuesSize) {
     Context::_queuesSize = _queuesSize;
 }
 
-std::ostream &fys::gateway::operator<<(std::ostream &os, const fys::gateway::Context &context) {
-    os << "Current Context -> _port: " << context._port  << " serverport: " << context._serverPort << " _asioThread: " << context._asioThread << " _busIniFilePath: "
-       << context._busIniFilePath << " _queuesSize: " << context._queuesSize;
-    return os;
-}
+void fys::gateway::Context::logContext() {
+    spdlog::get("c")->info("Current Context: [ port: {} , serverPort: {}, asioThread: {}, busIniFilePath: {} ]",
+                           _port, _serverPort, _asioThread, _busIniFilePath);
+};
 
 bool fys::gateway::Context::isVerbose() const {
     return _verbose;

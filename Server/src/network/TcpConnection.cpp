@@ -27,7 +27,7 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
 
     _socket.async_write_some(b.data(),
                              [this](const boost::system::error_code& ec, std::size_t byteTransferred) {
-                                 spdlog::get("c")->debug("Writting response : ", byteTransferred);
+                                 spdlog::get("c")->debug("Writting response : {}", byteTransferred);
                                  if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
                                      spdlog::get("c")->debug("An Error Occured during writting");
                                      shuttingConnectionDown();

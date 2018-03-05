@@ -52,24 +52,33 @@ static const std::string welcomeMsg =
                 "  |_|___|___|___| ||>___<||>___<||>___<||>___<||>___<||  ||>___<||>___<||>___<||>___<||>___<|| |_|___|___|___|\n"
                 "  |___|___|___|_| \"-----------------------------------\"  \"-----------------------------------\" |___|___|___dv|";
 
-void welcome() {
+void welcome(bool verbose) {
     spdlog::set_async_mode(1024);
     spdlog::set_pattern("[%x %H:%M:%S] [%l] %v");
-    spdlog::stdout_logger_mt("c");
-    spdlog::get("c")->info(welcomeMsg);
+
+    std::vector<spdlog::sink_ptr> sinks;
+
+    if (verbose) {
+        auto stdout_sink = spdlog::sinks::stdout_sink_mt::instance();
+        auto color_sink = std::make_shared<spdlog::sinks::ansicolor_sink>(stdout_sink);
+        sinks.push_back(color_sink);
+    }
+    auto sys_logger = std::make_shared<spdlog::logger>("c", begin(sinks), end(sinks));
 #ifdef DEBUG_LEVEL
-    spdlog::get("c")->set_level(spdlog::level::debug);
+    sys_logger->set_level(spdlog::level::debug);
 #else
-    spdlog::get("c")->set_level(spdlog::level::debug);
+    sys_logger->set_level(spdlog::level::debug);
 #endif
-    spdlog::get("c")->info("Logger set to level {}", spdlog::get("c")->level());
+    spdlog::register_logger(sys_logger);
+    sys_logger->info("Logger set to level {}", spdlog::get("c")->level());
+    spdlog::get("c")->info(welcomeMsg);
 }
 
 int main(int argc, const char * const *argv) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
-    welcome();
     fys::gateway::Context ctx(argc, argv);
-    spdlog::get("c")->info("Context of process:", ctx);
+    welcome(ctx.isVerbose());
+    ctx.logContext();
     fys::gateway::Gateway::start(ctx);
     google::protobuf::ShutdownProtobufLibrary();
     return 0;
