@@ -70,10 +70,10 @@ void fys::network::TcpConnection::shuttingConnectionDown() {
         _isShuttingDown = true;
         try {
             _customShutdownHandler();
-            _socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-            _socket.close();
         }
-        catch (std::exception &) {}
+        catch (const std::exception &e) {
+            spdlog::get("c")->error("An exception has been thrown during socket close {}", e.what());
+        }
     }
 }
 

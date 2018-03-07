@@ -44,8 +44,8 @@ namespace fys::gateway {
 
             bool isGameServerInstancesHasPositionId(const std::string& positionId) const;
 
-            const network::SessionManager &getGamerConnections() const { return _gamerConnections; }
-            const network::SessionManager &getServerConnections() const { return _serverConnections; }
+            network::SessionManager &getGamerConnections() { return _gamerConnections; }
+            network::SessionManager &getServerConnections() { return _serverConnections; }
 
             void setGamerConnections(const network::SessionManager &_gamerConnections) {}
             void setGerverConnections(const network::SessionManager &_serverConnections) {}

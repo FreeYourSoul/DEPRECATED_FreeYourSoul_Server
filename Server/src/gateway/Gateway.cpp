@@ -68,7 +68,7 @@ void fys::gateway::Gateway::runServerAccept() {
     _acceptorServer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
-                _serverConnections.addConnection(session);
+                this->_serverConnections.addConnection(session);
                 session->readOnSocket(_fysBus);
                 this->runServerAccept();
             }
@@ -93,10 +93,10 @@ void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
 }
 
 const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const std::string& positionId) {
-    for (const GameServerInstance& serverInstance: _gameServers)
-        if (serverInstance(positionId))
-            return serverInstance;
-    return {};
+    for (uint i = 0; i < _gameServers.size(); ++i)
+        if (_gameServers.at(i)(positionId))
+            return _gameServers.at(i);
+    throw std::exception(); // todo send back optional
 }
 
 bool fys::gateway::Gateway::isGameServerInstancesHasPositionId(const std::string& positionId) const {

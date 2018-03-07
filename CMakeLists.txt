@@ -28,12 +28,12 @@ include_directories(
 
 set(SOURCE_FILES_MM)
 
-set(SOURCE_PROTOBUF
-        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
-        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySMessage.pb.cc
-        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
-        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
-    )
+#set(SOURCE_PROTOBUF
+#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
+#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySMessage.pb.cc
+#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
+#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
+#    )
 
 set(SOURCE_FILES_MQ
         ${CMAKE_SOURCE_DIR}/FySMQ/include/queue/LockFreeQueue.hh
@@ -94,6 +94,8 @@ set(SOURCE_FILES_TEST
 enable_testing()
 add_subdirectory(${CMAKE_SOURCE_DIR}/Server/test/AuthenticatorTestCases)
 add_subdirectory(${CMAKE_SOURCE_DIR}/FySMQ)
+
+set(DBOOST_EXCEPTION_DISABLE)
 
 ### Server ###
 message("Build FreeSouls binary")

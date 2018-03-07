@@ -40,6 +40,7 @@ void fys::network::SessionManager::disconnectUser(const fys::network::Token &tok
         if (std::equal(_connectionsToken.at(i).begin(), _connectionsToken.at(i).end(), token.begin())) {
             spdlog::get("c")->info("Disconnect user {} from Session manager", i);
             _connections.at(i) = nullptr;
+            _connectionsToken.at(i) = {};
             return;
         }
     }

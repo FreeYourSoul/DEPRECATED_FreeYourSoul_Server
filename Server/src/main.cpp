@@ -45,7 +45,7 @@ static const std::string welcomeMsg =
         "                                                                                                                        \n\n\n";
 
 void welcome(bool verbose) {
-    spdlog::set_async_mode(1024);
+    spdlog::set_async_mode(1024, spdlog::async_overflow_policy::discard_log_msg);
     spdlog::set_pattern("[%x %H:%M:%S] [%l] %v");
 
     std::vector<spdlog::sink_ptr> sinks;

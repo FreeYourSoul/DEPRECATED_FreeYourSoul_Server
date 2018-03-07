@@ -20,8 +20,8 @@ void fys::gateway::GameServerInstance::setPort(const ushort port) {
     GameServerInstance::_port = port;
 }
 
-bool fys::gateway::GameServerInstance::operator()(const std::string &) const noexcept {
-    return false;
+bool fys::gateway::GameServerInstance::operator()(const std::string &positionId) const noexcept {
+    return this->_positionId == positionId;
 }
 
 void fys::gateway::GameServerInstance::setPositionId(const std::string &postionId) {
