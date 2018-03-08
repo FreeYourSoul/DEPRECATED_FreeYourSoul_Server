@@ -5,14 +5,30 @@
 #ifndef FREESOULS_BABBLE_HH
 #define FREESOULS_BABBLE_HH
 
-#include <map>
 #include <string>
 #include <unordered_map>
-#include <SessionManager.hh>
-#include <FySMessage.pb.h>
-#include <FySBabbleMessage.pb.h>
-#include <Gateway.hh>
 #include "BabbleChannel.hh"
+
+// forward declarations
+namespace fys {
+    namespace mq {
+        template <typename T>
+        class QueueContainer;
+    }
+
+    namespace gateway {
+        class Gateway;
+    }
+
+    namespace network {
+
+    }
+
+    namespace pb {
+        class FySMessage;
+        class FySBabbleMessage;
+    }
+}
 
 namespace fys::gateway::buslistener {
 
@@ -20,19 +36,19 @@ namespace fys::gateway::buslistener {
     public:
         enum { IndexInBus = 1 };
 
-        explicit Babble(Gateway::ptr&);
+        explicit Babble(std::shared_ptr<Gateway>&);
 
-        void operator()(fys::mq::QueueContainer<fys::pb::FySMessage> msg);
+        void operator()(fys::mq::QueueContainer<fys::pb::FySMessage>);
 
     private:
-        void signInOnBabble(fys::pb::FySBabbleMessage &&babbleMessage);
-        void signOutFromBabble(fys::pb::FySBabbleMessage &&babbleMessage);
-        void sendMessage(fys::pb::FySBabbleMessage &&babbleMessage);
-        void whisperMessage(fys::pb::FySBabbleMessage &&babbleMessage);
+        void signInOnBabble(pb::FySBabbleMessage &&babbleMessage);
+        void signOutFromBabble(pb::FySBabbleMessage &&babbleMessage);
+        void sendMessage(pb::FySBabbleMessage &&babbleMessage);
+        void whisperMessage(pb::FySBabbleMessage &&babbleMessage);
         bool isPlayerConnectedTo(const std::list<std::string> &playerConnected, const std::string &player);
 
     private:
-        Gateway::ptr _gtw;
+        std::shared_ptr<Gateway> _gtw;
         std::unordered_map<std::string, BabbleChannel> _channels;
         std::unordered_map<std::string, std::list<std::string> > _mapPlayerChannels;
         std::vector<std::string> _basicChannels;

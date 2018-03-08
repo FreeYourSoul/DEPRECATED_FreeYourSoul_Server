@@ -9,8 +9,21 @@
 #include <boost/asio/placeholders.hpp>
 #include <boost/asio/write.hpp>
 #include <Context.hh>
-#include <FysBus.hh>
-#include <FySMessage.pb.h>
+
+// forward declarations
+namespace google::protobuf {
+    class Message;
+}
+namespace fys {
+    namespace mq {
+        template <typename T, int U>
+        class FysBus;
+    }
+
+    namespace pb {
+        class FySMessage;
+    }
+}
 
 namespace fys::network {
 
@@ -31,7 +44,7 @@ namespace fys::network {
         explicit TcpConnection(boost::asio::io_service& io_service);
 
         boost::asio::ip::tcp::socket& getSocket();
-        void readOnSocket(fys::mq::FysBus<fys::pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus);
+        void readOnSocket(std::shared_ptr<mq::FysBus<pb::FySMessage, gateway::BUS_QUEUES_SIZE> > &fysBus);
 
         void send(google::protobuf::Message&& msg);
         void setCustomShutdownHandler(const std::function<void()> &customShutdownHandler);
@@ -48,7 +61,7 @@ namespace fys::network {
         void shuttingConnectionDown();
 
         void handleRead(const boost::system::error_code &error, size_t bytesTransferred,
-                        fys::mq::FysBus<fys::pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr);
+                        std::shared_ptr<mq::FysBus<pb::FySMessage, gateway::BUS_QUEUES_SIZE> >);
 
     private:
         bool _isShuttingDown;

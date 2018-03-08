@@ -2,6 +2,7 @@
 // Created by FyS on 28/02/18.
 //
 
+#include <TcpConnection.hh>
 #include "SessionManager.hh"
 #include "MockVerifier.hpp"
 #include "MockData.hpp"

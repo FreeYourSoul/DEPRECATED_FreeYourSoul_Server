@@ -4,6 +4,8 @@
 
 #include <spdlog/spdlog.h>
 #include <TokenGenerator.hh>
+#include <TcpConnection.hh>
+#include <FySMessage.pb.h>
 #include "SessionManager.hh"
 
 fys::network::SessionManager::SessionManager(const uint size) : _connections(size), _connectionsToken(size)

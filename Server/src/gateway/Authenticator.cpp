@@ -3,6 +3,10 @@
 //
 
 #include <spdlog/spdlog.h>
+#include <Gateway.hh>
+#include <QueueContainer.hh>
+#include <FySAuthenticationLoginMessage.pb.h>
+#include <FySMessage.pb.h>
 #include "ServerMagicExtractor.hh"
 #include "Authenticator.hh"
 

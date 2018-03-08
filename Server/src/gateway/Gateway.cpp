@@ -3,10 +3,13 @@
 //
 
 #include <spdlog/spdlog.h>
+#include <FysBus.hh>
 #include <Babble.hh>
-#include <Authenticator.hh>
 #include <BusListener.hh>
-#include <ServerMagicExtractor.hh>
+#include <TcpConnection.hh>
+#include <Authenticator.hh>
+#include <Gateway.hh>
+#include <FySMessage.pb.h>
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::mq;
@@ -96,7 +99,10 @@ const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthe
     for (uint i = 0; i < _gameServers.size(); ++i)
         if (_gameServers.at(i)(positionId))
             return _gameServers.at(i);
-    throw std::exception(); // todo send back optional
+    if (!_gameServers.empty())
+        return _gameServers.at(0);
+    spdlog::get("c")->error("{} error, no gameServer authenticated on the gateway", __FUNCTION__);
+    throw std::exception();
 }
 
 bool fys::gateway::Gateway::isGameServerInstancesHasPositionId(const std::string& positionId) const {

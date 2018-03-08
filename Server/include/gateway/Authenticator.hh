@@ -5,10 +5,25 @@
 #ifndef FREESOULS_AUTHENTICATION_HH
 #define FREESOULS_AUTHENTICATION_HH
 
-#include <FySMessage.pb.h>
 #include <FySAuthenticationResponse.pb.h>
-#include <FySAuthenticationLoginMessage.pb.h>
-#include "Gateway.hh"
+
+// forward declarations
+namespace fys {
+    namespace mq {
+        template<typename T>
+        class QueueContainer;
+    }
+
+    namespace gateway {
+        class Gateway;
+    }
+
+    namespace pb {
+        class LoginMessage;
+        class FySMessage;
+        class FySResponseMessage;
+    }
+}
 
 namespace fys::gateway::buslistener {
 
@@ -17,9 +32,9 @@ namespace fys::gateway::buslistener {
     public:
         enum { IndexInBus = 0 };
 
-        Authenticator(Gateway::ptr&);
+        Authenticator(std::shared_ptr<Gateway>&);
 
-        void operator()(mq::QueueContainer<fys::pb::FySMessage> msg);
+        void operator()(mq::QueueContainer<pb::FySMessage>);
 
     private:
         void authServer(const uint indexSession, pb::LoginMessage &&loginMessage);
@@ -33,7 +48,7 @@ namespace fys::gateway::buslistener {
                                fys::pb::LoginErrorResponse::Type errorType);
 
     private:
-        Gateway::ptr _gtw;
+        std::shared_ptr<Gateway> _gtw;
     };
 
 }

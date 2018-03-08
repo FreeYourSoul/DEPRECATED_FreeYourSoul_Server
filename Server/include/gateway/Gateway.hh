@@ -5,13 +5,20 @@
 #ifndef FREESOULS_GATEWAY_HH
 #define FREESOULS_GATEWAY_HH
 
-#include <map>
 #include <boost/asio/ip/tcp.hpp>
 #include <SessionManager.hh>
-#include <FysBus.hh>
-#include <TcpConnection.hh>
 #include <Context.hh>
-#include <FySMessage.pb.h>
+
+// forward declarations
+namespace fys {
+    namespace mq {
+        template<typename T, int U>
+        class FysBus;
+    }
+    namespace pb {
+        class FySMessage;
+    }
+}
 
 namespace fys::gateway {
 
@@ -22,11 +29,14 @@ namespace fys::gateway {
             using wptr = std::weak_ptr<Gateway>;
 
         public:
-            Gateway(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus);
+            Gateway(const Context &ctx, boost::asio::io_service &ios,
+                    std::shared_ptr<mq::FysBus<pb::FySMessage, BUS_QUEUES_SIZE> > &fysBus);
 
             static void start(const Context &ctx);
 
-            static inline ptr create(const Context &ctx, boost::asio::io_service &ios, fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) {
+            static inline
+            ptr create(const Context &ctx, boost::asio::io_service &ios,
+                       std::shared_ptr<fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>> &fysBus) {
                 return std::make_shared<Gateway>(ctx, ios, fysBus);
             }
 
@@ -54,7 +64,7 @@ namespace fys::gateway {
             boost::asio::io_service &_ios;
             boost::asio::ip::tcp::acceptor _acceptorPlayer;
             boost::asio::ip::tcp::acceptor _acceptorServer;
-            fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr _fysBus;
+            std::shared_ptr<fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>_fysBus;
 
             network::SessionManager _gamerConnections;
             network::SessionManager _serverConnections;

@@ -3,7 +3,11 @@
 //
 
 #include <spdlog/spdlog.h>
+#include <FySBabbleMessage.pb.h>
+#include <FySMessage.pb.h>
+#include <Gateway.hh>
 #include <Babble.hh>
+#include <QueueContainer.hh>
 
 
 fys::gateway::buslistener::Babble::Babble(Gateway::ptr &gtw) : _gtw(gtw) {

@@ -7,7 +7,9 @@
 #include <iostream>
 #include <Gateway.hh>
 #include <bitset>
-
+#include <FysBus.hh>
+#include <FySMessage.pb.h>
+#include "TcpConnection.hh"
 
 fys::network::TcpConnection::~TcpConnection() {
     shuttingConnectionDown();
