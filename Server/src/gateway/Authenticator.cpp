@@ -58,7 +58,7 @@ void fys::gateway::buslistener::Authenticator::authServer(const uint indexSessio
         resp.set_isok(true);
         resp.mutable_content()->PackFrom(detail);
         if (loginServer.isworldserver())
-            _gtw->addGameServer(indexSession, sme.getPositionId());
+            _gtw->addGameServer(indexSession, loginServer.portforplayer(), sme.getPositionId());
         else
             _gtw->setAuthServer(indexSession);
         _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));

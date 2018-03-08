@@ -7,6 +7,8 @@
 #include <catch.hpp>
 #include <Gateway.hh>
 #include <Authenticator.hh>
+#include <FySMessage.pb.h>
+#include <FySAuthenticationLoginMessage.pb.h>
 #include "../mock/MockVerifier.hpp"
 #include "../mock/MockData.hpp"
 
@@ -45,6 +47,7 @@ TEST_CASE( "AuthenticatorListener tests" ) {
             // Launch test
             gameServerMessage.set_isworldserver(true);
             gameServerMessage.set_magicpassword("magie magie");
+            gameServerMessage.set_portforplayer("33");
             loginMsg.set_typemessage(fys::pb::LoginMessage_Type_LoginGameServer);
             loginMsg.mutable_content()->PackFrom(gameServerMessage);
             fm.set_type(fys::pb::AUTH);

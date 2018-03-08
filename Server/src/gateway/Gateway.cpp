@@ -83,12 +83,13 @@ void fys::gateway::Gateway::runServerAccept() {
 
 void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &port, const std::string &positionId) {
     GameServerInstance instance;
-    auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
+    auto [ip, unused_port] = _serverConnections.getConnectionData(indexInSession);
 
     instance.setIp(ip);
     instance.setPort(boost::lexical_cast<unsigned short>(port));
     instance.setPositionId(positionId);
     instance.setIndexInServerSession(indexInSession);
+    spdlog::get("c")->info("A server has been added to the cluster [ip:{} port:{} positionId:{}]", ip, port, positionId);
     _gameServers.push_back(std::move(instance));
 }
 

@@ -20,7 +20,7 @@ message(TEST AuthenticatorTestCase.cpp COMPILED > ${SOURCE_FILES_AUTHENTICATOR_T
 ## Test executable
 add_library(atcLib ${SRC_TESTCASE_AUTHENTICATOR})
 add_executable(atc ${SOURCE_FILES_AUTHENTICATOR_TESTCASE})
-target_link_libraries(atc atcLib)
+target_link_libraries(atc atcLib proto)
 set_target_properties(atc PROPERTIES LINKER_LANGUAGE CXX)
 
 enable_testing()

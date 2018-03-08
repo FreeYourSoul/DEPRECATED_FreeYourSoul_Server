@@ -27,9 +27,9 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
     std::ostream os(&b);
     msg.SerializeToOstream(&os);
 
+    spdlog::get("c")->debug("Sending to {} : {}", getIpAddress(), msg.ShortDebugString());
     _socket.async_write_some(b.data(),
                              [this](const boost::system::error_code& ec, std::size_t byteTransferred) {
-                                 spdlog::get("c")->debug("Writting response : {}", byteTransferred);
                                  if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
                                      spdlog::get("c")->debug("An Error Occured during writting");
                                      shuttingConnectionDown();
@@ -96,5 +96,5 @@ std::string fys::network::TcpConnection::getIpAddress() const {
 }
 
 ushort fys::network::TcpConnection::getPort() const {
-    return _socket.local_endpoint().port();
+    return _socket.remote_endpoint().port();
 }

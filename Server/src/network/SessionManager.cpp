@@ -29,7 +29,6 @@ uint fys::network::SessionManager::addConnection(const fys::network::TcpConnecti
 void fys::network::SessionManager::connectionHandle(const fys::network::TcpConnection::ptr &newConnection, const uint i) {
     Token newToken = fys::utils::TokenGenerator::getInstance()->generateByte();
 
-    spdlog::get("c")->info("okok poortitint : {} : {}", newConnection->getSocket().remote_endpoint().port(), newConnection->getSocket().local_endpoint().port());
     this->_connections.at(i) = newConnection;
     this->_connectionsToken.at(i) = newToken;
     newConnection->setSessionIndex(i);
@@ -57,13 +56,11 @@ const std::string fys::network::SessionManager::getConnectionToken(const uint in
 }
 
 void fys::network::SessionManager::sendResponse(const uint indexInSession, fys::pb::FySResponseMessage &&msg) const noexcept {
-    spdlog::get("c")->info("TESTING : {} called : {}", __FUNCTION__, msg.ShortDebugString());
     if (indexInSession < _connections.size())
         _connections.at(indexInSession)->send(std::move(msg));
 }
 
 void fys::network::SessionManager::send(const uint indexInSession, fys::pb::FySMessage &&msg) const noexcept {
-    spdlog::get("c")->info("TESTING : {} called : {}", __FUNCTION__, msg.ShortDebugString());
     if (indexInSession < _connections.size())
         _connections.at(indexInSession)->send(std::move(msg));
 }
