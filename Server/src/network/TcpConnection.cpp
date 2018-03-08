@@ -96,5 +96,5 @@ std::string fys::network::TcpConnection::getIpAddress() const {
 }
 
 ushort fys::network::TcpConnection::getPort() const {
-    return _socket.remote_endpoint().port();
+    return _socket.local_endpoint().port();
 }

@@ -31,7 +31,7 @@ void fys::gateway::Gateway::runServerAccept() {
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);
 }
 
-void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &positionId) {
+void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &port, const std::string &positionId) {
     FSeam::GatewayData data;
     FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("Gateway", __FUNCTION__, &data);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("Gateway", __FUNCTION__);

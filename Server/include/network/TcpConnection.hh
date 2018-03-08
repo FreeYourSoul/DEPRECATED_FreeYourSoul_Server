@@ -52,7 +52,6 @@ namespace fys::network {
         void setSessionIndex(uint _sessionIndex);
         uint getSessionIndex() const;
         std::string getIpAddress() const;
-
         ushort  getPort() const;
 
 

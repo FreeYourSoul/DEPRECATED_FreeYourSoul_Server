@@ -96,12 +96,12 @@ fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerM
     fys::pb::LoginMessage loginNotifToServer;
     fys::pb::NotifyPlayerIncoming playerIncoming;
 
-    loginNotifToServer.set_typemessage(fys::pb::LoginMessage_Type_NotifyNewPlayer);
-    loginNotifToServer.set_user(loginMessage.user());
-    loginNotifToServer.mutable_content()->PackFrom(playerIncoming);
     auto[ip, port] = this->_gtw->getGamerConnections().getConnectionData(indexSession);
     playerIncoming.set_ip(ip);
     playerIncoming.set_token(this->_gtw->getGamerConnections().getConnectionToken(indexSession));
+    loginNotifToServer.set_typemessage(fys::pb::LoginMessage_Type_NotifyNewPlayer);
+    loginNotifToServer.set_user(loginMessage.user());
+    loginNotifToServer.mutable_content()->PackFrom(playerIncoming);
     notif.set_type(fys::pb::AUTH);
     notif.mutable_content()->PackFrom(loginNotifToServer);
     return notif;
@@ -115,7 +115,7 @@ fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(const uint index
 
     detail.set_token(this->_gtw->getGamerConnections().getConnectionToken(indexSession));
     detail.set_ip(gsi.getIp());
-    detail.set_port(std::__cxx11::to_string(gsi.getPort()));
+    detail.set_port(std::to_string(gsi.getPort()));
     resp.set_type(fys::pb::AUTH);
     resp.set_isok(true);
     resp.mutable_content()->PackFrom(detail);

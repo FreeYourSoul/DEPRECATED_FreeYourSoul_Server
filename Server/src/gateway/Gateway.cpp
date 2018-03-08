@@ -10,6 +10,7 @@
 #include <Authenticator.hh>
 #include <FySMessage.pb.h>
 #include <Gateway.hh>
+#include <boost/lexical_cast.hpp>
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::mq;
@@ -80,12 +81,12 @@ void fys::gateway::Gateway::runServerAccept() {
     );
 }
 
-void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &positionId) {
+void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &port, const std::string &positionId) {
     GameServerInstance instance;
     auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
 
     instance.setIp(ip);
-    instance.setPort(port);
+    instance.setPort(boost::lexical_cast<unsigned short>(port));
     instance.setPositionId(positionId);
     instance.setIndexInServerSession(indexInSession);
     _gameServers.push_back(std::move(instance));
