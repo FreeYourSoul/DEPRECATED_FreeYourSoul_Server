@@ -40,7 +40,7 @@ void fys::network::SessionManager::disconnectUser(const fys::network::Token &tok
 
     for (; i < _connectionsToken.size(); ++i) {
         if (std::equal(_connectionsToken.at(i).begin(), _connectionsToken.at(i).end(), token.begin())) {
-            spdlog::get("c")->info("Disconnect user {} from Session manager", i);
+            spdlog::get("c")->debug("Disconnect user {} from Session manager", i);
             _connections.at(i) = nullptr;
             _connectionsToken.at(i) = {};
             return;
@@ -55,13 +55,18 @@ const std::string fys::network::SessionManager::getConnectionToken(const uint in
     return "";
 }
 
-void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::FySResponseMessage &&message) const noexcept {
+void fys::network::SessionManager::sendResponse(const uint indexInSession, fys::pb::FySResponseMessage &&msg) const noexcept {
     if (indexInSession < _connections.size())
-        _connections.at(indexInSession)->send(std::move(message));
+        _connections.at(indexInSession)->send(std::move(msg));
 }
 
-std::pair<std::string, ushort> fys::network::SessionManager::getConnectionData(const uint indexInSession) const noexcept {
-    if (indexInSession >= _connections.size() || !_connections.at(indexInSession))
+void fys::network::SessionManager::send(const uint indexInSession, fys::pb::FySMessage &&msg) const noexcept {
+    if (indexInSession < _connections.size())
+        _connections.at(indexInSession)->send(std::move(msg));
+}
+
+std::pair<std::string, ushort> fys::network::SessionManager::getConnectionData(const uint idxInSession) const noexcept {
+    if (idxInSession >= _connections.size() || !_connections.at(idxInSession))
         return std::make_pair(std::string(""), static_cast<ushort>(0));
-    return std::make_pair(_connections.at(indexInSession)->getIpAddress(), _connections.at(indexInSession)->getPort());
+    return std::make_pair(_connections.at(idxInSession)->getIpAddress(), _connections.at(idxInSession)->getPort());
 }

@@ -47,6 +47,9 @@ namespace fys::gateway::buslistener {
         inline void createErrorMessage(fys::pb::FySResponseMessage &resp, std::string &&error,
                                fys::pb::LoginErrorResponse::Type errorType);
 
+        pb::FySResponseMessage getAuthPlayerResponse(const uint indexSession, const GameServerInstance &gsi) const;
+        fys::pb::FySMessage getNotifNewPlayerMessage(const uint indexSession, pb::LoginMessage &&loginMessage) const;
+
     private:
         std::shared_ptr<Gateway> _gtw;
     };

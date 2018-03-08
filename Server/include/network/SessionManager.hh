@@ -15,6 +15,7 @@ namespace fys {
     }
     namespace pb {
         class FySResponseMessage;
+        class FySMessage;
     }
 }
 
@@ -30,12 +31,13 @@ namespace fys::network {
 
         explicit SessionManager(const uint size);
 
-        std::pair<std::string, ushort> getConnectionData(const uint indexInSession) const noexcept;
+        std::pair<std::string, ushort> getConnectionData(const uint idxInSession) const noexcept;
         uint addConnection(const std::shared_ptr<TcpConnection>& newConnection);
         void disconnectUser(const Token &);
 
         const std::string getConnectionToken(const uint indexInSession) const noexcept;
-        void sendResponse(uint i, pb::FySResponseMessage &&message) const noexcept;
+        void sendResponse(const uint i, pb::FySResponseMessage &&msg) const noexcept;
+        void send(const uint i, pb::FySMessage &&msg) const noexcept;
 
     private:
         inline void connectionHandle(const std::shared_ptr<TcpConnection> &newConnection, const uint i);

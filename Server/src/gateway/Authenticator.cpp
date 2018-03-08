@@ -7,6 +7,7 @@
 #include <QueueContainer.hh>
 #include <FySAuthenticationLoginMessage.pb.h>
 #include <FySMessage.pb.h>
+#include <TokenGenerator.hh>
 #include "ServerMagicExtractor.hh"
 #include "Authenticator.hh"
 
@@ -78,21 +79,47 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     std::string positionId = "UNIV_1a"; // todo get the good positionId from db
     if ("password" == loginPlayer.password()) {
         if (!positionId.empty() && _gtw->isGameServerInstancesHasPositionId(positionId)) {
-            fys::gateway::GameServerInstance gsi = _gtw->getServerForAuthenticatedUser(positionId);
-            pb::FySResponseMessage resp;
-            pb::AuthenticationResponse detail;
-            detail.set_token(_gtw->getGamerConnections().getConnectionToken(indexSession));
-            detail.set_ip(gsi.getIp());
-            detail.set_port(std::to_string(gsi.getPort()));
-            resp.set_type(pb::AUTH);
-            resp.set_isok(true);
-            resp.mutable_content()->PackFrom(detail);
-            _gtw->getGamerConnections().sendResponse(indexSession, std::move(resp));
+            const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
+
+            _gtw->getGamerConnections().sendResponse(indexSession, std::move(getAuthPlayerResponse(indexSession, gsi)));
+            _gtw->getServerConnections().send(gsi.getIndexInServerSession(), std::move(getNotifNewPlayerMessage(indexSession, std::move(loginMessage))));
         }
     }
     else {
         spdlog::get("c")->warn("Bad login/password");
     }
+}
+
+fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerMessage(const uint indexSession,
+                                                                        fys::pb::LoginMessage &&loginMessage) const {
+    fys::pb::FySMessage notif;
+    fys::pb::LoginMessage loginNotifToServer;
+    fys::pb::NotifyPlayerIncoming playerIncoming;
+
+    loginNotifToServer.set_typemessage(fys::pb::LoginMessage_Type_NotifyNewPlayer);
+    loginNotifToServer.set_user(loginMessage.user());
+    loginNotifToServer.mutable_content()->PackFrom(playerIncoming);
+    auto[ip, port] = this->_gtw->getGamerConnections().getConnectionData(indexSession);
+    playerIncoming.set_ip(ip);
+    playerIncoming.set_token(this->_gtw->getGamerConnections().getConnectionToken(indexSession));
+    notif.set_type(fys::pb::AUTH);
+    notif.mutable_content()->PackFrom(loginNotifToServer);
+    return notif;
+}
+
+fys::pb::FySResponseMessage
+fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(const uint indexSession,
+                                                                const fys::gateway::GameServerInstance &gsi) const {
+    fys::pb::FySResponseMessage resp;
+    fys::pb::AuthenticationResponse detail;
+
+    detail.set_token(this->_gtw->getGamerConnections().getConnectionToken(indexSession));
+    detail.set_ip(gsi.getIp());
+    detail.set_port(std::__cxx11::to_string(gsi.getPort()));
+    resp.set_type(fys::pb::AUTH);
+    resp.set_isok(true);
+    resp.mutable_content()->PackFrom(detail);
+    return resp;
 }
 
 void fys::gateway::buslistener::Authenticator::sendErrorToServer(

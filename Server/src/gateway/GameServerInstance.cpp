@@ -31,3 +31,11 @@ void fys::gateway::GameServerInstance::setPositionId(const std::string &postionI
 const std::string &fys::gateway::GameServerInstance::getPositionId() const {
     return _positionId;
 }
+
+void fys::gateway::GameServerInstance::setIndexInServerSession(const uint indexInSession) {
+    _indexInServerSession = indexInSession;
+}
+
+uint fys::gateway::GameServerInstance::getIndexInServerSession() const {
+    return _indexInServerSession;
+}

@@ -12,20 +12,39 @@ namespace fys::gateway {
 
     class GameServerInstance {
     public:
+        ~GameServerInstance() = default;
+        GameServerInstance() = default;
+        GameServerInstance(GameServerInstance &&other) noexcept :
+                _positionId(std::move(other._positionId)), _ip(std::move(other._ip)),
+                _port(other._port), _indexInServerSession(other._indexInServerSession)
+        {}
+        GameServerInstance &operator=(GameServerInstance &&other) noexcept {
+            if (&other != this) {
+                _positionId = std::move(other._positionId);
+                _ip = std::move(other._ip);
+                _port = other._port;
+                _indexInServerSession = other._indexInServerSession;
+            }
+            return *this;
+        }
+
         bool operator()(const std::string&) const noexcept;
 
         void setPort(const ushort port);
         void setIp(const std::string &ip);
         void setPositionId(const std::string &);
+        void setIndexInServerSession(const uint);
 
         const std::string &getIp() const;
         const std::string &getPositionId() const;
         ushort getPort() const;
+        uint getIndexInServerSession() const;
 
     private:
         std::string _positionId;
         std::string _ip;
         ushort _port = 666;
+        uint _indexInServerSession;
     };
 
     using AuthServerInstance = GameServerInstance;

@@ -8,8 +8,8 @@
 #include <BusListener.hh>
 #include <TcpConnection.hh>
 #include <Authenticator.hh>
-#include <Gateway.hh>
 #include <FySMessage.pb.h>
+#include <Gateway.hh>
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::mq;
@@ -71,6 +71,7 @@ void fys::gateway::Gateway::runServerAccept() {
     _acceptorServer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
+                 //TODO check on DB server if the ip of the current connected client is an accepted server
                 this->_serverConnections.addConnection(session);
                 session->readOnSocket(_fysBus);
                 this->runServerAccept();
@@ -86,7 +87,8 @@ void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string
     instance.setIp(ip);
     instance.setPort(port);
     instance.setPositionId(positionId);
-    _gameServers.push_back(instance);
+    instance.setIndexInServerSession(indexInSession);
+    _gameServers.push_back(std::move(instance));
 }
 
 void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
