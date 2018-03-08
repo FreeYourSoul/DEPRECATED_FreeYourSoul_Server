@@ -34,7 +34,12 @@ const std::string fys::network::SessionManager::getConnectionToken(const uint in
     return data.getConnectionToken_Ret ? *data.getConnectionToken_Ret : "";
 }
 
-void fys::network::SessionManager::sendResponse(uint indexInSession, fys::pb::FySResponseMessage &&message) const noexcept {
+void fys::network::SessionManager::sendResponse(const uint indexInSession, fys::pb::FySResponseMessage &&msg) const noexcept {
+    FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("SessionManager", __FUNCTION__);
+    FSeam::MockVerifier::instance().getMock(this)->methodCall("SessionManager", __FUNCTION__);
+}
+
+void fys::network::SessionManager::send(const uint indexInSession, fys::pb::FySMessage &&msg) const noexcept {
     FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("SessionManager", __FUNCTION__);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("SessionManager", __FUNCTION__);
 }
