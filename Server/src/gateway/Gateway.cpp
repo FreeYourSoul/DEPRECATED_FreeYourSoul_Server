@@ -83,7 +83,7 @@ void fys::gateway::Gateway::runServerAccept() {
 
 void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string &port, const std::string &positionId) {
     GameServerInstance instance;
-    auto [ip, unused_port] = _serverConnections.getConnectionData(indexInSession);
+    [[maybe_unused]]auto [ip, unused_port] = _serverConnections.getConnectionData(indexInSession);
 
     instance.setIp(ip);
     instance.setPort(boost::lexical_cast<unsigned short>(port));

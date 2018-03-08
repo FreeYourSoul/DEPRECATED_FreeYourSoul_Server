@@ -60,7 +60,7 @@ namespace fys::network {
          * \brief Get the remote port
          * \return remote port
          */
-        ushort  getPort() const;
+        ushort getPort() const;
 
 
     private:
@@ -75,7 +75,7 @@ namespace fys::network {
         uint _sessionIndex;
         boost::asio::ip::tcp::socket _socket;
 
-        static constexpr int MESSAGE_BUFFER_SIZE = 500;
+        static constexpr int MESSAGE_BUFFER_SIZE = 512;
         mutable u_char _buffer[MESSAGE_BUFFER_SIZE];
 
         std::function<void ()> _customShutdownHandler;
