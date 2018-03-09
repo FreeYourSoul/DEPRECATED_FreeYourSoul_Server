@@ -30,7 +30,7 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
     spdlog::get("c")->debug("Sending to {} : {}", getIpAddress(), msg.ShortDebugString());
     _socket.async_write_some(b.data(),
                              [this](const boost::system::error_code& ec, std::size_t byteTransferred) {
-                                 if (((boost::asio::error::eof == ec) || (boost::asio::error::connection_reset == ec)) && !_isShuttingDown) {
+                                 if (ec && !_isShuttingDown) {
                                      spdlog::get("c")->debug("An Error Occured during writting");
                                      shuttingConnectionDown();
                                  }
@@ -76,6 +76,7 @@ void fys::network::TcpConnection::shuttingConnectionDown() {
         catch (const std::exception &e) {
             spdlog::get("c")->error("An exception has been thrown during socket close {}", e.what());
         }
+        _isShuttingDown = false;
     }
 }
 

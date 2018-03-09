@@ -90,7 +90,7 @@ void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string
     instance.setPort(boost::lexical_cast<unsigned short>(port));
     instance.setPositionId(positionId);
     instance.setIndexInServerSession(indexInSession);
-    spdlog::get("c")->info("A server has been added to the cluster [ip:{} port:{} positionId:{}]", ip, port, positionId);
+    spdlog::get("c")->info("A server has been added to the cluster [sessionIndex:{} p:{} port:{} positionId:{}]", indexInSession, ip, port, positionId);
     _gameServers.push_back(std::move(instance));
 }
 
