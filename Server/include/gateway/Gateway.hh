@@ -30,7 +30,7 @@ namespace fys::gateway {
 
         public:
             Gateway(const Context &ctx, boost::asio::io_service &ios,
-                    std::shared_ptr<mq::FysBus<pb::FySMessage, BUS_QUEUES_SIZE> > &fysBus);
+                    std::shared_ptr<mq::FysBus<pb::FySMessage, BUS_QUEUES_SIZE>> fysBus);
 
             static void start(const Context &ctx);
 

@@ -4,6 +4,7 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include <spdlog/spdlog.h>
 #include <catch.hpp>
 #include <Gateway.hh>
 #include <Authenticator.hh>
@@ -15,7 +16,18 @@
 std::unique_ptr<FSeam::MockVerifier> FSeam::MockVerifier::inst = nullptr;
 
 TEST_CASE( "AuthenticatorListener tests" ) {
+    //logger
+    spdlog::drop_all();
+    spdlog::set_async_mode(1024, spdlog::async_overflow_policy::discard_log_msg);
+    spdlog::set_pattern("[%x %H:%M:%S] [%l] %v");
+    std::vector<spdlog::sink_ptr> sinks;
+    auto stdout_sink = spdlog::sinks::stdout_sink_mt::instance();
+    auto color_sink = std::make_shared<spdlog::sinks::ansicolor_sink>(stdout_sink);
+    sinks.push_back(color_sink);
+    auto sys_logger = std::make_shared<spdlog::logger>("c", begin(sinks), end(sinks));
+    spdlog::register_logger(sys_logger);
 
+    //test
     fys::network::SessionManager *gamerSessionManagerMock;
     fys::network::SessionManager *serverSessionManagerMock;
     fys::gateway::Gateway::ptr gtwMock;
@@ -24,8 +36,8 @@ TEST_CASE( "AuthenticatorListener tests" ) {
     boost::asio::io_service ios;
 
     gtwMock = fys::gateway::Gateway::create({}, ios, bus);
-    serverSessionManagerMock = const_cast<fys::network::SessionManager *>(&gtwMock->getServerConnections());
-    gamerSessionManagerMock = const_cast<fys::network::SessionManager *>(&gtwMock->getGamerConnections());
+    serverSessionManagerMock = &gtwMock->getServerConnections();
+    gamerSessionManagerMock = &gtwMock->getGamerConnections();
 
     fys::gateway::buslistener::Authenticator auth(gtwMock);
 
@@ -140,6 +152,14 @@ TEST_CASE( "AuthenticatorListener tests" ) {
             data->getConnectionToken_Ret = returnValue.get();
         });
 
+        auto returnValuePair = std::make_pair<std::string, ushort>(std::string("ip"), 1322);
+        auto *ptrReturnValuePair = &returnValuePair;
+        FSeam::MockVerifier::instance().getMock(gamerSessionManagerMock)->
+                dupeMethod("SessionManager", "getConnectionData", [ptrReturnValuePair](void *ptr) {
+            auto *data = static_cast<FSeam::SessionManagerData *>(ptr);
+            data->getConnectionData_Ret = ptrReturnValuePair;
+        });
+
         std::shared_ptr<fys::gateway::GameServerInstance> returnGsi = std::make_shared<fys::gateway::GameServerInstance>();
         FSeam::MockVerifier::instance().getMock(gtwMock.get())->
                 dupeMethod("Gateway", "getServerForAuthenticatedUser", [returnGsi](void *ptr) {
@@ -173,7 +193,8 @@ TEST_CASE( "AuthenticatorListener tests" ) {
 
             //Testing assertion
             REQUIRE(FSeam::MockVerifier::instance().getMock(gtwMock.get())->verify("Gateway", "getServerForAuthenticatedUser", 1));
-            REQUIRE(FSeam::MockVerifier::instance().getMock(serverSessionManagerMock)->verify("SessionManager", "getConnectionToken", 1));
+            REQUIRE(FSeam::MockVerifier::instance().getMock(serverSessionManagerMock)->verify("SessionManager", "getConnectionToken", 0));
+            REQUIRE(FSeam::MockVerifier::instance().getMock(gamerSessionManagerMock)->verify("SessionManager", "getConnectionToken", 2));
             REQUIRE(FSeam::MockVerifier::instance().getMock(gamerSessionManagerMock)->verify("SessionManager", "sendResponse", 1));
         }
 

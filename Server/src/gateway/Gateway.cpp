@@ -43,11 +43,11 @@ void fys::gateway::Gateway::start(const Context& ctx) {
 
 fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
                                boost::asio::io_service &ios,
-                               fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr &fysBus) :
+                               fys::mq::FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>::ptr fysBus) :
         _ios(ios),
         _acceptorPlayer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getPort())),
         _acceptorServer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getServerPort())),
-        _fysBus(fysBus),
+        _fysBus(std::move(fysBus)),
         _gamerConnections(static_cast<uint>(1000)),
         _serverConnections(static_cast<uint>(10))
 {}

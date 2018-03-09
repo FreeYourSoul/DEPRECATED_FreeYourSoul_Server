@@ -75,7 +75,6 @@ namespace FSeam {
             methodCallVerifier->_called = 0;
             methodCallVerifier->_handler = handler;
             _verifiers[key] = methodCallVerifier;
-            std::cout << "The method " << key << " has been mocked" << std::endl;
         }
 
         /**
@@ -91,6 +90,9 @@ namespace FSeam {
             std::string key = std::move(className) + std::move(methodName);
 
             if (_verifiers.find(key) == _verifiers.end()) {
+                if (times > 0)
+                    std::cout << "Verify error for method " << key << ", method never have been called while we expected "
+                              << times << " calls" << std::endl;
                 return times == 0;
             }
             bool result = ((times <= -1 && _verifiers.at(key)->_called > 0) || (_verifiers.at(key)->_called == times));
