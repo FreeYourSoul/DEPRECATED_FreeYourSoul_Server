@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.3)
 
 set(SOURCE_FILES_AUTHENTICATOR_TESTCASE
         ${SOURCE_FILES_ALL}
-        ${CMAKE_SOURCE_DIR}/Server/test/mock/GatewayMock.cpp
-        ${CMAKE_SOURCE_DIR}/Server/test/mock/SessionManagerMock.cpp
+        ${CMAKE_SOURCE_DIR}/Server/test/mock/GatewayMock.cc
+        ${CMAKE_SOURCE_DIR}/Server/test/mock/SessionManagerMock.cc
         ${CMAKE_SOURCE_DIR}/Server/test/mock/MockVerifier.hpp
         ${CMAKE_SOURCE_DIR}/Server/test/mock/MockData.hpp)
 

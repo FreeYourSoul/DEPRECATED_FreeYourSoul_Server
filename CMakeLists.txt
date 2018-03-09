@@ -22,11 +22,11 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Server/include/gateway
         ${CMAKE_SOURCE_DIR}/Server/include/network
         ${CMAKE_SOURCE_DIR}/Server/include/babble
-        ${CMAKE_SOURCE_DIR}/Server/include/game Utils/src
-        ${CMAKE_SOURCE_DIR}/Server/test/itClient/include
+        ${CMAKE_SOURCE_DIR}/Server/include/game
+        ${CMAKE_SOURCE_DIR}/Utils/src
     )
 
-set(SOURCE_FILES_MM)
+#set(SOURCE_FILES_MM)
 
 #set(SOURCE_PROTOBUF
 #        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
