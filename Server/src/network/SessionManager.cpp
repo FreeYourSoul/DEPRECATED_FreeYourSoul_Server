@@ -32,17 +32,15 @@ void fys::network::SessionManager::connectionHandle(const fys::network::TcpConne
     this->_connections.at(i) = newConnection;
     this->_connectionsToken.at(i) = newToken;
     newConnection->setSessionIndex(i);
-    newConnection->setCustomShutdownHandler([this, newToken]() { this->disconnectUser(newToken); });
+    newConnection->setCustomShutdownHandler([this, i, token = std::move(newToken)]() { this->disconnectUser(i, token); });
 }
 
-void fys::network::SessionManager::disconnectUser(const fys::network::Token &token) {
-    uint i = 0;
-
-    for (; i < _connectionsToken.size(); ++i) {
-        if (std::equal(_connectionsToken.at(i).begin(), _connectionsToken.at(i).end(), token.begin())) {
-            spdlog::get("c")->debug("Disconnect user {} from Session manager", i);
-            _connections.at(i) = nullptr;
-            _connectionsToken.at(i) = {};
+void fys::network::SessionManager::disconnectUser(const uint idxSession, const fys::network::Token &token) {
+    if (idxSession < _connectionsToken.size()) {
+        if (std::equal(_connectionsToken.at(idxSession).begin(), _connectionsToken.at(idxSession).end(), token.begin())) {
+            spdlog::get("c")->debug("Disconnect user {} from Session manager and token {}", idxSession, std::string(token.begin(), token.end()));
+            _connections.at(idxSession) = nullptr;
+            _connectionsToken.at(idxSession) = {};
             return;
         }
     }

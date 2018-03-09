@@ -22,7 +22,7 @@ void fys::network::SessionManager::connectionHandle(const fys::network::TcpConne
     FSeam::MockVerifier::instance().getMock(this)->methodCall("SessionManager", __FUNCTION__);
 }
 
-void fys::network::SessionManager::disconnectUser(const fys::network::Token &token) {
+void fys::network::SessionManager::disconnectUser(const uint indexInSession, const fys::network::Token &token) {
     FSeam::MockVerifier::instance().getMock(this)->invokeDupedMethod("SessionManager", __FUNCTION__);
     FSeam::MockVerifier::instance().getMock(this)->methodCall("SessionManager", __FUNCTION__);
 }

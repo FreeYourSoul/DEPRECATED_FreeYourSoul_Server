@@ -58,7 +58,8 @@ void fys::gateway::Gateway::runPlayerAccept() {
     _acceptorPlayer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
-                this->_gamerConnections.addConnection(session);
+                uint idx = this->_gamerConnections.addConnection(session);
+                spdlog::get("c")->info("A player connected with index {}", idx);
                 session->readOnSocket(_fysBus);
                 this->runPlayerAccept();
             }
