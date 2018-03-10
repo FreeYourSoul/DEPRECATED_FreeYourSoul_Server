@@ -5,8 +5,6 @@
 #ifndef FREESOULS_CONTEXT_HH
 #define FREESOULS_CONTEXT_HH
 
-#include <string>
-#include <ostream>
 #include "GameServerInstance.hh"
 
 #define GTW_INI_PORT "server.port"

@@ -5,7 +5,6 @@
 #ifndef FREESOULS_BABBLE_HH
 #define FREESOULS_BABBLE_HH
 
-#include <string>
 #include <unordered_map>
 #include "BabbleChannel.hh"
 
