@@ -38,13 +38,13 @@ void fys::network::SessionManager::connectionHandle(const fys::network::TcpConne
 void fys::network::SessionManager::disconnectUser(const uint idxSession, const fys::network::Token &token) {
     if (idxSession < _connectionsToken.size()) {
         if (std::equal(_connectionsToken.at(idxSession).begin(), _connectionsToken.at(idxSession).end(), token.begin())) {
-            spdlog::get("c")->debug("Disconnect user {} from Session manager and token {}", idxSession, std::string(token.begin(), token.end()));
+            spdlog::get("c")->debug("Disconnect user {} from Session manager ({}) and token {}", idxSession, _name, std::string(token.begin(), token.end()));
             _connections.at(idxSession) = nullptr;
             _connectionsToken.at(idxSession) = {};
             return;
         }
     }
-    spdlog::get("c")->error("Couldn't find the specified user's token to disconnect");
+    spdlog::get("c")->error("Couldn't find the specified user's token to disconnect on session manager {}", _name);
 }
 
 const std::string fys::network::SessionManager::getConnectionToken(const uint indexInSession) const noexcept {
@@ -67,4 +67,8 @@ std::pair<std::string, ushort> fys::network::SessionManager::getConnectionData(c
     if (idxInSession >= _connections.size() || !_connections.at(idxInSession))
         return std::make_pair(std::string(""), static_cast<ushort>(0));
     return std::make_pair(_connections.at(idxInSession)->getIpAddress(), _connections.at(idxInSession)->getPort());
+}
+
+void fys::network::SessionManager::setName(std::string &&name) {
+    _name = std::move(name);
 }

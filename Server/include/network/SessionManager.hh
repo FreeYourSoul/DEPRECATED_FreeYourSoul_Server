@@ -32,6 +32,7 @@ namespace fys::network {
         explicit SessionManager(const uint size);
 
         std::pair<std::string, ushort> getConnectionData(const uint idxInSession) const noexcept;
+        void setName(std::string &&name);
         uint addConnection(const std::shared_ptr<TcpConnection>& newConnection);
         void disconnectUser(const uint, const Token &);
 
@@ -43,6 +44,7 @@ namespace fys::network {
         inline void connectionHandle(const std::shared_ptr<TcpConnection> &newConnection, const uint i);
 
     private:
+        std::string _name;
         std::vector<std::shared_ptr<TcpConnection> > _connections;
         std::vector<Token> _connectionsToken;
     };

@@ -49,8 +49,10 @@ fys::gateway::Gateway::Gateway(const fys::gateway::Context &ctx,
         _acceptorServer(_ios, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), ctx.getServerPort())),
         _fysBus(std::move(fysBus)),
         _gamerConnections(static_cast<uint>(1000)),
-        _serverConnections(static_cast<uint>(10))
-{}
+        _serverConnections(static_cast<uint>(10)) {
+    _gamerConnections.setName("Player Manager");
+    _serverConnections.setName("WorldServer Manager");
+}
 
 void fys::gateway::Gateway::runPlayerAccept() {
     const network::TcpConnection::ptr session = network::TcpConnection::create(_ios);
