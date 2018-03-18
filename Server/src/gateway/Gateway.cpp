@@ -76,7 +76,8 @@ void fys::gateway::Gateway::runServerAccept() {
 
             [this, session](const boost::system::error_code& e) {
                  //TODO check on DB server if the ip of the current connected client is an accepted server
-                this->_serverConnections.addConnection(session);
+                uint idx = this->_serverConnections.addConnection(session);
+                spdlog::get("c")->info("A server connected with index {}", idx);
                 session->readOnSocket(_fysBus);
                 this->runServerAccept();
             }
