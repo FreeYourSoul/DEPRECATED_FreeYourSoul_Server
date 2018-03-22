@@ -37,18 +37,18 @@ namespace fys::gateway::buslistener {
         void operator()(mq::QueueContainer<pb::FySMessage>);
 
     private:
-        void authServer(const uint indexSession, pb::LoginMessage &&loginMessage);
-        void authPlayer(const uint indexSession, pb::LoginMessage &&loginMessage);
+        void authServer(uint indexSession, pb::LoginMessage &&loginMessage);
+        void authPlayer(uint indexSession, pb::LoginMessage &&loginMessage);
 
-        void sendErrorToServer(const uint indexSession, std::string &&error,
+        void sendErrorToServer(uint indexSession, std::string &&error,
                                fys::pb::LoginErrorResponse::Type errorType);
-        void sendErrorToPlayer(const uint indexSession, std::string &&error,
+        void sendErrorToPlayer(uint indexSession, std::string &&error,
                                fys::pb::LoginErrorResponse::Type errorType);
         inline void createErrorMessage(fys::pb::FySResponseMessage &resp, std::string &&error,
                                fys::pb::LoginErrorResponse::Type errorType);
 
-        pb::FySResponseMessage getAuthPlayerResponse(const uint indexSession, const GameServerInstance &gsi) const;
-        fys::pb::FySMessage getNotifNewPlayerMessage(const uint indexSession, pb::LoginMessage &&loginMessage) const;
+        pb::FySResponseMessage getAuthPlayerResponse(uint indexSession, const GameServerInstance &gsi) const;
+        fys::pb::FySMessage getNotifNewPlayerMessage(uint indexSession, pb::LoginMessage &&loginMessage) const;
 
     private:
         std::shared_ptr<Gateway> _gtw;

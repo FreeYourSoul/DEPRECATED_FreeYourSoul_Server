@@ -60,9 +60,13 @@ void fys::gateway::Gateway::runPlayerAccept() {
     _acceptorPlayer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
-                uint idx = this->_gamerConnections.addConnection(session);
-                spdlog::get("c")->info("A player connected with index {}", idx);
-                session->readOnSocket(_fysBus);
+                if (e)
+                    spdlog::get("c")->info("An error occurred while connecting a player {}", e.message());
+                else {
+                    uint idx = this->_gamerConnections.addConnection(session);
+                    spdlog::get("c")->info("A player connected with index {}", idx);
+                    session->readOnSocket(_fysBus);
+                }
                 this->runPlayerAccept();
             }
 
@@ -75,10 +79,14 @@ void fys::gateway::Gateway::runServerAccept() {
     _acceptorServer.async_accept(session->getSocket(),
 
             [this, session](const boost::system::error_code& e) {
-                 //TODO check on DB server if the ip of the current connected client is an accepted server
-                uint idx = this->_serverConnections.addConnection(session);
-                spdlog::get("c")->info("A server connected with index {}", idx);
-                session->readOnSocket(_fysBus);
+                if (e)
+                    spdlog::get("c")->info("An error occurred while connecting a Server {}", e.message());
+                else {
+                     //TODO check on DB server if the ip of the current connected client is an accepted server
+                    uint idx = this->_serverConnections.addConnection(session);
+                    spdlog::get("c")->info("A server connected with index {}", idx);
+                    session->readOnSocket(_fysBus);
+                }
                 this->runServerAccept();
             }
 
@@ -97,16 +105,17 @@ void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string
     _gameServers.push_back(std::move(instance));
 }
 
-void fys::gateway::Gateway::setAuthServer(const uint indexInSession) {
+void fys::gateway::Gateway::setAuthServer(uint indexInSession) {
     auto [ip, port] = _serverConnections.getConnectionData(indexInSession);
     _authServer.setIp(ip);
     _authServer.setPort(port);
 }
 
 const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthenticatedUser(const std::string& positionId) {
-    for (uint i = 0; i < _gameServers.size(); ++i)
-        if (_gameServers.at(i)(positionId))
-            return _gameServers.at(i);
+    for (const GameServerInstance &gsi : _gameServers) {
+        if (gsi(positionId))
+            return gsi;
+    }
     if (!_gameServers.empty())
         return _gameServers.at(0);
     spdlog::get("c")->error("{} error, no gameServer authenticated on the gateway", __FUNCTION__);
@@ -117,8 +126,9 @@ bool fys::gateway::Gateway::isGameServerInstancesHasPositionId(const std::string
     if (_gameServers.empty())
         return false;
     for (const GameServerInstance &gsi : _gameServers) {
-        if (gsi.getPort() <= 0 || gsi.getIp().empty() || gsi.getIp().empty())
-            return false;
+        if ((gsi.getPort() > 0 && !gsi.getIp().empty() && !gsi.getIp().empty()) &&
+            (gsi.getPositionId() == positionId))
+            return true;
     }
-    return true;
+    return false;
 }

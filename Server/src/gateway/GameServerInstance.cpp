@@ -16,7 +16,7 @@ ushort fys::gateway::GameServerInstance::getPort() const {
     return _port;
 }
 
-void fys::gateway::GameServerInstance::setPort(const ushort port) {
+void fys::gateway::GameServerInstance::setPort(ushort port) {
     GameServerInstance::_port = port;
 }
 
@@ -32,7 +32,7 @@ const std::string &fys::gateway::GameServerInstance::getPositionId() const {
     return _positionId;
 }
 
-void fys::gateway::GameServerInstance::setIndexInServerSession(const uint indexInSession) {
+void fys::gateway::GameServerInstance::setIndexInServerSession(uint indexInSession) {
     _indexInServerSession = indexInSession;
 }
 

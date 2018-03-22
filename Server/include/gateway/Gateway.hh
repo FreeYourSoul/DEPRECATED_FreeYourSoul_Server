@@ -44,7 +44,7 @@ namespace fys::gateway {
             void runServerAccept();
 
             void addGameServer(uint, const std::string &, const std::string &);
-            void setAuthServer(const uint);
+            void setAuthServer(uint);
             const GameServerInstance &getServerForAuthenticatedUser(const std::string&);
 
             bool isAuthServerSet() const {
@@ -56,9 +56,6 @@ namespace fys::gateway {
 
             network::SessionManager &getGamerConnections() { return _gamerConnections; }
             network::SessionManager &getServerConnections() { return _serverConnections; }
-
-            void setGamerConnections(const network::SessionManager &_gamerConnections) {}
-            void setGerverConnections(const network::SessionManager &_serverConnections) {}
 
         private:
             boost::asio::io_service &_ios;

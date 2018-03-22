@@ -37,7 +37,7 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
     }
 }
 
-void fys::gateway::buslistener::Authenticator::authServer(const uint indexSession, pb::LoginMessage &&loginMessage) {
+void fys::gateway::buslistener::Authenticator::authServer(uint indexSession, pb::LoginMessage &&loginMessage) {
     pb::LoginGameServer loginServer;
 
     loginMessage.content().UnpackTo(&loginServer);
@@ -90,8 +90,8 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     }
 }
 
-fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerMessage(const uint indexSession,
-                                                                        fys::pb::LoginMessage &&loginMessage) const {
+fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerMessage(uint indexSession,
+                                                             fys::pb::LoginMessage &&loginMessage) const {
     fys::pb::FySMessage notif;
     fys::pb::LoginMessage loginNotifToServer;
     fys::pb::NotifyPlayerIncoming playerIncoming;
@@ -108,7 +108,7 @@ fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerM
 }
 
 fys::pb::FySResponseMessage
-fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(const uint indexSession,
+fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(uint indexSession,
                                                                 const fys::gateway::GameServerInstance &gsi) const {
     fys::pb::FySResponseMessage resp;
     fys::pb::AuthenticationResponse detail;
@@ -123,14 +123,14 @@ fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(const uint index
 }
 
 void fys::gateway::buslistener::Authenticator::sendErrorToServer(
-        const uint indexSession, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
+        uint indexSession, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
     fys::pb::FySResponseMessage resp;
     createErrorMessage(resp, std::move(error), errorType);
     _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));
 }
 
 void fys::gateway::buslistener::Authenticator::sendErrorToPlayer(
-        const uint indexSession, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
+        uint indexSession, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
     fys::pb::FySResponseMessage resp;
     createErrorMessage(resp, std::move(error), errorType);
     _gtw->getGamerConnections().sendResponse(indexSession, std::move(resp));

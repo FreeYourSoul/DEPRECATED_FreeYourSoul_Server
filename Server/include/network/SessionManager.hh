@@ -29,19 +29,19 @@ namespace fys::network {
         using ptr = std::shared_ptr<SessionManager>;
         using wptr = std::weak_ptr<SessionManager>;
 
-        explicit SessionManager(const uint size);
+        explicit SessionManager(uint size);
 
-        std::pair<std::string, ushort> getConnectionData(const uint idxInSession) const noexcept;
+        std::pair<std::string, ushort> getConnectionData(uint idxInSession) const noexcept;
         void setName(std::string &&name);
-        uint addConnection(const std::shared_ptr<TcpConnection>& newConnection);
-        void disconnectUser(const uint, const Token &);
+        uint addConnection(const std::shared_ptr<TcpConnection> &newConnection);
+        void disconnectUser(uint, const Token &);
 
-        const std::string getConnectionToken(const uint indexInSession) const noexcept;
-        void sendResponse(const uint i, pb::FySResponseMessage &&msg) const noexcept;
-        void send(const uint i, pb::FySMessage &&msg) const noexcept;
+        const std::string getConnectionToken(uint indexInSession) const noexcept;
+        void sendResponse(uint i, pb::FySResponseMessage &&msg) const noexcept;
+        void send(uint i, pb::FySMessage &&msg) const noexcept;
 
     private:
-        inline void connectionHandle(const std::shared_ptr<TcpConnection> &newConnection, const uint i);
+        inline void connectionHandle(const std::shared_ptr<TcpConnection> &newConnection, uint i);
 
     private:
         std::string _name;

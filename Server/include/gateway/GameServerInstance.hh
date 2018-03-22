@@ -29,10 +29,10 @@ namespace fys::gateway {
 
         bool operator()(const std::string&) const noexcept;
 
-        void setPort(const ushort port);
+        void setPort(ushort port);
         void setIp(const std::string &ip);
         void setPositionId(const std::string &);
-        void setIndexInServerSession(const uint);
+        void setIndexInServerSession(uint);
 
         const std::string &getIp() const;
         const std::string &getPositionId() const;
