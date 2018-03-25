@@ -4,8 +4,21 @@ compiler:
   - gcc
 
 before_script:
-  - sudo apt-get install protobuf
-  - sudo apt-get install spdlog
+  - export PATH=$HOME/.local/bin:$HOME/protobuf/bin:$PATH
+    - sudo apt-get install spdlog
   - cmake .
+
+# Rather then compile protobuf 3 from source, use the binaries now available
+# to speed up build time and reduce surprises until Ubuntu adds protobuf3
+# packages to the repository.
+install:
+    - mkdir -p $HOME/protobuf && pushd $HOME/protobuf
+      && curl -LO 'https://github.com/google/protobuf/releases/download/v3.4.0/protoc-3.4.0-linux-x86_64.zip'
+      && unzip protoc-3.4.0-linux-x86_64.zip
+      && popd
+    - curl -L 'https://github.com/google/protobuf/releases/download/v3.4.0/protobuf-python-3.4.0.tar.gz' | tar xzf -
+      && pushd protobuf-3.4.0/python
+      && python setup.py build && python setup.py install
+      && popd
 
 script: make && make test
