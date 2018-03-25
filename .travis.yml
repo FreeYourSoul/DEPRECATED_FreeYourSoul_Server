@@ -4,8 +4,8 @@ compiler:
   - gcc
 
 before_script:
-  - sudo yum install protobuf
-  - sudo yum install spdlog
+  - sudo apt-get install protobuf
+  - sudo apt-get install spdlog
   - cmake .
 
 script: make && make test
