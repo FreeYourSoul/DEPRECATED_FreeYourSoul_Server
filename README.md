@@ -1,5 +1,5 @@
 # FreeYourSoul_Server
-MmorpgGame  Server
+2d Mmorpg Game  Server, Link to the detailed documentation below : 
 
 [Link to the wiki](https://github.com/FreeYourSoul/FreeYourSoul_Server/wiki/FySGateway)
 
@@ -11,7 +11,7 @@ This server is composed of several different elements. The main one beeing the *
 WorldServer also has to connect to the gateway server in order to register themselves to it. They also need this connection in order to be notified of the connection of new player to them. they also get notified when another world server connect to the Gateway server and their connections informations are then registered.   
 WorldServer are also managing the transition between world servers by notifying the player client to which world server he will have to connect to.
 
-### Configuration File 
+### Launching Gateway Server : Configuration File 
 The Gateway Server has to be launched by command line.
 
 ``
