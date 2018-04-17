@@ -4,6 +4,3 @@
 [submodule "Protobuf"]
 	path = Protobuf
 	url = https://github.com/FreeYourSoul/FreeYourSoul_Protobuf.git
-[submodule "FreeYourSoul_MQ"]
-	path = FreeYourSoul_MQ
-	url = https://github.com/FreeYourSoul/FreeYourSoul_MQ.git
