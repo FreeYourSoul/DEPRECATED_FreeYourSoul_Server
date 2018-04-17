@@ -17,8 +17,8 @@ void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::gateway;
     using namespace fys::network;
 
-    using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
     using AuthBusListener = BusListener <buslistener::Authenticator, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
+    using BabbleBusListener = BusListener <buslistener::Babble, FysBus<fys::pb::FySMessage, BUS_QUEUES_SIZE>>;
 
     try {
         boost::asio::io_service ios;
@@ -27,8 +27,8 @@ void fys::gateway::Gateway::start(const Context& ctx) {
         Gateway::ptr gtw = Gateway::create(ctx, ios, fysBus);
         buslistener::Babble babble(gtw);
         buslistener::Authenticator authenticator(gtw);
-        BabbleBusListener babbleListener(babble);
         AuthBusListener authenticatorListener(authenticator);
+        BabbleBusListener babbleListener(babble);
 
         authenticatorListener.launchListenThread(fysBus);
         babbleListener.launchListenThread(fysBus);
@@ -102,7 +102,7 @@ void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string
     instance.setPositionId(positionId);
     instance.setIndexInServerSession(indexInSession);
     spdlog::get("c")->info("A server has been added to the cluster [sessionIndex:{} p:{} port:{} positionId:{}]", indexInSession, ip, port, positionId);
-    _gameServers.push_back(std::move(instance));
+    _gameServers.emplace_back(std::move(instance));
 }
 
 void fys::gateway::Gateway::setAuthServer(uint indexInSession) {

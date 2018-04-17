@@ -81,8 +81,8 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
         if (!positionId.empty() && _gtw->isGameServerInstancesHasPositionId(positionId)) {
             const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
 
-            _gtw->getGamerConnections().sendResponse(indexSession, std::move(getAuthPlayerResponse(indexSession, gsi)));
             _gtw->getServerConnections().send(gsi.getIndexInServerSession(), std::move(getNotifNewPlayerMessage(indexSession, std::move(loginMessage))));
+            _gtw->getGamerConnections().sendResponse(indexSession, std::move(getAuthPlayerResponse(indexSession, gsi)));
         }
     }
     else {

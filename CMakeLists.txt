@@ -3,8 +3,14 @@ cmake_minimum_required(VERSION 3.3)
 project(FreeSouls CXX)
 
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lprotobuf -lboost_system -pthread -O2 -fstack-protector-all -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lprotobuf -lboost_system -pthread -fstack-protector-all -g -fno-omit-frame-pointer")
 set(CMAKE_CXX_STANDARD 17)
+
+option(SANITIZE "Enable sanitizer" OFF)
+
+if (SANITIZE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lasan -fsanitize=address")
+endif()
 
 if ( UNIX )
     set(CMAKE_CXX_FLAGS
