@@ -3,6 +3,8 @@
 //
 
 #include <spdlog/spdlog.h>
+#include <boost/asio/io_service.hpp>
+#include <boost/lexical_cast.hpp>
 #include <FysBus.hh>
 #include <Babble.hh>
 #include <BusListener.hh>
@@ -10,7 +12,6 @@
 #include <Authenticator.hh>
 #include <FySMessage.pb.h>
 #include <Gateway.hh>
-#include <boost/lexical_cast.hpp>
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::mq;

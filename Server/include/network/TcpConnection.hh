@@ -5,6 +5,7 @@
 #ifndef FREESOULS_TCPCONNECTION_HH
 #define FREESOULS_TCPCONNECTION_HH
 
+#include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <Context.hh>
 

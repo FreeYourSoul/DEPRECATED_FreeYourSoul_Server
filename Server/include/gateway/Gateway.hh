@@ -5,6 +5,7 @@
 #ifndef FREESOULS_GATEWAY_HH
 #define FREESOULS_GATEWAY_HH
 
+#include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <SessionManager.hh>
 #include <Context.hh>
