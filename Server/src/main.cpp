@@ -46,7 +46,6 @@ static const std::string welcomeMsg =
 
 void welcome(bool verbose) {
     spdlog::set_async_mode(1024, spdlog::async_overflow_policy::discard_log_msg);
-    spdlog::set_pattern("[%x %H:%M:%S] [%l] %v");
 
     std::vector<spdlog::sink_ptr> sinks;
 
@@ -62,7 +61,8 @@ void welcome(bool verbose) {
     sys_logger->set_level(spdlog::level::debug);
 #endif
     spdlog::register_logger(sys_logger);
-    sys_logger->info("Logger set to level {}", spdlog::get("c")->level());
+    spdlog::set_pattern("[%x %H:%M:%S] [%t] [%l] %v");
+    sys_logger->info("Logger set to level {}\n>> log formatting>> [time] [thread] [logLevel] message logged", spdlog::get("c")->level());
     spdlog::get("c")->info(welcomeMsg);
 }
 
