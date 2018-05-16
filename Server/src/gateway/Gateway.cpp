@@ -119,7 +119,7 @@ const fys::gateway::GameServerInstance &fys::gateway::Gateway::getServerForAuthe
     }
     if (!_gameServers.empty())
         return _gameServers.at(0);
-    spdlog::get("c")->error("{} error, no gameServer authenticated on the gateway", __FUNCTION__);
+    spdlog::get("c")->error("{} error, no gameServer authenticated on the gateway", __func__);
     throw std::exception();
 }
 
