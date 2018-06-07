@@ -92,7 +92,7 @@ void fys::gateway::Context::setQueuesSize(std::size_t _queuesSize) {
 }
 
 void fys::gateway::Context::logContext() {
-    spdlog::get("c")->info("Current Context: [ port: {}, serverPort: {}, asioThread: {}, busIniFilePath: {} ]",
+    spdlog::get("c")->info("\n\nCurrent Context: [\n\tport: {},\n\tserverPort: {},\n\tasioThread: {},\n\tbusIniFilePath: {}\n]\n\n",
                            _port, _serverPort, _asioThread, _busIniFilePath);
 }
 
