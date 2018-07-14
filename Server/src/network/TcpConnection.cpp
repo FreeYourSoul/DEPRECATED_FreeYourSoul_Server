@@ -38,8 +38,8 @@ void fys::network::TcpConnection::send(google::protobuf::Message&& msg) {
 }
 
 void fys::network::TcpConnection::readOnSocket(fys::mq::FysBus<pb::FySMessage, gateway::BUS_QUEUES_SIZE>::ptr &fysBus) {
-    std::memset(_buffer, 0, MESSAGE_BUFFER_SIZE);
-    _socket.async_read_some(boost::asio::buffer(_buffer, MESSAGE_BUFFER_SIZE),
+    std::memset(static_cast<void *>(_buffer), 0, MESSAGE_BUFFER_SIZE);
+    _socket.async_read_some(boost::asio::buffer(static_cast<void *>(_buffer), MESSAGE_BUFFER_SIZE),
                             [this, fysBus](boost::system::error_code ec, const std::size_t byteTransferred) {
                                 this->handleRead(ec, byteTransferred, fysBus);
                             });
@@ -51,7 +51,7 @@ void fys::network::TcpConnection::handleRead(const boost::system::error_code &er
         mq::QueueContainer<pb::FySMessage> containerMsg;
         pb::FySMessage message;
 
-        message.ParseFromArray(_buffer, static_cast<int>(bytesTransferred));
+        message.ParseFromArray(static_cast<void *>(_buffer), static_cast<int>(bytesTransferred));
         containerMsg.setIndexSession(this->_sessionIndex);
         containerMsg.setOpCodeMsg(message.type());
         spdlog::get("c")->debug("Raw Message to read on bus :{} Container op code : {} bytetransfered : {} with index: {}",

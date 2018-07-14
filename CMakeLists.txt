@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.6)
 
 project(FreeSouls CXX)
 
@@ -31,15 +31,6 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Server/include/game
         ${CMAKE_SOURCE_DIR}/Utils/src
     )
-
-#set(SOURCE_FILES_MM)
-
-#set(SOURCE_PROTOBUF
-#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySBabbleMessage.pb.cc
-#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySMessage.pb.cc
-#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationLoginMessage.pb.cc
-#        ${CMAKE_SOURCE_DIR}/cmake-build-debug/Protobuf/FySAuthenticationResponse.pb.cc
-#    )
 
 set(SOURCE_FILES_MQ
         ${CMAKE_SOURCE_DIR}/FySMQ/include/queue/LockFreeQueue.hh

@@ -4,16 +4,16 @@ entity WorldServer
 entity Gateway
 entity OtherServerInCluster
 autonumber
-== Check server changement ==
+== Check Entering Neighboor Server  ==
 Player -> WorldServer: Player moving
-WorldServer -> WorldServer: Is a player changing server?
 
-
-== Notify Other World Server ==
+activate WorldServer
+WorldServer -> WorldServer: Is the player in another server effect area?
 WorldServer -> Gateway: Change Server Request (positionId)
 
 activate Gateway
 
+    note left: The Token is a specific one for\nPre-authentication (<b>in order to not\n<b>afford a WorldServer to set a\n<b>position of a player</b>).
     Gateway -> Gateway: Check if server is still authenticated
     WorldServer <-- Gateway: (if failure) Authentication failed
         activate WorldServer
@@ -28,6 +28,26 @@ activate Gateway
     deactivate OtherServerInCluster
 
 deactivate Gateway
-WorldServer -> Player: notify player (give ip/token)
+WorldServer -> Player: notify player (give ip but no token)
+deactivate WorldServer
+Player ->o OtherServerInCluster: Connection (no Authentication)
+
+== Switch Server  ==
+autonumber
+Player -> WorldServer: Player moving
+activate WorldServer
+WorldServer -> WorldServer: Is the player switching server area?
+WorldServer -> OtherServerInCluster: Notify player arrive at x, y position (give token)
+activate OtherServerInCluster
+OtherServerInCluster -> OtherServerInCluster: Check given token in awaiting players
+note left: Check if the token is a Pre-Authentication\ntoken to keep sure it is an authorized action.
+WorldServer->WorldServer: Un-authenticate player (in order to refuse\nincoming movement message)
+deactivate OtherServerInCluster
+note left: The current token is kept, but changed as\nPre-Authentication token.
+WorldServer->WorldServer: Generate Pre-Authentication token
+WorldServer->Player: Server Change (give ip, port of new server)\nGive WorldServer Pre-Authentication Token
+
+
+deactivate WorldServer
 
 @enduml
