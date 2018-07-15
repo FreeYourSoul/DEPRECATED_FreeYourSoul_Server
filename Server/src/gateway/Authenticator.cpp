@@ -11,9 +11,11 @@
 #include "ServerMagicExtractor.hh"
 #include "Authenticator.hh"
 
-fys::gateway::buslistener::Authenticator::Authenticator(Gateway::ptr& gtw) : _gtw(gtw) {}
+namespace fys::gateway {
 
-void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySMessage> msg) {
+buslistener::Authenticator::Authenticator(Gateway::ptr &gtw) : _gtw(gtw) {}
+
+void buslistener::Authenticator::operator()(mq::QueueContainer<pb::FySMessage> msg) {
     pb::LoginMessage authMessage;
 
     msg.getContained().content().UnpackTo(&authMessage);
@@ -37,7 +39,7 @@ void fys::gateway::buslistener::Authenticator::operator()(mq::QueueContainer<pb:
     }
 }
 
-void fys::gateway::buslistener::Authenticator::authServer(uint indexSession, pb::LoginMessage &&loginMessage) {
+void buslistener::Authenticator::authServer(uint indexSession, pb::LoginMessage &&loginMessage) {
     pb::LoginGameServer loginServer;
 
     loginMessage.content().UnpackTo(&loginServer);
@@ -65,7 +67,7 @@ void fys::gateway::buslistener::Authenticator::authServer(uint indexSession, pb:
     }
 }
 
-void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb::LoginMessage &&loginMessage) {
+void buslistener::Authenticator::authPlayer(uint indexSession, pb::LoginMessage &&loginMessage) {
     if (!_gtw->isAuthServerSet()) {
         sendErrorToPlayer(indexSession, "Error Auth server not registered",
                           fys::pb::LoginErrorResponse::Type::LoginErrorResponse_Type_AUTH_SERVER_UNAVAILABLE);
@@ -79,19 +81,20 @@ void fys::gateway::buslistener::Authenticator::authPlayer(uint indexSession, pb:
     std::string positionId = "UNIV_1a"; // todo get the good positionId from db
     if ("password" == loginPlayer.password()) {
         if (!positionId.empty() && _gtw->isGameServerInstancesHasPositionId(positionId)) {
-            const fys::gateway::GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
+            const GameServerInstance &gsi = _gtw->getServerForAuthenticatedUser(positionId);
 
-            _gtw->getServerConnections().send(gsi.getIndexInServerSession(), std::move(getNotifNewPlayerMessage(indexSession, std::move(loginMessage))));
-            _gtw->getGamerConnections().sendResponse(indexSession, std::move(getAuthPlayerResponse(indexSession, gsi)));
+            _gtw->getServerConnections().send(gsi.getIndexInServerSession(), std::move(
+                    getNotifNewPlayerMessage(indexSession, std::move(loginMessage))));
+            _gtw->getGamerConnections().sendResponse(indexSession,
+                                                     std::move(getAuthPlayerResponse(indexSession, gsi)));
         }
-    }
-    else {
+    } else {
         spdlog::get("c")->warn("Bad login/password");
     }
 }
 
-fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerMessage(uint indexSession,
-                                                             fys::pb::LoginMessage &&loginMessage) const {
+fys::pb::FySMessage buslistener::Authenticator::getNotifNewPlayerMessage(uint indexSession,
+                                                                                       fys::pb::LoginMessage &&loginMessage) const {
     fys::pb::FySMessage notif;
     fys::pb::LoginMessage loginNotifToServer;
     fys::pb::NotifyPlayerIncoming playerIncoming;
@@ -108,8 +111,8 @@ fys::pb::FySMessage fys::gateway::buslistener::Authenticator::getNotifNewPlayerM
 }
 
 fys::pb::FySResponseMessage
-fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(uint indexSession,
-                                                                const fys::gateway::GameServerInstance &gsi) const {
+buslistener::Authenticator::getAuthPlayerResponse(uint indexSession,
+                                                                const GameServerInstance &gsi) const {
     fys::pb::FySResponseMessage resp;
     fys::pb::AuthenticationResponse detail;
 
@@ -122,21 +125,21 @@ fys::gateway::buslistener::Authenticator::getAuthPlayerResponse(uint indexSessio
     return resp;
 }
 
-void fys::gateway::buslistener::Authenticator::sendErrorToServer(
+void buslistener::Authenticator::sendErrorToServer(
         uint indexSession, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
     fys::pb::FySResponseMessage resp;
     createErrorMessage(resp, std::move(error), errorType);
     _gtw->getServerConnections().sendResponse(indexSession, std::move(resp));
 }
 
-void fys::gateway::buslistener::Authenticator::sendErrorToPlayer(
+void buslistener::Authenticator::sendErrorToPlayer(
         uint indexSession, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
     fys::pb::FySResponseMessage resp;
     createErrorMessage(resp, std::move(error), errorType);
     _gtw->getGamerConnections().sendResponse(indexSession, std::move(resp));
 }
 
-inline void fys::gateway::buslistener::Authenticator::createErrorMessage(
+inline void buslistener::Authenticator::createErrorMessage(
         fys::pb::FySResponseMessage &resp, std::string &&error, fys::pb::LoginErrorResponse::Type errorType) {
     fys::pb::LoginErrorResponse detail;
 
@@ -148,3 +151,4 @@ inline void fys::gateway::buslistener::Authenticator::createErrorMessage(
     resp.mutable_content()->PackFrom(detail);
 }
 
+}

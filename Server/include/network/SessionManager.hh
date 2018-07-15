@@ -43,7 +43,7 @@ namespace fys::network {
     private:
         inline void connectionHandle(const std::shared_ptr<TcpConnection> &newConnection, uint i);
 
-    private:
+    protected:
         std::string _name;
         std::vector<std::shared_ptr<TcpConnection> > _connections;
         std::vector<Token> _connectionsToken;
