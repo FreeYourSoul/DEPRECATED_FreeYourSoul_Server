@@ -12,6 +12,8 @@
 #include <Authenticator.hh>
 #include <FySMessage.pb.h>
 #include <Gateway.hh>
+#include <TokenGenerator.hh>
+#include "FySAuthenticationLoginMessage.pb.h"
 
 void fys::gateway::Gateway::start(const Context& ctx) {
     using namespace fys::mq;
@@ -103,6 +105,22 @@ void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string
     instance.setPositionId(positionId);
     instance.setIndexInServerSession(indexInSession);
     spdlog::get("c")->info("A server has been added to the cluster [sessionIndex:{} p:{} port:{} positionId:{}]", indexInSession, ip, port, positionId);
+
+    for (const GameServerInstance &gsi : _gameServers) {
+        fys::pb::FySMessage notif;
+        fys::pb::LoginMessage loginMessage {};
+        fys::pb::NotifyServerIncoming serverIncoming {};
+
+        serverIncoming.set_ip(gsi.getIp());
+        serverIncoming.set_positionid(gsi.getPositionId());
+        serverIncoming.set_token(std::move(_serverConnections.getConnectionToken(gsi.getIndexInServerSession())));
+        loginMessage.set_typemessage(fys::pb::LoginMessage_Type_NotifyNewServer);
+        loginMessage.mutable_content()->PackFrom(serverIncoming);
+        notif.set_type(fys::pb::Type::AUTH);
+        notif.mutable_content()->PackFrom(loginMessage);
+        spdlog::get("c")->error("Notif Sent To {} , at {} {} for posId {}", gsi.getIndexInServerSession(), gsi.getIp(), gsi.getPort(), gsi.getPositionId());
+        _serverConnections.send(gsi.getIndexInServerSession(), std::move(notif));
+    }
     _gameServers.emplace_back(std::move(instance));
 }
 

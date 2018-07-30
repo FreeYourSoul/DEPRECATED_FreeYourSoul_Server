@@ -44,7 +44,7 @@ namespace fys::gateway {
             void runPlayerAccept();
             void runServerAccept();
 
-            void addGameServer(uint, const std::string &, const std::string &);
+            void addGameServer(uint, const std::string &, const std::string &string);
             void setAuthServer(uint);
             const GameServerInstance &getServerForAuthenticatedUser(const std::string&);
 
