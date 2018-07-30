@@ -107,17 +107,23 @@ void fys::gateway::Gateway::addGameServer(uint indexInSession, const std::string
     spdlog::get("c")->info("A server has been added to the cluster [sessionIndex:{} p:{} port:{} positionId:{}]", indexInSession, ip, port, positionId);
 
     for (const GameServerInstance &gsi : _gameServers) {
-        fys::pb::FySMessage notif;
-        fys::pb::LoginMessage loginMessage {};
-        fys::pb::NotifyServerIncoming serverIncoming {};
+        fys::pb::FySMessage notif = [this, &gsi](){
+            fys::pb::FySMessage noti;
+            fys::pb::LoginMessage loginMessage {};
+            const fys::pb::NotifyServerIncoming serverIncoming = [&](){
+                fys::pb::NotifyServerIncoming si;
+                si.set_ip(gsi.getIp());
+                si.set_positionid(gsi.getPositionId());
+                si.set_token(std::move(_serverConnections.getConnectionToken(gsi.getIndexInServerSession())));
+                return si;
+            }();
 
-        serverIncoming.set_ip(gsi.getIp());
-        serverIncoming.set_positionid(gsi.getPositionId());
-        serverIncoming.set_token(std::move(_serverConnections.getConnectionToken(gsi.getIndexInServerSession())));
-        loginMessage.set_typemessage(fys::pb::LoginMessage_Type_NotifyNewServer);
-        loginMessage.mutable_content()->PackFrom(serverIncoming);
-        notif.set_type(fys::pb::Type::AUTH);
-        notif.mutable_content()->PackFrom(loginMessage);
+            loginMessage.set_typemessage(fys::pb::LoginMessage_Type_NotifyNewServer);
+            loginMessage.mutable_content()->PackFrom(serverIncoming);
+            noti.set_type(fys::pb::Type::AUTH);
+            noti.mutable_content()->PackFrom(loginMessage);
+            return noti;
+        }();
         spdlog::get("c")->error("Notif Sent To {} , at {} {} for posId {}", gsi.getIndexInServerSession(), gsi.getIp(), gsi.getPort(), gsi.getPositionId());
         _serverConnections.send(gsi.getIndexInServerSession(), std::move(notif));
     }
