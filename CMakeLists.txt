@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.6)
 project(FreeSouls CXX)
 
 set(CMAKE_CXX_COMPILER /usr/bin/g++)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lprotobuf -lboost_system -pthread -fstack-protector-all -g -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all -g -fno-omit-frame-pointer")
 set(CMAKE_CXX_STANDARD 17)
 
 option(SANITIZE "Enable sanitizer" OFF)
@@ -97,4 +97,9 @@ set(DBOOST_EXCEPTION_DISABLE)
 ### Server ###
 message("Build FreeSouls binary")
 add_executable(FreeSouls ${SOURCE_FILES})
-target_link_libraries(FreeSouls proto)
+target_link_libraries(FreeSouls
+  PRIVATE
+  proto
+  protobuf
+  pthread
+  boost_system)
