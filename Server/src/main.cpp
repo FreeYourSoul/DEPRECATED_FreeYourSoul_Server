@@ -1,4 +1,6 @@
 #include <spdlog/spdlog.h>
+#include "spdlog/sinks/basic_file_sink.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
 #include <Gateway.hh>
 #include <memory>
 #include <Babble.hh>
@@ -46,24 +48,26 @@ static const std::string welcomeMsg =
         "                                                                                                                        \n\n\n";
 
 void welcome(bool verbose) {
-    spdlog::set_async_mode(1024, spdlog::async_overflow_policy::discard_log_msg);
-
-    std::vector<spdlog::sink_ptr> sinks;
-
-    auto sys_logger = spdlog::stdout_color_mt("c");
+    auto my_logger = spdlog::stdout_color_mt("c");
+    std::cout << "okok1" << std::endl;
 #ifdef DEBUG_LEVEL
     sys_logger->set_level(spdlog::level::debug);
 #else
-    sys_logger->set_level(spdlog::level::debug);
+    my_logger->set_level(spdlog::level::debug);
 #endif
-//    spdlog::register_logger(sys_logger);
     spdlog::set_pattern("[%x %H:%M:%S] [%t] [%l] %v");
-    sys_logger->info("Logger set to level {}\n>> log formatting>> [time] [thread] [logLevel] message logged", spdlog::get("c")->level());
+    my_logger->info("Logger set to level {}\n>> log formatting>> [time] [thread] [logLevel] message logged", spdlog::get("c")->level());
     spdlog::get("c")->info(welcomeMsg);
 }
 
 int main(int argc, const char * const *argv) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+    auto MyLogHandler = [] (google::protobuf::LogLevel level, const char* filename, int line, const std::string& message) {
+        spdlog::get("c")->debug("PROTOBUF log handler : file {}, line {}, msg {}", filename, line, message);
+    };
+    google::protobuf::SetLogHandler(MyLogHandler);
+
     fys::gateway::Context ctx(argc, argv);
     welcome(ctx.isVerbose());
     ctx.logContext();
